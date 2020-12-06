@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import 'package:flutter_chat_types/src/util.dart';
 
 enum MessageType {
+  file,
   image,
   text,
 }
@@ -42,6 +43,41 @@ abstract class Message {
 }
 
 @immutable
+class FileMessage extends Message {
+  const FileMessage({
+    @required String authorId,
+    @required this.fileName,
+    @required String id,
+    this.mimeType,
+    @required this.size,
+    Status status,
+    @required int timestamp,
+    @required this.url,
+  })  : assert(fileName != null),
+        assert(size != null),
+        assert(url != null),
+        super(authorId, id, status, timestamp, MessageType.file);
+
+  final String fileName;
+  final String mimeType;
+  final int size;
+  final String url;
+
+  FileMessage.fromJson(Map<String, dynamic> json)
+      : fileName = json['fileName'],
+        mimeType = json['mimeType'],
+        size = json['size']?.round(),
+        url = json['url'],
+        super(
+          json['authorId'],
+          json['id'],
+          getStatusFromString(json['status']),
+          json['timestamp'],
+          MessageType.file,
+        );
+}
+
+@immutable
 class ImageMessage extends Message {
   const ImageMessage({
     @required String authorId,
@@ -56,7 +92,7 @@ class ImageMessage extends Message {
   })  : assert(imageName != null),
         assert(size != null),
         assert(url != null),
-        super(authorId, id, status, timestamp, MessageType.text);
+        super(authorId, id, status, timestamp, MessageType.image);
 
   final double height;
   final String imageName;
