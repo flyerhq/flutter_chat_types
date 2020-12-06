@@ -32,6 +32,8 @@ abstract class Message {
     final String type = json['type'];
 
     switch (type) {
+      case 'file':
+        return FileMessage.fromJson(json);
       case 'image':
         return ImageMessage.fromJson(json);
       case 'text':
