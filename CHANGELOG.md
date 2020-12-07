@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Add toJson method
+
 ## 1.0.1
 
 - Fix file message type
