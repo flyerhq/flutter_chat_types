@@ -42,6 +42,8 @@ abstract class Message {
         return null;
     }
   }
+
+  Map<String, dynamic> toJson();
 }
 
 @immutable
@@ -77,6 +79,18 @@ class FileMessage extends Message {
           json['timestamp'],
           MessageType.file,
         );
+
+  Map<String, dynamic> toJson() => {
+        'authorId': authorId,
+        'fileName': fileName,
+        'id': id,
+        'mimeType': mimeType,
+        'size': size,
+        'status': status,
+        'timestamp': timestamp,
+        'type': 'file',
+        'url': url,
+      };
 }
 
 @immutable
@@ -115,6 +129,19 @@ class ImageMessage extends Message {
           json['timestamp'],
           MessageType.image,
         );
+
+  Map<String, dynamic> toJson() => {
+        'authorId': authorId,
+        'height': height,
+        'id': id,
+        'imageName': imageName,
+        'size': size,
+        'status': status,
+        'timestamp': timestamp,
+        'type': 'image',
+        'url': url,
+        'width': width,
+      };
 }
 
 @immutable
@@ -139,4 +166,13 @@ class TextMessage extends Message {
           json['timestamp'],
           MessageType.text,
         );
+
+  Map<String, dynamic> toJson() => {
+        'authorId': authorId,
+        'id': id,
+        'status': status,
+        'text': text,
+        'timestamp': timestamp,
+        'type': 'text',
+      };
 }
