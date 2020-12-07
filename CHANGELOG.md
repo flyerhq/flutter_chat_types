@@ -1,3 +1,7 @@
+## 1.0.3
+
+- Make timestamp optional
+
 ## 1.0.2
 
 - Add toJson method

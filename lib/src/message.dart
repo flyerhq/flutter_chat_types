@@ -19,7 +19,6 @@ abstract class Message {
     this.type,
   )   : assert(authorId != null),
         assert(id != null),
-        assert(timestamp != null),
         assert(type != null);
 
   final String authorId;
@@ -55,7 +54,7 @@ class FileMessage extends Message {
     this.mimeType,
     @required this.size,
     Status status,
-    @required int timestamp,
+    int timestamp,
     @required this.url,
   })  : assert(fileName != null),
         assert(size != null),
@@ -102,7 +101,7 @@ class ImageMessage extends Message {
     @required this.imageName,
     @required this.size,
     Status status,
-    @required int timestamp,
+    int timestamp,
     @required this.url,
     this.width,
   })  : assert(imageName != null),
@@ -151,7 +150,7 @@ class TextMessage extends Message {
     @required String id,
     Status status,
     @required this.text,
-    @required int timestamp,
+    int timestamp,
   })  : assert(text != null),
         super(authorId, id, status, timestamp, MessageType.text);
 
