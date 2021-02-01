@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:flutter_chat_types/src/preview_data.dart' show PreviewData;
 import 'package:flutter_chat_types/src/util.dart';
 
 enum MessageType {
@@ -52,6 +53,7 @@ class FileMessage extends Message {
     @required this.fileName,
     @required String id,
     this.mimeType,
+    this.previewData,
     @required this.size,
     Status status,
     int timestamp,
@@ -63,12 +65,14 @@ class FileMessage extends Message {
 
   final String fileName;
   final String mimeType;
+  final PreviewData previewData;
   final int size;
   final String url;
 
   FileMessage.fromJson(Map<String, dynamic> json)
       : fileName = json['fileName'],
         mimeType = json['mimeType'],
+        previewData = json['previewData'],
         size = json['size']?.round(),
         url = json['url'],
         super(
@@ -84,6 +88,7 @@ class FileMessage extends Message {
         'fileName': fileName,
         'id': id,
         'mimeType': mimeType,
+        'previewData': previewData,
         'size': size,
         'status': status,
         'timestamp': timestamp,
