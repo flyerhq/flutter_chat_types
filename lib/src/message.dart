@@ -53,7 +53,6 @@ class FileMessage extends Message {
     @required this.fileName,
     @required String id,
     this.mimeType,
-    this.previewData,
     @required this.size,
     Status status,
     int timestamp,
@@ -65,14 +64,12 @@ class FileMessage extends Message {
 
   final String fileName;
   final String mimeType;
-  final PreviewData previewData;
   final int size;
   final String url;
 
   FileMessage.fromJson(Map<String, dynamic> json)
       : fileName = json['fileName'],
         mimeType = json['mimeType'],
-        previewData = json['previewData'],
         size = json['size']?.round(),
         url = json['url'],
         super(
@@ -88,7 +85,6 @@ class FileMessage extends Message {
         'fileName': fileName,
         'id': id,
         'mimeType': mimeType,
-        'previewData': previewData,
         'size': size,
         'status': status,
         'timestamp': timestamp,
@@ -153,16 +149,19 @@ class TextMessage extends Message {
   const TextMessage({
     @required String authorId,
     @required String id,
+    this.previewData,
     Status status,
     @required this.text,
     int timestamp,
   })  : assert(text != null),
         super(authorId, id, status, timestamp, MessageType.text);
 
+  final PreviewData previewData;
   final String text;
 
   TextMessage.fromJson(Map<String, dynamic> json)
-      : text = json['text'],
+      : previewData = json['previewData'],
+        text = json['text'],
         super(
           json['authorId'],
           json['id'],
@@ -174,6 +173,7 @@ class TextMessage extends Message {
   Map<String, dynamic> toJson() => {
         'authorId': authorId,
         'id': id,
+        'previewData': previewData,
         'status': status,
         'text': text,
         'timestamp': timestamp,
