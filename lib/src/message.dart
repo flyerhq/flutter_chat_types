@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:flutter_chat_types/src/preview_data.dart' show PreviewData;
 import 'package:flutter_chat_types/src/util.dart';
 
 enum MessageType {
@@ -148,16 +149,32 @@ class TextMessage extends Message {
   const TextMessage({
     @required String authorId,
     @required String id,
+    this.previewData,
     Status status,
     @required this.text,
     int timestamp,
   })  : assert(text != null),
         super(authorId, id, status, timestamp, MessageType.text);
 
+  final PreviewData previewData;
   final String text;
 
+  TextMessage copyWith({
+    PreviewData previewData,
+  }) {
+    return TextMessage(
+      authorId: this.authorId,
+      id: this.id,
+      previewData: previewData ?? this.previewData,
+      status: this.status,
+      text: this.text,
+      timestamp: this.timestamp,
+    );
+  }
+
   TextMessage.fromJson(Map<String, dynamic> json)
-      : text = json['text'],
+      : previewData = json['previewData'],
+        text = json['text'],
         super(
           json['authorId'],
           json['id'],
@@ -169,6 +186,7 @@ class TextMessage extends Message {
   Map<String, dynamic> toJson() => {
         'authorId': authorId,
         'id': id,
+        'previewData': previewData,
         'status': status,
         'text': text,
         'timestamp': timestamp,

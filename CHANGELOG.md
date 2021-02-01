@@ -1,3 +1,7 @@
+## 1.0.4
+
+- Add PreviewData type
+
 ## 1.0.3
 
 - Make timestamp optional
