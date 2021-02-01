@@ -1,3 +1,7 @@
+## 1.0.5
+
+- Export PreviewDatImage type
+
 ## 1.0.4
 
 - Add PreviewData type
