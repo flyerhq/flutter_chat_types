@@ -1,7 +1,9 @@
 name: flutter_chat_types
-version: 1.0.5
+version: 1.0.6
 homepage: https://github.com/flyerhq/flutter_chat_types
-description: Flutter Chat Types
+description: >
+  Utility library for the flutter_chat_ui and flutter_firebase_chat_core libraries
+  which contains shared type declarations.
 environment:
   sdk: ">=2.7.0 <3.0.0"
 dependencies:

@@ -1,3 +1,7 @@
+## 1.0.6
+
+- Code cleanup
+
 ## 1.0.5
 
 - Export PreviewDatImage type
