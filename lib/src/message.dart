@@ -1,15 +1,15 @@
 import 'package:meta/meta.dart';
-import 'package:flutter_chat_types/src/preview_data.dart' show PreviewData;
-import 'package:flutter_chat_types/src/util.dart';
+import 'preview_data.dart' show PreviewData;
+import 'util.dart';
 
-enum MessageType {
-  file,
-  image,
-  text,
-}
+/// All possible message types.
+enum MessageType { file, image, text }
 
+/// All possible statuses message can have.
 enum Status { error, read, sending, sent }
 
+/// An abstract class that contains all variables and methods
+/// every message will have.
 @immutable
 abstract class Message {
   const Message(
@@ -46,6 +46,7 @@ abstract class Message {
   Map<String, dynamic> toJson();
 }
 
+/// A class that represents file message.
 @immutable
 class FileMessage extends Message {
   const FileMessage({
@@ -93,6 +94,7 @@ class FileMessage extends Message {
       };
 }
 
+/// A class that represents image message.
 @immutable
 class ImageMessage extends Message {
   const ImageMessage({
@@ -144,6 +146,7 @@ class ImageMessage extends Message {
       };
 }
 
+/// A class that represents text message.
 @immutable
 class TextMessage extends Message {
   const TextMessage({

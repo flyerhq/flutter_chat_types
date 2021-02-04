@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 
+/// A class that represents user.
 @immutable
 class User {
   const User({

@@ -1,5 +1,9 @@
 import 'package:meta/meta.dart';
 
+/// A class that represents data obtained from the web link.
+///
+/// See https://github.com/flyerhq/flutter_link_previewer
+@immutable
 class PreviewData {
   PreviewData({
     this.description,
@@ -8,10 +12,10 @@ class PreviewData {
     this.title,
   });
 
-  String description;
-  PreviewDataImage image;
-  String link;
-  String title;
+  final String description;
+  final PreviewDataImage image;
+  final String link;
+  final String title;
 
   PreviewData.fromJson(Map<String, dynamic> json)
       : description = json['description'],
@@ -27,6 +31,10 @@ class PreviewData {
       };
 }
 
+/// A utility class that forces image's width and height to be stored
+/// alongside the url.
+///
+/// See https://github.com/flyerhq/flutter_link_previewer
 @immutable
 class PreviewDataImage {
   const PreviewDataImage({
