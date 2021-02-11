@@ -1,3 +1,7 @@
+## 1.0.8
+
+- Fix TextMessage mapping
+
 ## 1.0.7
 
 - Fix PreviewData mapping
