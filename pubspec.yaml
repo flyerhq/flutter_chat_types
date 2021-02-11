@@ -1,5 +1,5 @@
 name: flutter_chat_types
-version: 1.0.6
+version: 1.0.7
 homepage: https://github.com/flyerhq/flutter_chat_types
 description: >
   Utility library for the flutter_chat_ui and flutter_firebase_chat_core libraries

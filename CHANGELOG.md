@@ -1,3 +1,7 @@
+## 1.0.7
+
+- Fix PreviewData mapping
+
 ## 1.0.6
 
 - Code cleanup

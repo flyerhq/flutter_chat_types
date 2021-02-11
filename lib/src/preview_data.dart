@@ -19,13 +19,13 @@ class PreviewData {
 
   PreviewData.fromJson(Map<String, dynamic> json)
       : description = json['description'],
-        image = json['image'],
+        image = PreviewDataImage.fromJson(json['image']),
         link = json['link'],
         title = json['title'];
 
   Map<String, dynamic> toJson() => {
         'description': description,
-        'image': image,
+        'image': image.toJson(),
         'link': link,
         'title': title,
       };
