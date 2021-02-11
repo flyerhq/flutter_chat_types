@@ -176,7 +176,9 @@ class TextMessage extends Message {
   }
 
   TextMessage.fromJson(Map<String, dynamic> json)
-      : previewData = PreviewData.fromJson(json['previewData']),
+      : previewData = json['previewData'] == null
+            ? null
+            : PreviewData.fromJson(json['previewData']),
         text = json['text'],
         super(
           json['authorId'],
@@ -189,7 +191,7 @@ class TextMessage extends Message {
   Map<String, dynamic> toJson() => {
         'authorId': authorId,
         'id': id,
-        'previewData': previewData.toJson(),
+        'previewData': previewData == null ? null : previewData.toJson(),
         'status': status,
         'text': text,
         'timestamp': timestamp,

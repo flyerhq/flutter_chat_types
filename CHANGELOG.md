@@ -1,3 +1,7 @@
+## 1.0.9
+
+- Add null checking
+
 ## 1.0.8
 
 - Fix TextMessage mapping
