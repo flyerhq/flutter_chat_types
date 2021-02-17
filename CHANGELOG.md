@@ -1,3 +1,7 @@
+## 1.1.0
+
+- Add partial classes
+
 ## 1.0.9
 
 - Add null checking

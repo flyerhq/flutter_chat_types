@@ -63,6 +63,18 @@ class FileMessage extends Message {
         assert(url != null),
         super(authorId, id, status, timestamp, MessageType.file);
 
+  FileMessage.fromPartial(
+    String authorId,
+    String id,
+    PartialFile partialFile, {
+    Status status,
+    int timestamp,
+  })  : this.fileName = partialFile.fileName,
+        this.mimeType = partialFile.mimeType,
+        this.size = partialFile.size,
+        this.url = partialFile.url,
+        super(authorId, id, status, timestamp, MessageType.file);
+
   final String fileName;
   final String mimeType;
   final int size;
@@ -112,6 +124,19 @@ class ImageMessage extends Message {
         assert(url != null),
         super(authorId, id, status, timestamp, MessageType.image);
 
+  ImageMessage.fromPartial(
+    String authorId,
+    String id,
+    PartialImage partialImage, {
+    Status status,
+    int timestamp,
+  })  : this.height = partialImage.height,
+        this.imageName = partialImage.imageName,
+        this.size = partialImage.size,
+        this.url = partialImage.url,
+        this.width = partialImage.width,
+        super(authorId, id, status, timestamp, MessageType.image);
+
   final double height;
   final String imageName;
   final int size;
@@ -146,6 +171,88 @@ class ImageMessage extends Message {
       };
 }
 
+/// A class that represents partial file message.
+@immutable
+class PartialFile {
+  const PartialFile({
+    @required this.fileName,
+    this.mimeType,
+    @required this.size,
+    @required this.url,
+  })  : assert(fileName != null),
+        assert(size != null),
+        assert(url != null);
+
+  final String fileName;
+  final String mimeType;
+  final int size;
+  final String url;
+
+  PartialFile.fromJson(Map<String, dynamic> json)
+      : fileName = json['fileName'],
+        mimeType = json['mimeType'],
+        size = json['size']?.round(),
+        url = json['url'];
+
+  Map<String, dynamic> toJson() => {
+        'fileName': fileName,
+        'mimeType': mimeType,
+        'size': size,
+        'url': url,
+      };
+}
+
+/// A class that represents partial image message.
+@immutable
+class PartialImage {
+  const PartialImage({
+    this.height,
+    @required this.imageName,
+    @required this.size,
+    @required this.url,
+    this.width,
+  })  : assert(imageName != null),
+        assert(size != null),
+        assert(url != null);
+
+  final double height;
+  final String imageName;
+  final int size;
+  final String url;
+  final double width;
+
+  PartialImage.fromJson(Map<String, dynamic> json)
+      : height = json['height'],
+        imageName = json['imageName'],
+        size = json['size']?.round(),
+        url = json['url'],
+        width = json['width'];
+
+  Map<String, dynamic> toJson() => {
+        'height': height,
+        'imageName': imageName,
+        'size': size,
+        'url': url,
+        'width': width,
+      };
+}
+
+/// A class that represents partial text message.
+@immutable
+class PartialText {
+  const PartialText({
+    @required this.text,
+  }) : assert(text != null);
+
+  final String text;
+
+  PartialText.fromJson(Map<String, dynamic> json) : text = json['text'];
+
+  Map<String, dynamic> toJson() => {
+        'text': text,
+      };
+}
+
 /// A class that represents text message.
 @immutable
 class TextMessage extends Message {
@@ -157,6 +264,16 @@ class TextMessage extends Message {
     @required this.text,
     int timestamp,
   })  : assert(text != null),
+        super(authorId, id, status, timestamp, MessageType.text);
+
+  TextMessage.fromPartial(
+    String authorId,
+    String id,
+    PartialText partialText, {
+    Status status,
+    int timestamp,
+  })  : this.previewData = null,
+        this.text = partialText.text,
         super(authorId, id, status, timestamp, MessageType.text);
 
   final PreviewData previewData;
