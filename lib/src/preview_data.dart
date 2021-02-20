@@ -1,10 +1,11 @@
 import 'package:meta/meta.dart';
 
-/// A class that represents data obtained from the web link.
+/// A class that represents data obtained from the web resource (link preview).
 ///
 /// See https://github.com/flyerhq/flutter_link_previewer
 @immutable
 class PreviewData {
+  /// Creates preview data.
   PreviewData({
     this.description,
     this.image,
@@ -12,11 +13,19 @@ class PreviewData {
     this.title,
   });
 
+  /// Link description (usually og:description meta tag)
   final String description;
+
+  /// See [PreviewDataImage]
   final PreviewDataImage image;
+
+  /// Remote resource URL
   final String link;
+
+  /// Link title (usually og:title meta tag)
   final String title;
 
+  /// Creates preview data from a map (decoded JSON).
   PreviewData.fromJson(Map<String, dynamic> json)
       : description = json['description'],
         image = json['image'] == null
@@ -25,9 +34,10 @@ class PreviewData {
         link = json['link'],
         title = json['title'];
 
+  /// Converts preview data to the map representation, encodable to JSON.
   Map<String, dynamic> toJson() => {
         'description': description,
-        'image': image == null ? null : image.toJson(),
+        'image': image?.toJson(),
         'link': link,
         'title': title,
       };
@@ -39,21 +49,29 @@ class PreviewData {
 /// See https://github.com/flyerhq/flutter_link_previewer
 @immutable
 class PreviewDataImage {
+  /// Creates preview data image.
   const PreviewDataImage({
     @required this.height,
     @required this.url,
     @required this.width,
   });
 
+  /// Image height in pixels
   final double height;
+
+  /// Remote image URL
   final String url;
+
+  /// Image width in pixels
   final double width;
 
+  /// Creates preview data image from a map (decoded JSON).
   PreviewDataImage.fromJson(Map<String, dynamic> json)
       : height = json['height'],
         url = json['url'],
         width = json['width'];
 
+  /// Converts preview data image to the map representation, encodable to JSON.
   Map<String, dynamic> toJson() => {
         'height': height,
         'url': url,

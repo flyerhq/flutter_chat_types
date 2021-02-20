@@ -1,3 +1,8 @@
+## 1.1.1
+
+- Finish documentation
+- Rename URL to URI
+
 ## 1.1.0
 
 - Add partial classes
