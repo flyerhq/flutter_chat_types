@@ -6,12 +6,29 @@ import 'package:meta/meta.dart';
 @immutable
 class PreviewData {
   /// Creates preview data.
-  PreviewData({
+  const PreviewData({
     this.description,
     this.image,
     this.link,
     this.title,
   });
+
+  /// Creates preview data from a map (decoded JSON).
+  PreviewData.fromJson(Map<String, dynamic> json)
+      : description = json['description'] as String,
+        image = json['image'] == null
+            ? null
+            : PreviewDataImage.fromJson(json['image'] as Map<String, dynamic>),
+        link = json['link'] as String,
+        title = json['title'] as String;
+
+  /// Converts preview data to the map representation, encodable to JSON.
+  Map<String, dynamic> toJson() => {
+        'description': description,
+        'image': image?.toJson(),
+        'link': link,
+        'title': title,
+      };
 
   /// Link description (usually og:description meta tag)
   final String description;
@@ -24,23 +41,6 @@ class PreviewData {
 
   /// Link title (usually og:title meta tag)
   final String title;
-
-  /// Creates preview data from a map (decoded JSON).
-  PreviewData.fromJson(Map<String, dynamic> json)
-      : description = json['description'],
-        image = json['image'] == null
-            ? null
-            : PreviewDataImage.fromJson(json['image']),
-        link = json['link'],
-        title = json['title'];
-
-  /// Converts preview data to the map representation, encodable to JSON.
-  Map<String, dynamic> toJson() => {
-        'description': description,
-        'image': image?.toJson(),
-        'link': link,
-        'title': title,
-      };
 }
 
 /// A utility class that forces image's width and height to be stored
@@ -56,6 +56,19 @@ class PreviewDataImage {
     @required this.width,
   });
 
+  /// Creates preview data image from a map (decoded JSON).
+  PreviewDataImage.fromJson(Map<String, dynamic> json)
+      : height = json['height'] as double,
+        url = json['url'] as String,
+        width = json['width'] as double;
+
+  /// Converts preview data image to the map representation, encodable to JSON.
+  Map<String, dynamic> toJson() => {
+        'height': height,
+        'url': url,
+        'width': width,
+      };
+
   /// Image height in pixels
   final double height;
 
@@ -64,17 +77,4 @@ class PreviewDataImage {
 
   /// Image width in pixels
   final double width;
-
-  /// Creates preview data image from a map (decoded JSON).
-  PreviewDataImage.fromJson(Map<String, dynamic> json)
-      : height = json['height'],
-        url = json['url'],
-        width = json['width'];
-
-  /// Converts preview data image to the map representation, encodable to JSON.
-  Map<String, dynamic> toJson() => {
-        'height': height,
-        'url': url,
-        'width': width,
-      };
 }
