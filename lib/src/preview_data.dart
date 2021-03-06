@@ -31,16 +31,16 @@ class PreviewData {
       };
 
   /// Link description (usually og:description meta tag)
-  final String description;
+  final String? description;
 
   /// See [PreviewDataImage]
-  final PreviewDataImage image;
+  final PreviewDataImage? image;
 
   /// Remote resource URL
-  final String link;
+  final String? link;
 
   /// Link title (usually og:title meta tag)
-  final String title;
+  final String? title;
 }
 
 /// A utility class that forces image's width and height to be stored
@@ -51,9 +51,9 @@ class PreviewData {
 class PreviewDataImage {
   /// Creates preview data image.
   const PreviewDataImage({
-    @required this.height,
-    @required this.url,
-    @required this.width,
+    required this.height,
+    required this.url,
+    required this.width,
   });
 
   /// Creates preview data image from a map (decoded JSON).

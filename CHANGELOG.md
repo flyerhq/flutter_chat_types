@@ -1,3 +1,7 @@
+## 2.0.1
+
+- Update to null safety
+
 ## 2.0.0
 
 - Update to Flutter 2

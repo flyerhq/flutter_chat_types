@@ -7,19 +7,19 @@ class User {
   const User({
     this.avatarUrl,
     this.firstName,
-    @required this.id,
+    required this.id,
     this.lastName,
-  }) : assert(id != null);
+  });
 
   /// Remote image URL representing user's avatar
-  final String avatarUrl;
+  final String? avatarUrl;
 
   /// First name of the user
-  final String firstName;
+  final String? firstName;
 
   /// Unique ID of the user
   final String id;
 
   /// Last name of the user
-  final String lastName;
+  final String? lastName;
 }

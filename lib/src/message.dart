@@ -18,9 +18,7 @@ abstract class Message {
     this.status,
     this.timestamp,
     this.type,
-  )   : assert(authorId != null),
-        assert(id != null),
-        assert(type != null);
+  );
 
   /// Creates a particular message from a map (decoded JSON).
   /// Type is determined by the `type` field.
@@ -35,7 +33,7 @@ abstract class Message {
       case 'text':
         return TextMessage.fromJson(json);
       default:
-        return null;
+        throw ArgumentError('Unexpected value for message type');
     }
   }
 
@@ -49,10 +47,10 @@ abstract class Message {
   final String id;
 
   /// Message [Status]
-  final Status status;
+  final Status? status;
 
   /// Timestamp in seconds
-  final int timestamp;
+  final int? timestamp;
 
   /// [MessageType]
   final MessageType type;
@@ -66,19 +64,17 @@ class PartialFile {
   /// You can use [FileMessage.fromPartial] constructor to create a full
   /// message from a partial one.
   const PartialFile({
-    @required this.fileName,
+    required this.fileName,
     this.mimeType,
-    @required this.size,
-    @required this.uri,
-  })  : assert(fileName != null),
-        assert(size != null),
-        assert(uri != null);
+    required this.size,
+    required this.uri,
+  });
 
   /// Creates a partial file message from a map (decoded JSON).
   PartialFile.fromJson(Map<String, dynamic> json)
       : fileName = json['fileName'] as String,
-        mimeType = json['mimeType'] as String,
-        size = json['size']?.round() as int,
+        mimeType = json['mimeType'] as String?,
+        size = json['size'].round() as int,
         uri = json['uri'] as String;
 
   /// Converts a partial file message to the map representation, encodable to JSON.
@@ -93,7 +89,7 @@ class PartialFile {
   final String fileName;
 
   /// Media type
-  final String mimeType;
+  final String? mimeType;
 
   /// Size of the file in bytes
   final int size;
@@ -107,26 +103,23 @@ class PartialFile {
 class FileMessage extends Message {
   /// Creates a file message.
   const FileMessage({
-    @required String authorId,
-    @required this.fileName,
-    @required String id,
+    required String authorId,
+    required this.fileName,
+    required String id,
     this.mimeType,
-    @required this.size,
-    Status status,
-    int timestamp,
-    @required this.uri,
-  })  : assert(fileName != null),
-        assert(size != null),
-        assert(uri != null),
-        super(authorId, id, status, timestamp, MessageType.file);
+    required this.size,
+    Status? status,
+    int? timestamp,
+    required this.uri,
+  }) : super(authorId, id, status, timestamp, MessageType.file);
 
   /// Creates a full file message from a partial one.
-  FileMessage.fromPartial(
-    String authorId,
-    String id,
-    PartialFile partialFile, {
-    Status status,
-    int timestamp,
+  FileMessage.fromPartial({
+    required String authorId,
+    required String id,
+    required PartialFile partialFile,
+    Status? status,
+    int? timestamp,
   })  : fileName = partialFile.fileName,
         mimeType = partialFile.mimeType,
         size = partialFile.size,
@@ -136,14 +129,14 @@ class FileMessage extends Message {
   /// Creates a file message from a map (decoded JSON).
   FileMessage.fromJson(Map<String, dynamic> json)
       : fileName = json['fileName'] as String,
-        mimeType = json['mimeType'] as String,
-        size = json['size']?.round() as int,
+        mimeType = json['mimeType'] as String?,
+        size = json['size'].round() as int,
         uri = json['uri'] as String,
         super(
           json['authorId'] as String,
           json['id'] as String,
           getStatusFromString(json['status'] as String),
-          json['timestamp'] as int,
+          json['timestamp'] as int?,
           MessageType.file,
         );
 
@@ -165,7 +158,7 @@ class FileMessage extends Message {
   final String fileName;
 
   /// Media type
-  final String mimeType;
+  final String? mimeType;
 
   /// Size of the file in bytes
   final int size;
@@ -183,21 +176,19 @@ class PartialImage {
   /// message from a partial one.
   const PartialImage({
     this.height,
-    @required this.imageName,
-    @required this.size,
-    @required this.uri,
+    required this.imageName,
+    required this.size,
+    required this.uri,
     this.width,
-  })  : assert(imageName != null),
-        assert(size != null),
-        assert(uri != null);
+  });
 
   /// Creates a partial image message from a map (decoded JSON).
   PartialImage.fromJson(Map<String, dynamic> json)
-      : height = json['height'] as double,
+      : height = json['height']?.toDouble() as double?,
         imageName = json['imageName'] as String,
-        size = json['size']?.round() as int,
+        size = json['size'].round() as int,
         uri = json['uri'] as String,
-        width = json['width'] as double;
+        width = json['width']?.toDouble() as double?;
 
   /// Converts a partial image message to the map representation, encodable to JSON.
   Map<String, dynamic> toJson() => {
@@ -209,7 +200,7 @@ class PartialImage {
       };
 
   /// Image height in pixels
-  final double height;
+  final double? height;
 
   /// The name of the image
   final String imageName;
@@ -221,7 +212,7 @@ class PartialImage {
   final String uri;
 
   /// Image width in pixels
-  final double width;
+  final double? width;
 }
 
 /// A class that represents image message.
@@ -229,27 +220,24 @@ class PartialImage {
 class ImageMessage extends Message {
   /// Creates an image message.
   const ImageMessage({
-    @required String authorId,
+    required String authorId,
     this.height,
-    @required String id,
-    @required this.imageName,
-    @required this.size,
-    Status status,
-    int timestamp,
-    @required this.uri,
+    required String id,
+    required this.imageName,
+    required this.size,
+    Status? status,
+    int? timestamp,
+    required this.uri,
     this.width,
-  })  : assert(imageName != null),
-        assert(size != null),
-        assert(uri != null),
-        super(authorId, id, status, timestamp, MessageType.image);
+  }) : super(authorId, id, status, timestamp, MessageType.image);
 
   /// Creates a full image message from a partial one.
-  ImageMessage.fromPartial(
-    String authorId,
-    String id,
-    PartialImage partialImage, {
-    Status status,
-    int timestamp,
+  ImageMessage.fromPartial({
+    required String authorId,
+    required String id,
+    required PartialImage partialImage,
+    Status? status,
+    int? timestamp,
   })  : height = partialImage.height,
         imageName = partialImage.imageName,
         size = partialImage.size,
@@ -259,16 +247,16 @@ class ImageMessage extends Message {
 
   /// Creates an image message from a map (decoded JSON).
   ImageMessage.fromJson(Map<String, dynamic> json)
-      : height = json['height']?.toDouble() as double,
+      : height = json['height']?.toDouble() as double?,
         imageName = json['imageName'] as String,
-        size = json['size']?.round() as int,
+        size = json['size'].round() as int,
         uri = json['uri'] as String,
-        width = json['width']?.toDouble() as double,
+        width = json['width']?.toDouble() as double?,
         super(
           json['authorId'] as String,
           json['id'] as String,
           getStatusFromString(json['status'] as String),
-          json['timestamp'] as int,
+          json['timestamp'] as int?,
           MessageType.image,
         );
 
@@ -288,7 +276,7 @@ class ImageMessage extends Message {
       };
 
   /// Image height in pixels
-  final double height;
+  final double? height;
 
   /// The name of the image
   final String imageName;
@@ -300,7 +288,7 @@ class ImageMessage extends Message {
   final String uri;
 
   /// Image width in pixels
-  final double width;
+  final double? width;
 }
 
 /// A class that represents partial text message.
@@ -311,8 +299,8 @@ class PartialText {
   /// You can use [TextMessage.fromPartial] constructor to create a full
   /// message from a partial one.
   const PartialText({
-    @required this.text,
-  }) : assert(text != null);
+    required this.text,
+  });
 
   /// Creates a partial text message from a map (decoded JSON).
   PartialText.fromJson(Map<String, dynamic> json)
@@ -332,22 +320,21 @@ class PartialText {
 class TextMessage extends Message {
   /// Creates a text message.
   const TextMessage({
-    @required String authorId,
-    @required String id,
+    required String authorId,
+    required String id,
     this.previewData,
-    Status status,
-    @required this.text,
-    int timestamp,
-  })  : assert(text != null),
-        super(authorId, id, status, timestamp, MessageType.text);
+    Status? status,
+    required this.text,
+    int? timestamp,
+  }) : super(authorId, id, status, timestamp, MessageType.text);
 
   /// Creates a full text message from a partial one.
-  TextMessage.fromPartial(
-    String authorId,
-    String id,
-    PartialText partialText, {
-    Status status,
-    int timestamp,
+  TextMessage.fromPartial({
+    required String authorId,
+    required String id,
+    required PartialText partialText,
+    Status? status,
+    int? timestamp,
   })  : previewData = null,
         text = partialText.text,
         super(authorId, id, status, timestamp, MessageType.text);
@@ -362,7 +349,7 @@ class TextMessage extends Message {
           json['authorId'] as String,
           json['id'] as String,
           getStatusFromString(json['status'] as String),
-          json['timestamp'] as int,
+          json['timestamp'] as int?,
           MessageType.text,
         );
 
@@ -379,13 +366,11 @@ class TextMessage extends Message {
       };
 
   /// Creates a copy of the text message with an updated preview data
-  TextMessage copyWith({
-    PreviewData previewData,
-  }) {
+  TextMessage copyWith(PreviewData previewData) {
     return TextMessage(
       authorId: authorId,
       id: id,
-      previewData: previewData ?? previewData,
+      previewData: previewData,
       status: status,
       text: text,
       timestamp: timestamp,
@@ -393,7 +378,7 @@ class TextMessage extends Message {
   }
 
   /// See [PreviewData]
-  final PreviewData previewData;
+  final PreviewData? previewData;
 
   /// User's message
   final String text;
