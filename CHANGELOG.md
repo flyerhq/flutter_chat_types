@@ -1,4 +1,4 @@
-## 1.2.0
+## 2.0.0
 
 - Update to Flutter 2
 
