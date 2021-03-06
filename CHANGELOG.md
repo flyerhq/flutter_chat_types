@@ -1,3 +1,7 @@
+## 2.0.0
+
+- Update to Flutter 2
+
 ## 1.1.1
 
 - Finish documentation
