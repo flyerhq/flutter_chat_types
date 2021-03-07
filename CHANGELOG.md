@@ -1,3 +1,7 @@
+## 2.0.2
+
+- Add CI
+
 ## 2.0.1
 
 - Update to null safety
