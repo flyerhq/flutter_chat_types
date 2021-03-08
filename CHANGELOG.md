@@ -1,3 +1,7 @@
+## 2.0.3
+
+- Fix null status
+
 ## 2.0.2
 
 - Add CI

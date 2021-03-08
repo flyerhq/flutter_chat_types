@@ -135,7 +135,7 @@ class FileMessage extends Message {
         super(
           json['authorId'] as String,
           json['id'] as String,
-          getStatusFromString(json['status'] as String),
+          getStatusFromString(json['status'] as String?),
           json['timestamp'] as int?,
           MessageType.file,
         );
@@ -255,7 +255,7 @@ class ImageMessage extends Message {
         super(
           json['authorId'] as String,
           json['id'] as String,
-          getStatusFromString(json['status'] as String),
+          getStatusFromString(json['status'] as String?),
           json['timestamp'] as int?,
           MessageType.image,
         );
@@ -348,7 +348,7 @@ class TextMessage extends Message {
         super(
           json['authorId'] as String,
           json['id'] as String,
-          getStatusFromString(json['status'] as String),
+          getStatusFromString(json['status'] as String?),
           json['timestamp'] as int?,
           MessageType.text,
         );
