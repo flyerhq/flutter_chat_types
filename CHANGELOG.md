@@ -1,3 +1,7 @@
+## 2.0.4
+
+- Add Room type
+
 ## 2.0.3
 
 - Fix null status
