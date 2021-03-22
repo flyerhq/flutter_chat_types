@@ -1,6 +1,9 @@
 import 'package:meta/meta.dart';
 import 'user.dart';
 
+/// All possible room types
+enum RoomType { direct, group }
+
 /// A class that represents a room where 2 or more participants can chat
 @immutable
 class Room {
@@ -8,23 +11,23 @@ class Room {
   const Room({
     required this.id,
     this.imageUrl,
-    required this.isGroup,
     this.name,
+    required this.type,
     required this.users,
   });
 
   /// Room's unique ID
   final String id;
 
-  /// Room's image. In case the room has 2 users - avatar of the second person,
-  /// otherwise custom image (for a group).
+  /// Room's image. In case of the [RoomType.direct] - avatar of the second person,
+  /// otherwise a custom image [RoomType.group].
   final String? imageUrl;
 
-  /// Should be true if more than 2 users are in the room
-  final bool isGroup;
+  /// Type of the room, direct, group etc.
+  final RoomType type;
 
-  /// Room's name. In case the room has 2 users - name of the second person,
-  /// otherwise custom name (for a group).
+  /// Room's name. In case of the [RoomType.direct] - name of the second person,
+  /// otherwise a custom name [RoomType.group].
   final String? name;
 
   /// List of users which are in the room

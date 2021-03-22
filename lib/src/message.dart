@@ -6,7 +6,7 @@ import 'util.dart';
 enum MessageType { file, image, text }
 
 /// All possible statuses message can have.
-enum Status { error, read, sending, sent }
+enum Status { delivered, error, read, sending }
 
 /// An abstract class that contains all variables and methods
 /// every message will have.

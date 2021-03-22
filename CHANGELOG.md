@@ -1,3 +1,7 @@
+## 2.0.5
+
+- Update types
+
 ## 2.0.4
 
 - Add Room type
