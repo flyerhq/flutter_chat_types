@@ -1,3 +1,7 @@
+## 2.0.8
+
+- Add custom metadata to the room class. Thanks @alihen for the PR!
+
 ## 2.0.7
 
 - Update homepage

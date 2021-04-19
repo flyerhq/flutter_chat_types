@@ -11,10 +11,10 @@ class Room {
   const Room({
     required this.id,
     this.imageUrl,
+    this.metadata,
     this.name,
     required this.type,
     required this.users,
-    this.metadata,
   });
 
   /// Room's unique ID
@@ -27,13 +27,13 @@ class Room {
   /// Type of the room, direct, group etc.
   final RoomType type;
 
+  /// Additional custom metadata or attributes related to the room
+  final Map<String, dynamic>? metadata;
+
   /// Room's name. In case of the [RoomType.direct] - name of the second person,
   /// otherwise a custom name [RoomType.group].
   final String? name;
 
   /// List of users which are in the room
   final List<User> users;
-
-  /// Additional custom metadata or attributes related to the room
-  final Map<String, dynamic>? metadata;
 }
