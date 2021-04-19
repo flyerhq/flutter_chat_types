@@ -14,6 +14,7 @@ class Room {
     this.name,
     required this.type,
     required this.users,
+    this.metadata,
   });
 
   /// Room's unique ID
@@ -32,4 +33,7 @@ class Room {
 
   /// List of users which are in the room
   final List<User> users;
+
+  /// Additional custom metadata or attributes related to the room
+  final Map<String, dynamic>? metadata;
 }
