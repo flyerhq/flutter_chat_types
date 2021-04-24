@@ -9,6 +9,7 @@ class User {
     this.firstName,
     required this.id,
     this.lastName,
+    this.metadata,
   });
 
   /// Remote image URL representing user's avatar
@@ -22,4 +23,7 @@ class User {
 
   /// Last name of the user
   final String? lastName;
+
+  /// Additional custom metadata or attributes related to the user
+  final Map<String, dynamic>? metadata;
 }

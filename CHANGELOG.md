@@ -1,3 +1,7 @@
+## 2.0.9
+
+- Add custom metadata to message and user classes
+
 ## 2.0.8
 
 - Add custom metadata to the room class. Thanks @alihen for the PR!
