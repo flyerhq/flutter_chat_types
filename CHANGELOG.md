@@ -1,3 +1,7 @@
+## 2.1.0
+
+- Add `copyWith` to the message
+
 ## 2.0.9
 
 - Add custom metadata to message and user classes

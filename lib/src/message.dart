@@ -38,6 +38,13 @@ abstract class Message {
     }
   }
 
+  /// Creates a copy of the message with an updated data
+  Message copyWith({
+    Map<String, dynamic>? metadata,
+    PreviewData? previewData,
+    Status? status,
+  });
+
   /// Converts a particular message to the map representation, encodable to JSON.
   Map<String, dynamic> toJson();
 
@@ -161,6 +168,31 @@ class FileMessage extends Message {
         'type': 'file',
         'uri': uri,
       };
+
+  /// Creates a copy of the file message with an updated data
+  @override
+  Message copyWith({
+    Map<String, dynamic>? metadata,
+    PreviewData? previewData,
+    Status? status,
+  }) {
+    return FileMessage(
+      authorId: authorId,
+      fileName: fileName,
+      id: id,
+      metadata: metadata == null
+          ? null
+          : {
+              ...this.metadata ?? {},
+              ...metadata,
+            },
+      mimeType: mimeType,
+      size: size,
+      status: status ?? this.status,
+      timestamp: timestamp,
+      uri: uri,
+    );
+  }
 
   /// The name of the file
   final String fileName;
@@ -287,6 +319,32 @@ class ImageMessage extends Message {
         'width': width,
       };
 
+  /// Creates a copy of the image message with an updated data
+  @override
+  Message copyWith({
+    Map<String, dynamic>? metadata,
+    PreviewData? previewData,
+    Status? status,
+  }) {
+    return ImageMessage(
+      authorId: authorId,
+      height: height,
+      id: id,
+      imageName: imageName,
+      metadata: metadata == null
+          ? null
+          : {
+              ...this.metadata ?? {},
+              ...metadata,
+            },
+      size: size,
+      status: status ?? this.status,
+      timestamp: timestamp,
+      uri: uri,
+      width: width,
+    );
+  }
+
   /// Image height in pixels
   final double? height;
 
@@ -381,14 +439,24 @@ class TextMessage extends Message {
         'type': 'text',
       };
 
-  /// Creates a copy of the text message with an updated preview data
-  TextMessage copyWith(PreviewData previewData) {
+  /// Creates a copy of the text message with an updated data
+  @override
+  Message copyWith({
+    Map<String, dynamic>? metadata,
+    PreviewData? previewData,
+    Status? status,
+  }) {
     return TextMessage(
       authorId: authorId,
       id: id,
-      metadata: metadata,
+      metadata: metadata == null
+          ? null
+          : {
+              ...this.metadata ?? {},
+              ...metadata,
+            },
       previewData: previewData,
-      status: status,
+      status: status ?? this.status,
       text: text,
       timestamp: timestamp,
     );
