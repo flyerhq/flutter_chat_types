@@ -1,3 +1,7 @@
+## 2.1.1
+
+- Fix bug with empty preview data
+
 ## 2.1.0
 
 - Add `copyWith` to the message
