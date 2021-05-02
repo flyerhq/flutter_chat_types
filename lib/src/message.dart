@@ -3,7 +3,7 @@ import 'preview_data.dart' show PreviewData;
 import 'util.dart';
 
 /// All possible message types.
-enum MessageType { file, image, text }
+enum MessageType { file, image, text, audio }
 
 /// All possible statuses message can have.
 enum Status { delivered, error, read, sending }
@@ -33,6 +33,8 @@ abstract class Message {
         return ImageMessage.fromJson(json);
       case 'text':
         return TextMessage.fromJson(json);
+      case 'audio':
+        return AudioMessage.fromJson(json);
       default:
         throw ArgumentError('Unexpected value for message type');
     }
@@ -467,4 +469,143 @@ class TextMessage extends Message {
 
   /// User's message
   final String text;
+}
+
+@immutable
+class PartialAudio {
+  /// Creates a partial audio message with all variables audio can have.
+  /// Use [AudioMessage] to create a full message.
+  /// You can use [AudioMessage.fromPartial] constructor to create a full
+  /// message from a partial one.
+  const PartialAudio({
+    required this.length,
+    this.mimeType,
+    this.waveForm,
+    required this.uri,
+  });
+
+  /// Creates a partial audio message from a map (decoded JSON).
+  PartialAudio.fromJson(Map<String, dynamic> json)
+      : length = Duration(milliseconds: json['length'] as int),
+        mimeType = json['mimeType'] as String?,
+        waveForm = json['waveForm'] as List<double>,
+        uri = json['uri'] as String;
+
+  /// Converts a partial file message to the map representation, encodable to JSON.
+  Map<String, dynamic> toJson() => {
+        'length': length,
+        'mimeType': mimeType,
+        'waveForm': waveForm,
+        'uri': uri,
+      };
+
+  /// The length of the audio
+  final Duration length;
+
+  /// Media type
+  final String? mimeType;
+
+  /// Wave form represented as a list of decibel level, each comprised between 0 and 120
+  final List<double>? waveForm;
+
+  /// The audio file source (either a remote URL or a local resource)
+  final String uri;
+}
+
+/// A class that represents file message.
+@immutable
+class AudioMessage extends Message {
+  /// Creates an audio message.
+  const AudioMessage({
+    required String authorId,
+    required this.length,
+    required String id,
+    Map<String, dynamic>? metadata,
+    this.mimeType,
+    this.waveForm,
+    Status? status,
+    int? timestamp,
+    required this.uri,
+  }) : super(authorId, id, metadata, status, timestamp, MessageType.audio);
+
+  /// Creates a full audio message from a partial one.
+  AudioMessage.fromPartial({
+    required String authorId,
+    required String id,
+    Map<String, dynamic>? metadata,
+    required PartialAudio partialAudio,
+    Status? status,
+    int? timestamp,
+  })  : length = partialAudio.length,
+        mimeType = partialAudio.mimeType,
+        waveForm = partialAudio.waveForm,
+        uri = partialAudio.uri,
+        super(authorId, id, metadata, status, timestamp, MessageType.audio);
+
+  /// Creates an audio message from a map (decoded JSON).
+  AudioMessage.fromJson(Map<String, dynamic> json)
+      : length = Duration(milliseconds: json['fileName'] as int),
+        mimeType = json['mimeType'] as String?,
+        waveForm = json['waveForm'] as List<double>,
+        uri = json['uri'] as String,
+        super(
+          json['authorId'] as String,
+          json['id'] as String,
+          json['metadata'] as Map<String, dynamic>?,
+          getStatusFromString(json['status'] as String?),
+          json['timestamp'] as int?,
+          MessageType.audio,
+        );
+
+  /// Converts an audio message to the map representation, encodable to JSON.
+  @override
+  Map<String, dynamic> toJson() => {
+        'authorId': authorId,
+        'length': length.inMilliseconds,
+        'id': id,
+        'metadata': metadata,
+        'mimeType': mimeType,
+        'waveForm': waveForm,
+        'status': status,
+        'timestamp': timestamp,
+        'type': 'file',
+        'uri': uri,
+      };
+
+  /// Creates a copy of the audio message with an updated data
+  @override
+  Message copyWith({
+    Map<String, dynamic>? metadata,
+    PreviewData? previewData,
+    Status? status,
+  }) {
+    return AudioMessage(
+      authorId: authorId,
+      length: length,
+      id: id,
+      metadata: metadata == null
+          ? null
+          : {
+              ...this.metadata ?? {},
+              ...metadata,
+            },
+      mimeType: mimeType,
+      waveForm: waveForm,
+      status: status ?? this.status,
+      timestamp: timestamp,
+      uri: uri,
+    );
+  }
+
+  /// The length of the audio
+  final Duration length;
+
+  /// Media type
+  final String? mimeType;
+
+  /// Wave form represented as a list of decibel level, each comprised between 0 and 120
+  final List<double>? waveForm;
+
+  /// The file source (either a remote URL or a local resource)
+  final String uri;
 }
