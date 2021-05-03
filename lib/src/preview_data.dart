@@ -1,10 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 /// A class that represents data obtained from the web resource (link preview).
 ///
 /// See https://github.com/flyerhq/flutter_link_previewer
 @immutable
-class PreviewData {
+class PreviewData extends Equatable {
   /// Creates preview data.
   const PreviewData({
     this.description,
@@ -30,6 +31,26 @@ class PreviewData {
         'title': title,
       };
 
+  /// Creates a copy of the preview data with an updated data.
+  /// Null values will nullify existing values.
+  PreviewData copyWith({
+    String? description,
+    PreviewDataImage? image,
+    String? link,
+    String? title,
+  }) {
+    return PreviewData(
+      description: description,
+      image: image,
+      link: link,
+      title: title,
+    );
+  }
+
+  /// Equatable props
+  @override
+  List<Object?> get props => [description, image, link, title];
+
   /// Link description (usually og:description meta tag)
   final String? description;
 
@@ -48,7 +69,7 @@ class PreviewData {
 ///
 /// See https://github.com/flyerhq/flutter_link_previewer
 @immutable
-class PreviewDataImage {
+class PreviewDataImage extends Equatable {
   /// Creates preview data image.
   const PreviewDataImage({
     required this.height,
@@ -68,6 +89,10 @@ class PreviewDataImage {
         'url': url,
         'width': width,
       };
+
+  /// Equatable props
+  @override
+  List<Object> get props => [height, url, width];
 
   /// Image height in pixels
   final double height;
