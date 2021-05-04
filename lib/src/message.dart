@@ -651,6 +651,19 @@ class AudioMessage extends Message {
     );
   }
 
+  /// Equatable props
+  @override
+  List<Object?> get props => [
+        authorId,
+        length,
+        id,
+        metadata,
+        mimeType,
+        status,
+        timestamp,
+        uri,
+      ];
+
   /// The length of the audio
   final Duration length;
 
