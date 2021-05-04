@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'preview_data.dart' show PreviewData;
 import 'util.dart';
@@ -11,7 +12,7 @@ enum Status { delivered, error, read, sending }
 /// An abstract class that contains all variables and methods
 /// every message will have.
 @immutable
-abstract class Message {
+abstract class Message extends Equatable {
   const Message(
     this.authorId,
     this.id,
@@ -41,6 +42,11 @@ abstract class Message {
   }
 
   /// Creates a copy of the message with an updated data
+  /// [metadata] with null value will nullify existing metadata, otherwise
+  /// both metadatas will be merged into one Map, where keys from a passed
+  /// metadata will overwite keys from the previous one.
+  /// [previewData] will be only set for the text message type.
+  /// [status] with null value will be overwritten by the previous status.
   Message copyWith({
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
@@ -171,7 +177,12 @@ class FileMessage extends Message {
         'uri': uri,
       };
 
-  /// Creates a copy of the file message with an updated data
+  /// Creates a copy of the file message with an updated data.
+  /// [metadata] with null value will nullify existing metadata, otherwise
+  /// both metadatas will be merged into one Map, where keys from a passed
+  /// metadata will overwite keys from the previous one.
+  /// [previewData] is ignored for this message type.
+  /// [status] with null value will be overwritten by the previous status.
   @override
   Message copyWith({
     Map<String, dynamic>? metadata,
@@ -195,6 +206,20 @@ class FileMessage extends Message {
       uri: uri,
     );
   }
+
+  /// Equatable props
+  @override
+  List<Object?> get props => [
+        authorId,
+        fileName,
+        id,
+        metadata,
+        mimeType,
+        size,
+        status,
+        timestamp,
+        uri,
+      ];
 
   /// The name of the file
   final String fileName;
@@ -322,6 +347,11 @@ class ImageMessage extends Message {
       };
 
   /// Creates a copy of the image message with an updated data
+  /// [metadata] with null value will nullify existing metadata, otherwise
+  /// both metadatas will be merged into one Map, where keys from a passed
+  /// metadata will overwite keys from the previous one.
+  /// [previewData] is ignored for this message type.
+  /// [status] with null value will be overwritten by the previous status.
   @override
   Message copyWith({
     Map<String, dynamic>? metadata,
@@ -346,6 +376,21 @@ class ImageMessage extends Message {
       width: width,
     );
   }
+
+  /// Equatable props
+  @override
+  List<Object?> get props => [
+        authorId,
+        height,
+        id,
+        imageName,
+        metadata,
+        size,
+        status,
+        timestamp,
+        uri,
+        width,
+      ];
 
   /// Image height in pixels
   final double? height;
@@ -442,6 +487,10 @@ class TextMessage extends Message {
       };
 
   /// Creates a copy of the text message with an updated data
+  /// [metadata] with null value will nullify existing metadata, otherwise
+  /// both metadatas will be merged into one Map, where keys from a passed
+  /// metadata will overwite keys from the previous one.
+  /// [status] with null value will be overwritten by the previous status.
   @override
   Message copyWith({
     Map<String, dynamic>? metadata,
@@ -463,6 +512,11 @@ class TextMessage extends Message {
       timestamp: timestamp,
     );
   }
+
+  /// Equatable props
+  @override
+  List<Object?> get props =>
+      [authorId, id, metadata, previewData, status, text, timestamp];
 
   /// See [PreviewData]
   final PreviewData? previewData;

@@ -1,3 +1,7 @@
+## 2.1.2
+
+- Add equatable to every type
+
 ## 2.1.1
 
 - Fix bug with empty preview data

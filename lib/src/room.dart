@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'user.dart';
 
@@ -6,7 +7,7 @@ enum RoomType { direct, group }
 
 /// A class that represents a room where 2 or more participants can chat
 @immutable
-class Room {
+class Room extends Equatable {
   /// Creates a [Room]
   const Room({
     required this.id,
@@ -16,6 +17,38 @@ class Room {
     required this.type,
     required this.users,
   });
+
+  /// Creates a copy of the room with an updated data.
+  /// [imageUrl] and [name] with null values will nullify existing values
+  /// [metadata] with null value will nullify existing metadata, otherwise
+  /// both metadatas will be merged into one Map, where keys from a passed
+  /// metadata will overwite keys from the previous one.
+  /// [type] and [users] with null values will be overwritten by previous values.
+  Room copyWith({
+    String? imageUrl,
+    Map<String, dynamic>? metadata,
+    String? name,
+    RoomType? type,
+    List<User>? users,
+  }) {
+    return Room(
+      id: id,
+      imageUrl: imageUrl,
+      metadata: metadata == null
+          ? null
+          : {
+              ...this.metadata ?? {},
+              ...metadata,
+            },
+      name: name,
+      type: type ?? this.type,
+      users: users ?? this.users,
+    );
+  }
+
+  /// Equatable props
+  @override
+  List<Object?> get props => [id, imageUrl, metadata, name, type, users];
 
   /// Room's unique ID
   final String id;
