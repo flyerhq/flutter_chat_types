@@ -598,7 +598,7 @@ class AudioMessage extends Message {
 
   /// Creates an audio message from a map (decoded JSON).
   AudioMessage.fromJson(Map<String, dynamic> json)
-      : length = Duration(milliseconds: json['fileName'] as int),
+      : length = Duration(milliseconds: json['length'] as int),
         mimeType = json['mimeType'] as String?,
         waveForm = json['waveForm'] as List<double>,
         uri = json['uri'] as String,
