@@ -545,7 +545,7 @@ class PartialAudio {
         waveForm = json['waveForm'] as List<double>,
         uri = json['uri'] as String;
 
-  /// Converts a partial file message to the map representation, encodable to JSON.
+  /// Converts a partial audio message to the map representation, encodable to JSON.
   Map<String, dynamic> toJson() => {
         'length': length,
         'mimeType': mimeType,
@@ -622,7 +622,7 @@ class AudioMessage extends Message {
         'waveForm': waveForm,
         'status': status,
         'timestamp': timestamp,
-        'type': 'file',
+        'type': 'audio',
         'uri': uri,
       };
 
@@ -673,6 +673,6 @@ class AudioMessage extends Message {
   /// Wave form represented as a list of decibel level, each comprised between 0 and 120
   final List<double>? waveForm;
 
-  /// The file source (either a remote URL or a local resource)
+  /// The audio source (either a remote URL or a local resource)
   final String uri;
 }
