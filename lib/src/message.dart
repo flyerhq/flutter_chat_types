@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'preview_data.dart' show PreviewData;
+import 'user.dart';
 import 'util.dart';
 
 /// All possible message types.
@@ -14,7 +15,7 @@ enum Status { delivered, error, read, sending }
 @immutable
 abstract class Message extends Equatable {
   const Message(
-    this.authorId,
+    this.author,
     this.id,
     this.metadata,
     this.status,
@@ -54,8 +55,8 @@ abstract class Message extends Equatable {
   /// Converts a particular message to the map representation, encodable to JSON.
   Map<String, dynamic> toJson();
 
-  /// ID of the user who sent this message
-  final String authorId;
+  /// User who sent this message
+  final User author;
 
   /// Unique ID of the message
   final String id;
@@ -120,7 +121,7 @@ class PartialFile {
 class FileMessage extends Message {
   /// Creates a file message.
   const FileMessage({
-    required String authorId,
+    required User author,
     required this.fileName,
     required String id,
     Map<String, dynamic>? metadata,
@@ -129,11 +130,11 @@ class FileMessage extends Message {
     Status? status,
     int? timestamp,
     required this.uri,
-  }) : super(authorId, id, metadata, status, timestamp, MessageType.file);
+  }) : super(author, id, metadata, status, timestamp, MessageType.file);
 
   /// Creates a full file message from a partial one.
   FileMessage.fromPartial({
-    required String authorId,
+    required User author,
     required String id,
     Map<String, dynamic>? metadata,
     required PartialFile partialFile,
@@ -143,7 +144,7 @@ class FileMessage extends Message {
         mimeType = partialFile.mimeType,
         size = partialFile.size,
         uri = partialFile.uri,
-        super(authorId, id, metadata, status, timestamp, MessageType.file);
+        super(author, id, metadata, status, timestamp, MessageType.file);
 
   /// Creates a file message from a map (decoded JSON).
   FileMessage.fromJson(Map<String, dynamic> json)
@@ -152,7 +153,7 @@ class FileMessage extends Message {
         size = json['size'].round() as int,
         uri = json['uri'] as String,
         super(
-          json['authorId'] as String,
+          User.fromJson(json['author'] as Map<String, dynamic>),
           json['id'] as String,
           json['metadata'] as Map<String, dynamic>?,
           getStatusFromString(json['status'] as String?),
@@ -163,7 +164,7 @@ class FileMessage extends Message {
   /// Converts a file message to the map representation, encodable to JSON.
   @override
   Map<String, dynamic> toJson() => {
-        'authorId': authorId,
+        'author': author.toJson(),
         'fileName': fileName,
         'id': id,
         'metadata': metadata,
@@ -188,7 +189,7 @@ class FileMessage extends Message {
     Status? status,
   }) {
     return FileMessage(
-      authorId: authorId,
+      author: author,
       fileName: fileName,
       id: id,
       metadata: metadata == null
@@ -208,7 +209,7 @@ class FileMessage extends Message {
   /// Equatable props
   @override
   List<Object?> get props => [
-        authorId,
+        author,
         fileName,
         id,
         metadata,
@@ -285,7 +286,7 @@ class PartialImage {
 class ImageMessage extends Message {
   /// Creates an image message.
   const ImageMessage({
-    required String authorId,
+    required User author,
     this.height,
     required String id,
     required this.imageName,
@@ -295,11 +296,11 @@ class ImageMessage extends Message {
     int? timestamp,
     required this.uri,
     this.width,
-  }) : super(authorId, id, metadata, status, timestamp, MessageType.image);
+  }) : super(author, id, metadata, status, timestamp, MessageType.image);
 
   /// Creates a full image message from a partial one.
   ImageMessage.fromPartial({
-    required String authorId,
+    required User author,
     required String id,
     Map<String, dynamic>? metadata,
     required PartialImage partialImage,
@@ -310,7 +311,7 @@ class ImageMessage extends Message {
         size = partialImage.size,
         uri = partialImage.uri,
         width = partialImage.width,
-        super(authorId, id, metadata, status, timestamp, MessageType.image);
+        super(author, id, metadata, status, timestamp, MessageType.image);
 
   /// Creates an image message from a map (decoded JSON).
   ImageMessage.fromJson(Map<String, dynamic> json)
@@ -320,7 +321,7 @@ class ImageMessage extends Message {
         uri = json['uri'] as String,
         width = json['width']?.toDouble() as double?,
         super(
-          json['authorId'] as String,
+          User.fromJson(json['author'] as Map<String, dynamic>),
           json['id'] as String,
           json['metadata'] as Map<String, dynamic>?,
           getStatusFromString(json['status'] as String?),
@@ -331,7 +332,7 @@ class ImageMessage extends Message {
   /// Converts an image message to the map representation, encodable to JSON.
   @override
   Map<String, dynamic> toJson() => {
-        'authorId': authorId,
+        'author': author.toJson(),
         'height': height,
         'id': id,
         'imageName': imageName,
@@ -357,7 +358,7 @@ class ImageMessage extends Message {
     Status? status,
   }) {
     return ImageMessage(
-      authorId: authorId,
+      author: author,
       height: height,
       id: id,
       imageName: imageName,
@@ -378,7 +379,7 @@ class ImageMessage extends Message {
   /// Equatable props
   @override
   List<Object?> get props => [
-        authorId,
+        author,
         height,
         id,
         imageName,
@@ -435,18 +436,18 @@ class PartialText {
 class TextMessage extends Message {
   /// Creates a text message.
   const TextMessage({
-    required String authorId,
+    required User author,
     required String id,
     Map<String, dynamic>? metadata,
     this.previewData,
     Status? status,
     required this.text,
     int? timestamp,
-  }) : super(authorId, id, metadata, status, timestamp, MessageType.text);
+  }) : super(author, id, metadata, status, timestamp, MessageType.text);
 
   /// Creates a full text message from a partial one.
   TextMessage.fromPartial({
-    required String authorId,
+    required User author,
     required String id,
     Map<String, dynamic>? metadata,
     required PartialText partialText,
@@ -454,7 +455,7 @@ class TextMessage extends Message {
     int? timestamp,
   })  : previewData = null,
         text = partialText.text,
-        super(authorId, id, metadata, status, timestamp, MessageType.text);
+        super(author, id, metadata, status, timestamp, MessageType.text);
 
   /// Creates a text message from a map (decoded JSON).
   TextMessage.fromJson(Map<String, dynamic> json)
@@ -463,7 +464,7 @@ class TextMessage extends Message {
             : PreviewData.fromJson(json['previewData'] as Map<String, dynamic>),
         text = json['text'] as String,
         super(
-          json['authorId'] as String,
+          User.fromJson(json['author'] as Map<String, dynamic>),
           json['id'] as String,
           json['metadata'] as Map<String, dynamic>?,
           getStatusFromString(json['status'] as String?),
@@ -474,7 +475,7 @@ class TextMessage extends Message {
   /// Converts a text message to the map representation, encodable to JSON.
   @override
   Map<String, dynamic> toJson() => {
-        'authorId': authorId,
+        'author': author.toJson(),
         'id': id,
         'metadata': metadata,
         'previewData': previewData?.toJson(),
@@ -496,7 +497,7 @@ class TextMessage extends Message {
     Status? status,
   }) {
     return TextMessage(
-      authorId: authorId,
+      author: author,
       id: id,
       metadata: metadata == null
           ? null
@@ -514,7 +515,7 @@ class TextMessage extends Message {
   /// Equatable props
   @override
   List<Object?> get props =>
-      [authorId, id, metadata, previewData, status, text, timestamp];
+      [author, id, metadata, previewData, status, text, timestamp];
 
   /// See [PreviewData]
   final PreviewData? previewData;

@@ -13,6 +13,23 @@ class User extends Equatable {
     this.metadata,
   });
 
+  /// Creates user from a map (decoded JSON).
+  User.fromJson(Map<String, dynamic> json)
+      : avatarUrl = json['avatarUrl'] as String?,
+        firstName = json['firstName'] as String?,
+        id = json['id'] as String,
+        lastName = json['lastName'] as String?,
+        metadata = json['metadata'] as Map<String, dynamic>?;
+
+  /// Converts user to the map representation, encodable to JSON.
+  Map<String, dynamic> toJson() => {
+        'avatarUrl': avatarUrl,
+        'firstName': firstName,
+        'id': id,
+        'lastName': lastName,
+        'metadata': metadata,
+      };
+
   /// Creates a copy of the user with an updated data.
   /// [avatarUrl], [firstName] and [lastName] with null values
   /// will nullify existing values.
