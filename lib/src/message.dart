@@ -46,10 +46,13 @@ abstract class Message extends Equatable {
   /// metadata will overwite keys from the previous one.
   /// [previewData] will be only set for the text message type.
   /// [status] with null value will be overwritten by the previous status.
+  /// [text] will be only set for the text message type. Null value will be
+  /// overwritten by the previous text (can't be empty).
   Message copyWith({
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     Status? status,
+    String? text,
   });
 
   /// Converts a particular message to the map representation, encodable to JSON.
@@ -67,7 +70,7 @@ abstract class Message extends Equatable {
   /// Message [Status]
   final Status? status;
 
-  /// Timestamp in seconds
+  /// Timestamp in ms
   final int? timestamp;
 
   /// [MessageType]
@@ -82,32 +85,32 @@ class PartialFile {
   /// You can use [FileMessage.fromPartial] constructor to create a full
   /// message from a partial one.
   const PartialFile({
-    required this.fileName,
     this.mimeType,
+    required this.name,
     required this.size,
     required this.uri,
   });
 
   /// Creates a partial file message from a map (decoded JSON).
   PartialFile.fromJson(Map<String, dynamic> json)
-      : fileName = json['fileName'] as String,
-        mimeType = json['mimeType'] as String?,
+      : mimeType = json['mimeType'] as String?,
+        name = json['name'] as String,
         size = json['size'].round() as int,
         uri = json['uri'] as String;
 
   /// Converts a partial file message to the map representation, encodable to JSON.
   Map<String, dynamic> toJson() => {
-        'fileName': fileName,
         'mimeType': mimeType,
+        'name': name,
         'size': size,
         'uri': uri,
       };
 
-  /// The name of the file
-  final String fileName;
-
   /// Media type
   final String? mimeType;
+
+  /// The name of the file
+  final String name;
 
   /// Size of the file in bytes
   final int size;
@@ -122,10 +125,10 @@ class FileMessage extends Message {
   /// Creates a file message.
   const FileMessage({
     required User author,
-    required this.fileName,
     required String id,
     Map<String, dynamic>? metadata,
     this.mimeType,
+    required this.name,
     required this.size,
     Status? status,
     int? timestamp,
@@ -140,16 +143,16 @@ class FileMessage extends Message {
     required PartialFile partialFile,
     Status? status,
     int? timestamp,
-  })  : fileName = partialFile.fileName,
-        mimeType = partialFile.mimeType,
+  })  : mimeType = partialFile.mimeType,
+        name = partialFile.name,
         size = partialFile.size,
         uri = partialFile.uri,
         super(author, id, metadata, status, timestamp, MessageType.file);
 
   /// Creates a file message from a map (decoded JSON).
   FileMessage.fromJson(Map<String, dynamic> json)
-      : fileName = json['fileName'] as String,
-        mimeType = json['mimeType'] as String?,
+      : mimeType = json['mimeType'] as String?,
+        name = json['name'] as String,
         size = json['size'].round() as int,
         uri = json['uri'] as String,
         super(
@@ -165,10 +168,10 @@ class FileMessage extends Message {
   @override
   Map<String, dynamic> toJson() => {
         'author': author.toJson(),
-        'fileName': fileName,
         'id': id,
         'metadata': metadata,
         'mimeType': mimeType,
+        'name': name,
         'size': size,
         'status': status,
         'timestamp': timestamp,
@@ -182,15 +185,16 @@ class FileMessage extends Message {
   /// metadata will overwite keys from the previous one.
   /// [previewData] is ignored for this message type.
   /// [status] with null value will be overwritten by the previous status.
+  /// [text] is ignored for this message type.
   @override
   Message copyWith({
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     Status? status,
+    String? text,
   }) {
     return FileMessage(
       author: author,
-      fileName: fileName,
       id: id,
       metadata: metadata == null
           ? null
@@ -199,6 +203,7 @@ class FileMessage extends Message {
               ...metadata,
             },
       mimeType: mimeType,
+      name: name,
       size: size,
       status: status ?? this.status,
       timestamp: timestamp,
@@ -210,21 +215,21 @@ class FileMessage extends Message {
   @override
   List<Object?> get props => [
         author,
-        fileName,
         id,
         metadata,
         mimeType,
+        name,
         size,
         status,
         timestamp,
         uri,
       ];
 
-  /// The name of the file
-  final String fileName;
-
   /// Media type
   final String? mimeType;
+
+  /// The name of the file
+  final String name;
 
   /// Size of the file in bytes
   final int size;
@@ -242,7 +247,7 @@ class PartialImage {
   /// message from a partial one.
   const PartialImage({
     this.height,
-    required this.imageName,
+    required this.name,
     required this.size,
     required this.uri,
     this.width,
@@ -251,7 +256,7 @@ class PartialImage {
   /// Creates a partial image message from a map (decoded JSON).
   PartialImage.fromJson(Map<String, dynamic> json)
       : height = json['height']?.toDouble() as double?,
-        imageName = json['imageName'] as String,
+        name = json['name'] as String,
         size = json['size'].round() as int,
         uri = json['uri'] as String,
         width = json['width']?.toDouble() as double?;
@@ -259,7 +264,7 @@ class PartialImage {
   /// Converts a partial image message to the map representation, encodable to JSON.
   Map<String, dynamic> toJson() => {
         'height': height,
-        'imageName': imageName,
+        'name': name,
         'size': size,
         'uri': uri,
         'width': width,
@@ -269,7 +274,7 @@ class PartialImage {
   final double? height;
 
   /// The name of the image
-  final String imageName;
+  final String name;
 
   /// Size of the image in bytes
   final int size;
@@ -289,8 +294,8 @@ class ImageMessage extends Message {
     required User author,
     this.height,
     required String id,
-    required this.imageName,
     Map<String, dynamic>? metadata,
+    required this.name,
     required this.size,
     Status? status,
     int? timestamp,
@@ -307,7 +312,7 @@ class ImageMessage extends Message {
     Status? status,
     int? timestamp,
   })  : height = partialImage.height,
-        imageName = partialImage.imageName,
+        name = partialImage.name,
         size = partialImage.size,
         uri = partialImage.uri,
         width = partialImage.width,
@@ -316,7 +321,7 @@ class ImageMessage extends Message {
   /// Creates an image message from a map (decoded JSON).
   ImageMessage.fromJson(Map<String, dynamic> json)
       : height = json['height']?.toDouble() as double?,
-        imageName = json['imageName'] as String,
+        name = json['name'] as String,
         size = json['size'].round() as int,
         uri = json['uri'] as String,
         width = json['width']?.toDouble() as double?,
@@ -335,8 +340,8 @@ class ImageMessage extends Message {
         'author': author.toJson(),
         'height': height,
         'id': id,
-        'imageName': imageName,
         'metadata': metadata,
+        'name': name,
         'size': size,
         'status': status,
         'timestamp': timestamp,
@@ -351,17 +356,19 @@ class ImageMessage extends Message {
   /// metadata will overwite keys from the previous one.
   /// [previewData] is ignored for this message type.
   /// [status] with null value will be overwritten by the previous status.
+  /// [text] is ignored for this message type.
   @override
   Message copyWith({
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     Status? status,
+    String? text,
   }) {
     return ImageMessage(
       author: author,
       height: height,
       id: id,
-      imageName: imageName,
+      name: name,
       metadata: metadata == null
           ? null
           : {
@@ -382,8 +389,8 @@ class ImageMessage extends Message {
         author,
         height,
         id,
-        imageName,
         metadata,
+        name,
         size,
         status,
         timestamp,
@@ -395,7 +402,7 @@ class ImageMessage extends Message {
   final double? height;
 
   /// The name of the image
-  final String imageName;
+  final String name;
 
   /// Size of the image in bytes
   final int size;
@@ -495,6 +502,7 @@ class TextMessage extends Message {
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     Status? status,
+    String? text,
   }) {
     return TextMessage(
       author: author,
@@ -507,7 +515,7 @@ class TextMessage extends Message {
             },
       previewData: previewData,
       status: status ?? this.status,
-      text: text,
+      text: text ?? this.text,
       timestamp: timestamp,
     );
   }

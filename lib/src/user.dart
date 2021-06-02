@@ -6,46 +6,46 @@ import 'package:meta/meta.dart';
 class User extends Equatable {
   /// Creates a user.
   const User({
-    this.avatarUrl,
     this.firstName,
     required this.id,
+    this.imageUrl,
     this.lastName,
     this.metadata,
   });
 
   /// Creates user from a map (decoded JSON).
   User.fromJson(Map<String, dynamic> json)
-      : avatarUrl = json['avatarUrl'] as String?,
-        firstName = json['firstName'] as String?,
+      : firstName = json['firstName'] as String?,
         id = json['id'] as String,
+        imageUrl = json['imageUrl'] as String?,
         lastName = json['lastName'] as String?,
         metadata = json['metadata'] as Map<String, dynamic>?;
 
   /// Converts user to the map representation, encodable to JSON.
   Map<String, dynamic> toJson() => {
-        'avatarUrl': avatarUrl,
         'firstName': firstName,
         'id': id,
+        'imageUrl': imageUrl,
         'lastName': lastName,
         'metadata': metadata,
       };
 
   /// Creates a copy of the user with an updated data.
-  /// [avatarUrl], [firstName] and [lastName] with null values
+  /// [firstName], [imageUrl] and [lastName] with null values
   /// will nullify existing values.
   /// [metadata] with null value will nullify existing metadata, otherwise
   /// both metadatas will be merged into one Map, where keys from a passed
   /// metadata will overwite keys from the previous one.
   User copyWith({
-    String? avatarUrl,
     String? firstName,
+    String? imageUrl,
     String? lastName,
     Map<String, dynamic>? metadata,
   }) {
     return User(
-      avatarUrl: avatarUrl,
       firstName: firstName,
       id: id,
+      imageUrl: imageUrl,
       lastName: lastName,
       metadata: metadata == null
           ? null
@@ -58,16 +58,16 @@ class User extends Equatable {
 
   /// Equatable props
   @override
-  List<Object?> get props => [avatarUrl, firstName, id, lastName, metadata];
-
-  /// Remote image URL representing user's avatar
-  final String? avatarUrl;
+  List<Object?> get props => [firstName, id, imageUrl, lastName, metadata];
 
   /// First name of the user
   final String? firstName;
 
   /// Unique ID of the user
   final String id;
+
+  /// Remote image URL representing user's avatar
+  final String? imageUrl;
 
   /// Last name of the user
   final String? lastName;
