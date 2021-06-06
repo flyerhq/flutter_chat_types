@@ -3,13 +3,14 @@ import 'package:meta/meta.dart';
 import 'user.dart';
 
 /// All possible room types
-enum RoomType { direct, group }
+enum RoomType { channel, direct, group }
 
 /// A class that represents a room where 2 or more participants can chat
 @immutable
 class Room extends Equatable {
   /// Creates a [Room]
   const Room({
+    this.createdAt,
     required this.id,
     this.imageUrl,
     this.metadata,
@@ -48,7 +49,11 @@ class Room extends Equatable {
 
   /// Equatable props
   @override
-  List<Object?> get props => [id, imageUrl, metadata, name, type, users];
+  List<Object?> get props =>
+      [createdAt, id, imageUrl, metadata, name, type, users];
+
+  /// Created room timestamp, in ms
+  final int? createdAt;
 
   /// Room's unique ID
   final String id;
@@ -57,7 +62,7 @@ class Room extends Equatable {
   /// otherwise a custom image [RoomType.group].
   final String? imageUrl;
 
-  /// Type of the room, direct, group etc.
+  /// [RoomType]
   final RoomType type;
 
   /// Additional custom metadata or attributes related to the room
