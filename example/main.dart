@@ -5,6 +5,10 @@ void main() {
   const user = User(id: 'authorId');
   const message = TextMessage(author: user, id: 'id', text: 'text');
   print(message.toJson());
-  final json = {'authorId': 'authorId', 'id': 'id', 'text': 'text'};
+  final json = {
+    'author': {'id': 'authorId'},
+    'id': 'id',
+    'text': 'text'
+  };
   print(TextMessage.fromJson(json).toJson());
 }
