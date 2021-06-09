@@ -12,3 +12,4 @@ export 'src/room.dart';
 export 'src/text_message.dart';
 export 'src/unsupported_message.dart';
 export 'src/user.dart';
+export 'src/util.dart';
