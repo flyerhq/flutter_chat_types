@@ -1,9 +1,9 @@
 import 'package:meta/meta.dart';
-import 'message.dart';
+import '../message.dart';
+import '../preview_data.dart' show PreviewData;
+import '../user.dart' show User;
+import '../util.dart' show getStatusFromString;
 import 'partial_text.dart';
-import 'preview_data.dart' show PreviewData;
-import 'user.dart' show User;
-import 'util.dart' show getStatusFromString;
 
 /// A class that represents text message.
 @immutable

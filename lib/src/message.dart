@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'custom_message.dart';
-import 'file_message.dart';
-import 'image_message.dart';
+import 'messages/custom_message.dart';
+import 'messages/file_message.dart';
+import 'messages/image_message.dart';
+import 'messages/text_message.dart';
+import 'messages/unsupported_message.dart';
 import 'preview_data.dart' show PreviewData;
-import 'text_message.dart';
-import 'unsupported_message.dart';
 import 'user.dart' show User;
 
 /// All possible message types.
