@@ -49,8 +49,8 @@ class UnsupportedMessage extends Message {
         'id': id,
         'metadata': metadata,
         'roomId': roomId,
-        'status': status,
-        'type': 'unsupported',
+        'status': status?.toShortString(),
+        'type': MessageType.unsupported.toShortString(),
       };
 
   /// Creates a copy of the unsupported message with an updated data.

@@ -47,8 +47,8 @@ class CustomMessage extends Message {
         'id': id,
         'metadata': metadata,
         'roomId': roomId,
-        'status': status,
-        'type': 'custom',
+        'status': status?.toShortString(),
+        'type': MessageType.custom.toShortString(),
       };
 
   /// Creates a copy of the custom message with an updated data.

@@ -5,6 +5,14 @@ import 'util.dart' show getRoleFromString;
 /// All possible roles user can have.
 enum Role { admin, agent, moderator, user }
 
+/// Extension with one [toShortString] method
+extension RoleToShortString on Role {
+  /// Converts enum to the string equal to enum's name
+  String toShortString() {
+    return toString().split('.').last;
+  }
+}
+
 /// A class that represents user.
 @immutable
 class User extends Equatable {
@@ -40,7 +48,7 @@ class User extends Equatable {
         'lastName': lastName,
         'lastSeen': lastSeen,
         'metadata': metadata,
-        'role': role,
+        'role': role?.toShortString(),
       };
 
   /// Creates a copy of the user with an updated data.

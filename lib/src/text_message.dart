@@ -74,9 +74,9 @@ class TextMessage extends Message {
         'metadata': metadata,
         'previewData': previewData?.toJson(),
         'roomId': roomId,
-        'status': status,
+        'status': status?.toShortString(),
         'text': text,
-        'type': 'text',
+        'type': MessageType.text.toShortString(),
       };
 
   /// Creates a copy of the text message with an updated data

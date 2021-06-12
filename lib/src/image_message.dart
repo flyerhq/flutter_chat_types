@@ -83,8 +83,8 @@ class ImageMessage extends Message {
         'name': name,
         'roomId': roomId,
         'size': size,
-        'status': status,
-        'type': 'image',
+        'status': status?.toShortString(),
+        'type': MessageType.image.toShortString(),
         'uri': uri,
         'width': width,
       };

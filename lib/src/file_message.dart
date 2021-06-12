@@ -80,8 +80,8 @@ class FileMessage extends Message {
         'name': name,
         'roomId': roomId,
         'size': size,
-        'status': status,
-        'type': 'file',
+        'status': status?.toShortString(),
+        'type': MessageType.file.toShortString(),
         'uri': uri,
       };
 
