@@ -27,6 +27,7 @@ class Room extends Equatable {
     this.metadata,
     this.name,
     required this.type,
+    this.updatedAt,
     required this.users,
   });
 
@@ -41,6 +42,7 @@ class Room extends Equatable {
         metadata = json['metadata'] as Map<String, dynamic>?,
         name = json['name'] as String?,
         type = getRoomTypeFromString(json['type'] as String),
+        updatedAt = json['updatedAt'] as int?,
         users = (json['users'] as List<Map<String, dynamic>>)
             .map((e) => User.fromJson(e))
             .toList();
@@ -54,11 +56,12 @@ class Room extends Equatable {
         'metadata': metadata,
         'name': name,
         'type': type.toShortString(),
+        'updatedAt': updatedAt,
         'users': users.map((e) => e.toJson()).toList(),
       };
 
   /// Creates a copy of the room with an updated data.
-  /// [imageUrl] and [name] with null values will nullify existing values
+  /// [imageUrl], [name] and [updatedAt] with null values will nullify existing values
   /// [metadata] with null value will nullify existing metadata, otherwise
   /// both metadatas will be merged into one Map, where keys from a passed
   /// metadata will overwite keys from the previous one.
@@ -68,6 +71,7 @@ class Room extends Equatable {
     Map<String, dynamic>? metadata,
     String? name,
     RoomType? type,
+    int? updatedAt,
     List<User>? users,
   }) {
     return Room(
@@ -82,14 +86,24 @@ class Room extends Equatable {
             },
       name: name,
       type: type ?? this.type,
+      updatedAt: updatedAt,
       users: users ?? this.users,
     );
   }
 
   /// Equatable props
   @override
-  List<Object?> get props =>
-      [createdAt, id, imageUrl, lastMessages, metadata, name, type, users];
+  List<Object?> get props => [
+        createdAt,
+        id,
+        imageUrl,
+        lastMessages,
+        metadata,
+        name,
+        type,
+        updatedAt,
+        users
+      ];
 
   /// Created room timestamp, in ms
   final int? createdAt;
@@ -113,6 +127,9 @@ class Room extends Equatable {
   /// Room's name. In case of the [RoomType.direct] - name of the second person,
   /// otherwise a custom name [RoomType.group].
   final String? name;
+
+  /// Updated room timestamp, in ms
+  final int? updatedAt;
 
   /// List of users which are in the room
   final List<User> users;

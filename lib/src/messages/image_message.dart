@@ -19,6 +19,7 @@ class ImageMessage extends Message {
     String? roomId,
     required this.size,
     Status? status,
+    int? updatedAt,
     required this.uri,
     this.width,
   }) : super(
@@ -29,6 +30,7 @@ class ImageMessage extends Message {
           roomId,
           status,
           MessageType.image,
+          updatedAt,
         );
 
   /// Creates a full image message from a partial one.
@@ -40,6 +42,7 @@ class ImageMessage extends Message {
     required PartialImage partialImage,
     String? roomId,
     Status? status,
+    int? updatedAt,
   })  : height = partialImage.height,
         name = partialImage.name,
         size = partialImage.size,
@@ -53,6 +56,7 @@ class ImageMessage extends Message {
           roomId,
           status,
           MessageType.image,
+          updatedAt,
         );
 
   /// Creates an image message from a map (decoded JSON).
@@ -70,6 +74,7 @@ class ImageMessage extends Message {
           json['roomId'] as String?,
           getStatusFromString(json['status'] as String?),
           MessageType.image,
+          json['updatedAt'] as int?,
         );
 
   /// Converts an image message to the map representation, encodable to JSON.
@@ -85,6 +90,7 @@ class ImageMessage extends Message {
         'size': size,
         'status': status?.toShortString(),
         'type': MessageType.image.toShortString(),
+        'updatedAt': updatedAt,
         'uri': uri,
         'width': width,
       };
@@ -96,12 +102,14 @@ class ImageMessage extends Message {
   /// [previewData] is ignored for this message type.
   /// [status] with null value will be overwritten by the previous status.
   /// [text] is ignored for this message type.
+  /// [updatedAt] with null value will nullify existing value.
   @override
   Message copyWith({
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     Status? status,
     String? text,
+    int? updatedAt,
   }) {
     return ImageMessage(
       author: author,
@@ -118,6 +126,7 @@ class ImageMessage extends Message {
       roomId: roomId,
       size: size,
       status: status ?? this.status,
+      updatedAt: updatedAt,
       uri: uri,
       width: width,
     );
@@ -135,6 +144,7 @@ class ImageMessage extends Message {
         roomId,
         size,
         status,
+        updatedAt,
         uri,
         width,
       ];

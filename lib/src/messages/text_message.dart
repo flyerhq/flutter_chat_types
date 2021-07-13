@@ -18,6 +18,7 @@ class TextMessage extends Message {
     String? roomId,
     Status? status,
     required this.text,
+    int? updatedAt,
   }) : super(
           author,
           createdAt,
@@ -26,6 +27,7 @@ class TextMessage extends Message {
           roomId,
           status,
           MessageType.text,
+          updatedAt,
         );
 
   /// Creates a full text message from a partial one.
@@ -37,6 +39,7 @@ class TextMessage extends Message {
     required PartialText partialText,
     String? roomId,
     Status? status,
+    int? updatedAt,
   })  : previewData = null,
         text = partialText.text,
         super(
@@ -47,6 +50,7 @@ class TextMessage extends Message {
           roomId,
           status,
           MessageType.text,
+          updatedAt,
         );
 
   /// Creates a text message from a map (decoded JSON).
@@ -63,6 +67,7 @@ class TextMessage extends Message {
           json['roomId'] as String?,
           getStatusFromString(json['status'] as String?),
           MessageType.text,
+          json['updatedAt'] as int?,
         );
 
   /// Converts a text message to the map representation, encodable to JSON.
@@ -77,6 +82,7 @@ class TextMessage extends Message {
         'status': status?.toShortString(),
         'text': text,
         'type': MessageType.text.toShortString(),
+        'updatedAt': updatedAt,
       };
 
   /// Creates a copy of the text message with an updated data
@@ -84,12 +90,14 @@ class TextMessage extends Message {
   /// both metadatas will be merged into one Map, where keys from a passed
   /// metadata will overwite keys from the previous one.
   /// [status] with null value will be overwritten by the previous status.
+  /// [updatedAt] with null value will nullify existing value.
   @override
   Message copyWith({
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     Status? status,
     String? text,
+    int? updatedAt,
   }) {
     return TextMessage(
       author: author,
@@ -105,13 +113,23 @@ class TextMessage extends Message {
       roomId: roomId,
       status: status ?? this.status,
       text: text ?? this.text,
+      updatedAt: updatedAt,
     );
   }
 
   /// Equatable props
   @override
-  List<Object?> get props =>
-      [author, createdAt, id, metadata, previewData, roomId, status, text];
+  List<Object?> get props => [
+        author,
+        createdAt,
+        id,
+        metadata,
+        previewData,
+        roomId,
+        status,
+        text,
+        updatedAt,
+      ];
 
   /// See [PreviewData]
   final PreviewData? previewData;

@@ -26,6 +26,7 @@ class User extends Equatable {
     this.lastSeen,
     this.metadata,
     this.role,
+    this.updatedAt,
   });
 
   /// Creates user from a map (decoded JSON).
@@ -37,7 +38,8 @@ class User extends Equatable {
         lastName = json['lastName'] as String?,
         lastSeen = json['lastSeen'] as int?,
         metadata = json['metadata'] as Map<String, dynamic>?,
-        role = getRoleFromString(json['role'] as String?);
+        role = getRoleFromString(json['role'] as String?),
+        updatedAt = json['updatedAt'] as int?;
 
   /// Converts user to the map representation, encodable to JSON.
   Map<String, dynamic> toJson() => {
@@ -49,11 +51,12 @@ class User extends Equatable {
         'lastSeen': lastSeen,
         'metadata': metadata,
         'role': role?.toShortString(),
+        'updatedAt': updatedAt,
       };
 
   /// Creates a copy of the user with an updated data.
-  /// [firstName], [imageUrl], [lastName], [lastSeen] and [role] with
-  /// null values will nullify existing values.
+  /// [firstName], [imageUrl], [lastName], [lastSeen], [role] and [updatedAt]
+  /// with null values will nullify existing values.
   /// [metadata] with null value will nullify existing metadata, otherwise
   /// both metadatas will be merged into one Map, where keys from a passed
   /// metadata will overwite keys from the previous one.
@@ -64,6 +67,7 @@ class User extends Equatable {
     int? lastSeen,
     Map<String, dynamic>? metadata,
     Role? role,
+    int? updatedAt,
   }) {
     return User(
       firstName: firstName,
@@ -78,13 +82,23 @@ class User extends Equatable {
               ...metadata,
             },
       role: role,
+      updatedAt: updatedAt,
     );
   }
 
   /// Equatable props
   @override
-  List<Object?> get props =>
-      [createdAt, firstName, id, imageUrl, lastName, lastSeen, metadata, role];
+  List<Object?> get props => [
+        createdAt,
+        firstName,
+        id,
+        imageUrl,
+        lastName,
+        lastSeen,
+        metadata,
+        role,
+        updatedAt
+      ];
 
   /// Created user timestamp, in ms
   final int? createdAt;
@@ -109,4 +123,7 @@ class User extends Equatable {
 
   /// User [Role]
   final Role? role;
+
+  /// Updated user timestamp, in ms
+  final int? updatedAt;
 }

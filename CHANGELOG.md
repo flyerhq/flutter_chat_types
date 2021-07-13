@@ -1,3 +1,7 @@
+## 2.4.0
+
+- Add `updatedAt` to the message, room and user
+
 ## 2.3.0
 
 - Add `lastMessages` to the room

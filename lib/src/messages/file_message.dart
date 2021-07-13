@@ -19,6 +19,7 @@ class FileMessage extends Message {
     String? roomId,
     required this.size,
     Status? status,
+    int? updatedAt,
     required this.uri,
   }) : super(
           author,
@@ -28,6 +29,7 @@ class FileMessage extends Message {
           roomId,
           status,
           MessageType.file,
+          updatedAt,
         );
 
   /// Creates a full file message from a partial one.
@@ -39,6 +41,7 @@ class FileMessage extends Message {
     required PartialFile partialFile,
     String? roomId,
     Status? status,
+    int? updatedAt,
   })  : mimeType = partialFile.mimeType,
         name = partialFile.name,
         size = partialFile.size,
@@ -51,6 +54,7 @@ class FileMessage extends Message {
           roomId,
           status,
           MessageType.file,
+          updatedAt,
         );
 
   /// Creates a file message from a map (decoded JSON).
@@ -67,6 +71,7 @@ class FileMessage extends Message {
           json['roomId'] as String?,
           getStatusFromString(json['status'] as String?),
           MessageType.file,
+          json['updatedAt'] as int?,
         );
 
   /// Converts a file message to the map representation, encodable to JSON.
@@ -82,6 +87,7 @@ class FileMessage extends Message {
         'size': size,
         'status': status?.toShortString(),
         'type': MessageType.file.toShortString(),
+        'updatedAt': updatedAt,
         'uri': uri,
       };
 
@@ -92,12 +98,14 @@ class FileMessage extends Message {
   /// [previewData] is ignored for this message type.
   /// [status] with null value will be overwritten by the previous status.
   /// [text] is ignored for this message type.
+  /// [updatedAt] with null value will nullify existing value.
   @override
   Message copyWith({
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     Status? status,
     String? text,
+    int? updatedAt,
   }) {
     return FileMessage(
       author: author,
@@ -114,6 +122,7 @@ class FileMessage extends Message {
       roomId: roomId,
       size: size,
       status: status ?? this.status,
+      updatedAt: updatedAt,
       uri: uri,
     );
   }
@@ -130,6 +139,7 @@ class FileMessage extends Message {
         roomId,
         size,
         status,
+        updatedAt,
         uri,
       ];
 

@@ -16,6 +16,7 @@ class CustomMessage extends Message {
     Map<String, dynamic>? metadata,
     String? roomId,
     Status? status,
+    int? updatedAt,
   }) : super(
           author,
           createdAt,
@@ -24,6 +25,7 @@ class CustomMessage extends Message {
           roomId,
           status,
           MessageType.custom,
+          updatedAt,
         );
 
   /// Creates a custom message from a map (decoded JSON).
@@ -36,6 +38,7 @@ class CustomMessage extends Message {
           json['roomId'] as String?,
           getStatusFromString(json['status'] as String?),
           MessageType.custom,
+          json['updatedAt'] as int?,
         );
 
   /// Converts a custom message to the map representation,
@@ -49,6 +52,7 @@ class CustomMessage extends Message {
         'roomId': roomId,
         'status': status?.toShortString(),
         'type': MessageType.custom.toShortString(),
+        'updatedAt': updatedAt,
       };
 
   /// Creates a copy of the custom message with an updated data.
@@ -58,12 +62,14 @@ class CustomMessage extends Message {
   /// [previewData] is ignored for this message type.
   /// [status] with null value will be overwritten by the previous status.
   /// [text] is ignored for this message type.
+  /// [updatedAt] with null value will nullify existing value.
   @override
   Message copyWith({
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     Status? status,
     String? text,
+    int? updatedAt,
   }) {
     return CustomMessage(
       author: author,
@@ -77,6 +83,7 @@ class CustomMessage extends Message {
             },
       roomId: roomId,
       status: status ?? this.status,
+      updatedAt: updatedAt,
     );
   }
 
@@ -89,5 +96,6 @@ class CustomMessage extends Message {
         metadata,
         roomId,
         status,
+        updatedAt,
       ];
 }

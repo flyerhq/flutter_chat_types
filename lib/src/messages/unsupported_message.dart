@@ -18,6 +18,7 @@ class UnsupportedMessage extends Message {
     Map<String, dynamic>? metadata,
     String? roomId,
     Status? status,
+    int? updatedAt,
   }) : super(
           author,
           createdAt,
@@ -26,6 +27,7 @@ class UnsupportedMessage extends Message {
           roomId,
           status,
           MessageType.unsupported,
+          updatedAt,
         );
 
   /// Creates an unsupported message from a map (decoded JSON).
@@ -38,6 +40,7 @@ class UnsupportedMessage extends Message {
           json['roomId'] as String?,
           getStatusFromString(json['status'] as String?),
           MessageType.unsupported,
+          json['updatedAt'] as int?,
         );
 
   /// Converts an unsupported message to the map representation,
@@ -51,6 +54,7 @@ class UnsupportedMessage extends Message {
         'roomId': roomId,
         'status': status?.toShortString(),
         'type': MessageType.unsupported.toShortString(),
+        'updatedAt': updatedAt,
       };
 
   /// Creates a copy of the unsupported message with an updated data.
@@ -60,12 +64,14 @@ class UnsupportedMessage extends Message {
   /// [previewData] is ignored for this message type.
   /// [status] with null value will be overwritten by the previous status.
   /// [text] is ignored for this message type.
+  /// [updatedAt] with null value will nullify existing value.
   @override
   Message copyWith({
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     Status? status,
     String? text,
+    int? updatedAt,
   }) {
     return UnsupportedMessage(
       author: author,
@@ -79,6 +85,7 @@ class UnsupportedMessage extends Message {
             },
       roomId: roomId,
       status: status ?? this.status,
+      updatedAt: updatedAt,
     );
   }
 
@@ -91,5 +98,6 @@ class UnsupportedMessage extends Message {
         metadata,
         roomId,
         status,
+        updatedAt,
       ];
 }

@@ -42,6 +42,7 @@ abstract class Message extends Equatable {
     this.roomId,
     this.status,
     this.type,
+    this.updatedAt,
   );
 
   /// Creates a particular message from a map (decoded JSON).
@@ -71,11 +72,13 @@ abstract class Message extends Equatable {
   /// [status] with null value will be overwritten by the previous status.
   /// [text] will be only set for the text message type. Null value will be
   /// overwritten by the previous text (can't be empty).
+  /// [updatedAt] with null value will nullify existing value.
   Message copyWith({
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     Status? status,
     String? text,
+    int? updatedAt,
   });
 
   /// Converts a particular message to the map representation, encodable to JSON.
@@ -101,4 +104,7 @@ abstract class Message extends Equatable {
 
   /// [MessageType]
   final MessageType type;
+
+  /// Updated message timestamp, in ms
+  final int? updatedAt;
 }
