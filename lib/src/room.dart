@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'message.dart';
 import 'user.dart';
 import 'util.dart';
 
@@ -22,6 +23,7 @@ class Room extends Equatable {
     this.createdAt,
     required this.id,
     this.imageUrl,
+    this.lastMessages,
     this.metadata,
     this.name,
     required this.type,
@@ -33,6 +35,9 @@ class Room extends Equatable {
       : createdAt = json['createdAt'] as int?,
         id = json['id'] as String,
         imageUrl = json['imageUrl'] as String?,
+        lastMessages = (json['lastMessages'] as List<Map<String, dynamic>>)
+            .map((e) => Message.fromJson(e))
+            .toList(),
         metadata = json['metadata'] as Map<String, dynamic>?,
         name = json['name'] as String?,
         type = getRoomTypeFromString(json['type'] as String),
@@ -45,6 +50,7 @@ class Room extends Equatable {
         'createdAt': createdAt,
         'id': id,
         'imageUrl': imageUrl,
+        'lastMessages': lastMessages?.map((e) => e.toJson()).toList(),
         'metadata': metadata,
         'name': name,
         'type': type.toShortString(),
@@ -67,6 +73,7 @@ class Room extends Equatable {
     return Room(
       id: id,
       imageUrl: imageUrl,
+      lastMessages: lastMessages,
       metadata: metadata == null
           ? null
           : {
@@ -82,7 +89,7 @@ class Room extends Equatable {
   /// Equatable props
   @override
   List<Object?> get props =>
-      [createdAt, id, imageUrl, metadata, name, type, users];
+      [createdAt, id, imageUrl, lastMessages, metadata, name, type, users];
 
   /// Created room timestamp, in ms
   final int? createdAt;
@@ -93,6 +100,9 @@ class Room extends Equatable {
   /// Room's image. In case of the [RoomType.direct] - avatar of the second person,
   /// otherwise a custom image [RoomType.group].
   final String? imageUrl;
+
+  /// List of last messages this room has received
+  final List<Message>? lastMessages;
 
   /// [RoomType]
   final RoomType type;

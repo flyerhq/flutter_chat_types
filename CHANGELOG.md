@@ -1,3 +1,7 @@
+## 2.3.0
+
+- Add `lastMessages` to the room
+
 ## 2.2.0
 
 This release marks a major chat architecture overhaul based on a community feedback. In the future we don't expect such big changes in one release and will try to do backwards compatible code as much as possible.
