@@ -36,8 +36,8 @@ class Room extends Equatable {
       : createdAt = json['createdAt'] as int?,
         id = json['id'] as String,
         imageUrl = json['imageUrl'] as String?,
-        lastMessages = (json['lastMessages'] as List<Map<String, dynamic>>)
-            .map((e) => Message.fromJson(e))
+        lastMessages = (json['lastMessages'] as List<Map<String, dynamic>>?)
+            ?.map((e) => Message.fromJson(e))
             .toList(),
         metadata = json['metadata'] as Map<String, dynamic>?,
         name = json['name'] as String?,

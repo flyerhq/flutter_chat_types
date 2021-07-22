@@ -1,3 +1,7 @@
+## 2.4.1
+
+- Fix issue where `lastMessages` can be null
+
 ## 2.4.0
 
 - Add `updatedAt` to the message, room and user
