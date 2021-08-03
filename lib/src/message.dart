@@ -9,7 +9,7 @@ import 'preview_data.dart' show PreviewData;
 import 'user.dart' show User;
 
 /// All possible message types.
-enum MessageType { custom, file, image, text, unsupported }
+enum MessageType { custom, file, voice, image, text, unsupported }
 
 /// Extension with one [toShortString] method
 extension MessageTypeToShortString on MessageType {
