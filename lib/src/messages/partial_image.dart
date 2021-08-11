@@ -10,6 +10,7 @@ class PartialImage {
   /// message from a partial one.
   const PartialImage({
     this.height,
+    this.metadata,
     required this.name,
     required this.size,
     required this.uri,
@@ -19,6 +20,7 @@ class PartialImage {
   /// Creates a partial image message from a map (decoded JSON).
   PartialImage.fromJson(Map<String, dynamic> json)
       : height = json['height']?.toDouble() as double?,
+        metadata = json['metadata'] as Map<String, dynamic>?,
         name = json['name'] as String,
         size = json['size'].round() as int,
         uri = json['uri'] as String,
@@ -27,6 +29,7 @@ class PartialImage {
   /// Converts a partial image message to the map representation, encodable to JSON.
   Map<String, dynamic> toJson() => {
         'height': height,
+        'metadata': metadata,
         'name': name,
         'size': size,
         'uri': uri,
@@ -35,6 +38,9 @@ class PartialImage {
 
   /// Image height in pixels
   final double? height;
+
+  /// Additional custom metadata or attributes related to the message
+  final Map<String, dynamic>? metadata;
 
   /// The name of the image
   final String name;

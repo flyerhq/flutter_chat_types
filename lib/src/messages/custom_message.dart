@@ -1,3 +1,4 @@
+import 'package:flutter_chat_types/src/messages/partial_custom.dart';
 import 'package:meta/meta.dart';
 import '../message.dart';
 import '../preview_data.dart' show PreviewData;
@@ -25,6 +26,26 @@ class CustomMessage extends Message {
           roomId,
           status,
           MessageType.custom,
+          updatedAt,
+        );
+
+  /// Creates a full custom message from a partial one.
+  CustomMessage.fromPartial({
+    required User author,
+    int? createdAt,
+    required String id,
+    required PartialCustom partialCustom,
+    String? roomId,
+    Status? status,
+    int? updatedAt,
+  }) : super(
+          author,
+          createdAt,
+          id,
+          partialCustom.metadata,
+          roomId,
+          status,
+          MessageType.text,
           updatedAt,
         );
 

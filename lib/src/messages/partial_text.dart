@@ -9,17 +9,23 @@ class PartialText {
   /// You can use [TextMessage.fromPartial] constructor to create a full
   /// message from a partial one.
   const PartialText({
+    this.metadata,
     required this.text,
   });
 
   /// Creates a partial text message from a map (decoded JSON).
   PartialText.fromJson(Map<String, dynamic> json)
-      : text = json['text'] as String;
+      : metadata = json['metadata'] as Map<String, dynamic>?,
+        text = json['text'] as String;
 
   /// Converts a partial text message to the map representation, encodable to JSON.
   Map<String, dynamic> toJson() => {
+        'metadata': metadata,
         'text': text,
       };
+
+  /// Additional custom metadata or attributes related to the message
+  final Map<String, dynamic>? metadata;
 
   /// User's message
   final String text;
