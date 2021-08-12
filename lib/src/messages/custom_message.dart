@@ -3,6 +3,7 @@ import '../message.dart';
 import '../preview_data.dart' show PreviewData;
 import '../user.dart' show User;
 import '../util.dart' show getStatusFromString;
+import 'partial_custom.dart';
 
 /// A class that represents custom message. Use [metadata] to store anything
 /// you want.
@@ -25,6 +26,26 @@ class CustomMessage extends Message {
           roomId,
           status,
           MessageType.custom,
+          updatedAt,
+        );
+
+  /// Creates a full custom message from a partial one.
+  CustomMessage.fromPartial({
+    required User author,
+    int? createdAt,
+    required String id,
+    required PartialCustom partialCustom,
+    String? roomId,
+    Status? status,
+    int? updatedAt,
+  }) : super(
+          author,
+          createdAt,
+          id,
+          partialCustom.metadata,
+          roomId,
+          status,
+          MessageType.text,
           updatedAt,
         );
 
