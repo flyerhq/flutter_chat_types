@@ -1,3 +1,7 @@
+## 2.4.3
+
+- Export partial custom message
+
 ## 2.4.2
 
 - Add `metadata` to partial messages
