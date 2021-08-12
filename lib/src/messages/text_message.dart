@@ -39,7 +39,7 @@ class TextMessage extends Message {
     String? roomId,
     Status? status,
     int? updatedAt,
-  })  : previewData = null,
+  })  : previewData = partialText.previewData,
         text = partialText.text,
         super(
           author,
