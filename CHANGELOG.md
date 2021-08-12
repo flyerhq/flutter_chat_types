@@ -1,3 +1,8 @@
+## 2.4.2
+
+- Add `metadata` to partial messages
+- Add `previewData` to the partial text message
+
 ## 2.4.1
 
 - Fix issue where `lastMessages` can be null
