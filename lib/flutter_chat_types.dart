@@ -13,4 +13,3 @@ export 'src/messages/unsupported_message.dart';
 export 'src/preview_data.dart';
 export 'src/room.dart';
 export 'src/user.dart';
-export 'src/util.dart';

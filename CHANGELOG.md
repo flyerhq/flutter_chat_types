@@ -1,3 +1,7 @@
+## 3.0.0
+
+- Migrate to `json_serializable`
+
 ## 2.4.3
 
 - Export partial custom message

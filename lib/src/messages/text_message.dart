@@ -1,11 +1,14 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import '../message.dart';
 import '../preview_data.dart' show PreviewData;
 import '../user.dart' show User;
-import '../util.dart' show getStatusFromString;
 import 'partial_text.dart';
 
+part 'text_message.g.dart';
+
 /// A class that represents text message.
+@JsonSerializable(explicitToJson: true)
 @immutable
 class TextMessage extends Message {
   /// Creates a text message.
@@ -53,36 +56,12 @@ class TextMessage extends Message {
         );
 
   /// Creates a text message from a map (decoded JSON).
-  TextMessage.fromJson(Map<String, dynamic> json)
-      : previewData = json['previewData'] == null
-            ? null
-            : PreviewData.fromJson(json['previewData'] as Map<String, dynamic>),
-        text = json['text'] as String,
-        super(
-          User.fromJson(json['author'] as Map<String, dynamic>),
-          json['createdAt'] as int?,
-          json['id'] as String,
-          json['metadata'] as Map<String, dynamic>?,
-          json['roomId'] as String?,
-          getStatusFromString(json['status'] as String?),
-          MessageType.text,
-          json['updatedAt'] as int?,
-        );
+  factory TextMessage.fromJson(Map<String, dynamic> json) =>
+      _$TextMessageFromJson(json);
 
   /// Converts a text message to the map representation, encodable to JSON.
   @override
-  Map<String, dynamic> toJson() => {
-        'author': author.toJson(),
-        'createdAt': createdAt,
-        'id': id,
-        'metadata': metadata,
-        'previewData': previewData?.toJson(),
-        'roomId': roomId,
-        'status': status?.toShortString(),
-        'text': text,
-        'type': MessageType.text.toShortString(),
-        'updatedAt': updatedAt,
-      };
+  Map<String, dynamic> toJson() => _$TextMessageToJson(this);
 
   /// Creates a copy of the text message with an updated data
   /// [metadata] with null value will nullify existing metadata, otherwise

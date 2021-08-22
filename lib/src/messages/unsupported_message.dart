@@ -1,13 +1,16 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import '../message.dart';
 import '../preview_data.dart' show PreviewData;
 import '../user.dart' show User;
-import '../util.dart' show getStatusFromString;
+
+part 'unsupported_message.g.dart';
 
 /// A class that represents unsupported message. Used for backwards
 /// compatibility. If chat's end user doesn't update to a new version
 /// where new message types are being sent, some of them will result
 /// to unsupported.
+@JsonSerializable(explicitToJson: true)
 @immutable
 class UnsupportedMessage extends Message {
   /// Creates an unsupported message.
@@ -31,31 +34,13 @@ class UnsupportedMessage extends Message {
         );
 
   /// Creates an unsupported message from a map (decoded JSON).
-  UnsupportedMessage.fromJson(Map<String, dynamic> json)
-      : super(
-          User.fromJson(json['author'] as Map<String, dynamic>),
-          json['createdAt'] as int?,
-          json['id'] as String,
-          json['metadata'] as Map<String, dynamic>?,
-          json['roomId'] as String?,
-          getStatusFromString(json['status'] as String?),
-          MessageType.unsupported,
-          json['updatedAt'] as int?,
-        );
+  factory UnsupportedMessage.fromJson(Map<String, dynamic> json) =>
+      _$UnsupportedMessageFromJson(json);
 
   /// Converts an unsupported message to the map representation,
   /// encodable to JSON.
   @override
-  Map<String, dynamic> toJson() => {
-        'author': author.toJson(),
-        'createdAt': createdAt,
-        'id': id,
-        'metadata': metadata,
-        'roomId': roomId,
-        'status': status?.toShortString(),
-        'type': MessageType.unsupported.toShortString(),
-        'updatedAt': updatedAt,
-      };
+  Map<String, dynamic> toJson() => _$UnsupportedMessageToJson(this);
 
   /// Creates a copy of the unsupported message with an updated data.
   /// [metadata] with null value will nullify existing metadata, otherwise

@@ -1,11 +1,14 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import '../message.dart';
 import '../preview_data.dart' show PreviewData;
 import '../user.dart' show User;
-import '../util.dart' show getStatusFromString;
 import 'partial_image.dart';
 
+part 'image_message.g.dart';
+
 /// A class that represents image message.
+@JsonSerializable(explicitToJson: true)
 @immutable
 class ImageMessage extends Message {
   /// Creates an image message.
@@ -59,40 +62,12 @@ class ImageMessage extends Message {
         );
 
   /// Creates an image message from a map (decoded JSON).
-  ImageMessage.fromJson(Map<String, dynamic> json)
-      : height = json['height']?.toDouble() as double?,
-        name = json['name'] as String,
-        size = json['size'].round() as int,
-        uri = json['uri'] as String,
-        width = json['width']?.toDouble() as double?,
-        super(
-          User.fromJson(json['author'] as Map<String, dynamic>),
-          json['createdAt'] as int?,
-          json['id'] as String,
-          json['metadata'] as Map<String, dynamic>?,
-          json['roomId'] as String?,
-          getStatusFromString(json['status'] as String?),
-          MessageType.image,
-          json['updatedAt'] as int?,
-        );
+  factory ImageMessage.fromJson(Map<String, dynamic> json) =>
+      _$ImageMessageFromJson(json);
 
   /// Converts an image message to the map representation, encodable to JSON.
   @override
-  Map<String, dynamic> toJson() => {
-        'author': author.toJson(),
-        'createdAt': createdAt,
-        'height': height,
-        'id': id,
-        'metadata': metadata,
-        'name': name,
-        'roomId': roomId,
-        'size': size,
-        'status': status?.toShortString(),
-        'type': MessageType.image.toShortString(),
-        'updatedAt': updatedAt,
-        'uri': uri,
-        'width': width,
-      };
+  Map<String, dynamic> toJson() => _$ImageMessageToJson(this);
 
   /// Creates a copy of the image message with an updated data
   /// [metadata] with null value will nullify existing metadata, otherwise

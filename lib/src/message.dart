@@ -11,24 +11,8 @@ import 'user.dart' show User;
 /// All possible message types.
 enum MessageType { custom, file, image, text, unsupported }
 
-/// Extension with one [toShortString] method
-extension MessageTypeToShortString on MessageType {
-  /// Converts enum to the string equal to enum's name
-  String toShortString() {
-    return toString().split('.').last;
-  }
-}
-
 /// All possible statuses message can have.
 enum Status { delivered, error, seen, sending, sent }
-
-/// Extension with one [toShortString] method
-extension StatusToShortString on Status {
-  /// Converts enum to the string equal to enum's name
-  String toShortString() {
-    return toString().split('.').last;
-  }
-}
 
 /// An abstract class that contains all variables and methods
 /// every message will have.

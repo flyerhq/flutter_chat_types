@@ -1,7 +1,11 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'file_message.dart';
 
+part 'partial_file.g.dart';
+
 /// A class that represents partial file message.
+@JsonSerializable(explicitToJson: true)
 @immutable
 class PartialFile {
   /// Creates a partial file message with all variables file can have.
@@ -17,21 +21,11 @@ class PartialFile {
   });
 
   /// Creates a partial file message from a map (decoded JSON).
-  PartialFile.fromJson(Map<String, dynamic> json)
-      : metadata = json['metadata'] as Map<String, dynamic>?,
-        mimeType = json['mimeType'] as String?,
-        name = json['name'] as String,
-        size = json['size'].round() as int,
-        uri = json['uri'] as String;
+  factory PartialFile.fromJson(Map<String, dynamic> json) =>
+      _$PartialFileFromJson(json);
 
   /// Converts a partial file message to the map representation, encodable to JSON.
-  Map<String, dynamic> toJson() => {
-        'metadata': metadata,
-        'mimeType': mimeType,
-        'name': name,
-        'size': size,
-        'uri': uri,
-      };
+  Map<String, dynamic> toJson() => _$PartialFileToJson(this);
 
   /// Additional custom metadata or attributes related to the message
   final Map<String, dynamic>? metadata;
