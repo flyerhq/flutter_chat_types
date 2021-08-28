@@ -1,11 +1,14 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import '../message.dart';
 import '../preview_data.dart' show PreviewData;
 import '../user.dart' show User;
-import '../util.dart' show getStatusFromString;
 import 'partial_file.dart';
 
+part 'file_message.g.dart';
+
 /// A class that represents file message.
+@JsonSerializable(explicitToJson: true)
 @immutable
 class FileMessage extends Message {
   /// Creates a file message.
@@ -57,38 +60,12 @@ class FileMessage extends Message {
         );
 
   /// Creates a file message from a map (decoded JSON).
-  FileMessage.fromJson(Map<String, dynamic> json)
-      : mimeType = json['mimeType'] as String?,
-        name = json['name'] as String,
-        size = json['size'].round() as int,
-        uri = json['uri'] as String,
-        super(
-          User.fromJson(json['author'] as Map<String, dynamic>),
-          json['createdAt'] as int?,
-          json['id'] as String,
-          json['metadata'] as Map<String, dynamic>?,
-          json['roomId'] as String?,
-          getStatusFromString(json['status'] as String?),
-          MessageType.file,
-          json['updatedAt'] as int?,
-        );
+  factory FileMessage.fromJson(Map<String, dynamic> json) =>
+      _$FileMessageFromJson(json);
 
   /// Converts a file message to the map representation, encodable to JSON.
   @override
-  Map<String, dynamic> toJson() => {
-        'author': author.toJson(),
-        'createdAt': createdAt,
-        'id': id,
-        'metadata': metadata,
-        'mimeType': mimeType,
-        'name': name,
-        'roomId': roomId,
-        'size': size,
-        'status': status?.toShortString(),
-        'type': MessageType.file.toShortString(),
-        'updatedAt': updatedAt,
-        'uri': uri,
-      };
+  Map<String, dynamic> toJson() => _$FileMessageToJson(this);
 
   /// Creates a copy of the file message with an updated data.
   /// [metadata] with null value will nullify existing metadata, otherwise

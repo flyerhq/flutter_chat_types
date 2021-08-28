@@ -1,19 +1,14 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-import 'util.dart' show getRoleFromString;
+
+part 'user.g.dart';
 
 /// All possible roles user can have.
 enum Role { admin, agent, moderator, user }
 
-/// Extension with one [toShortString] method
-extension RoleToShortString on Role {
-  /// Converts enum to the string equal to enum's name
-  String toShortString() {
-    return toString().split('.').last;
-  }
-}
-
 /// A class that represents user.
+@JsonSerializable(explicitToJson: true)
 @immutable
 class User extends Equatable {
   /// Creates a user.
@@ -30,29 +25,10 @@ class User extends Equatable {
   });
 
   /// Creates user from a map (decoded JSON).
-  User.fromJson(Map<String, dynamic> json)
-      : createdAt = json['createdAt'] as int?,
-        firstName = json['firstName'] as String?,
-        id = json['id'] as String,
-        imageUrl = json['imageUrl'] as String?,
-        lastName = json['lastName'] as String?,
-        lastSeen = json['lastSeen'] as int?,
-        metadata = json['metadata'] as Map<String, dynamic>?,
-        role = getRoleFromString(json['role'] as String?),
-        updatedAt = json['updatedAt'] as int?;
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
   /// Converts user to the map representation, encodable to JSON.
-  Map<String, dynamic> toJson() => {
-        'createdAt': createdAt,
-        'firstName': firstName,
-        'id': id,
-        'imageUrl': imageUrl,
-        'lastName': lastName,
-        'lastSeen': lastSeen,
-        'metadata': metadata,
-        'role': role?.toShortString(),
-        'updatedAt': updatedAt,
-      };
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 
   /// Creates a copy of the user with an updated data.
   /// [firstName], [imageUrl], [lastName], [lastSeen], [role] and [updatedAt]

@@ -1,7 +1,11 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'image_message.dart';
 
+part 'partial_image.g.dart';
+
 /// A class that represents partial image message.
+@JsonSerializable(explicitToJson: true)
 @immutable
 class PartialImage {
   /// Creates a partial image message with all variables image can have.
@@ -18,23 +22,11 @@ class PartialImage {
   });
 
   /// Creates a partial image message from a map (decoded JSON).
-  PartialImage.fromJson(Map<String, dynamic> json)
-      : height = json['height']?.toDouble() as double?,
-        metadata = json['metadata'] as Map<String, dynamic>?,
-        name = json['name'] as String,
-        size = json['size'].round() as int,
-        uri = json['uri'] as String,
-        width = json['width']?.toDouble() as double?;
+  factory PartialImage.fromJson(Map<String, dynamic> json) =>
+      _$PartialImageFromJson(json);
 
   /// Converts a partial image message to the map representation, encodable to JSON.
-  Map<String, dynamic> toJson() => {
-        'height': height,
-        'metadata': metadata,
-        'name': name,
-        'size': size,
-        'uri': uri,
-        'width': width,
-      };
+  Map<String, dynamic> toJson() => _$PartialImageToJson(this);
 
   /// Image height in pixels
   final double? height;
