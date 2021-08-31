@@ -27,9 +27,9 @@ Map<String, dynamic> _$RoomToJson(Room instance) => <String, dynamic>{
       'id': instance.id,
       'imageUrl': instance.imageUrl,
       'lastMessages': instance.lastMessages?.map((e) => e.toJson()).toList(),
-      'type': _$RoomTypeEnumMap[instance.type],
       'metadata': instance.metadata,
       'name': instance.name,
+      'type': _$RoomTypeEnumMap[instance.type],
       'updatedAt': instance.updatedAt,
       'users': instance.users.map((e) => e.toJson()).toList(),
     };

@@ -22,6 +22,7 @@ class FileMessage extends Message {
     String? roomId,
     required this.size,
     Status? status,
+    MessageType? type,
     int? updatedAt,
     required this.uri,
   }) : super(
@@ -31,7 +32,7 @@ class FileMessage extends Message {
           metadata,
           roomId,
           status,
-          MessageType.file,
+          type ?? MessageType.file,
           updatedAt,
         );
 

@@ -17,6 +17,7 @@ TextMessage _$TextMessageFromJson(Map<String, dynamic> json) => TextMessage(
       roomId: json['roomId'] as String?,
       status: _$enumDecodeNullable(_$StatusEnumMap, json['status']),
       text: json['text'] as String,
+      type: _$enumDecodeNullable(_$MessageTypeEnumMap, json['type']),
       updatedAt: json['updatedAt'] as int?,
     );
 
@@ -28,6 +29,7 @@ Map<String, dynamic> _$TextMessageToJson(TextMessage instance) =>
       'metadata': instance.metadata,
       'roomId': instance.roomId,
       'status': _$StatusEnumMap[instance.status],
+      'type': _$MessageTypeEnumMap[instance.type],
       'updatedAt': instance.updatedAt,
       'previewData': instance.previewData?.toJson(),
       'text': instance.text,
@@ -76,4 +78,12 @@ const _$StatusEnumMap = {
   Status.seen: 'seen',
   Status.sending: 'sending',
   Status.sent: 'sent',
+};
+
+const _$MessageTypeEnumMap = {
+  MessageType.custom: 'custom',
+  MessageType.file: 'file',
+  MessageType.image: 'image',
+  MessageType.text: 'text',
+  MessageType.unsupported: 'unsupported',
 };

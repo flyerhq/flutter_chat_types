@@ -16,6 +16,7 @@ ImageMessage _$ImageMessageFromJson(Map<String, dynamic> json) => ImageMessage(
       roomId: json['roomId'] as String?,
       size: json['size'] as int,
       status: _$enumDecodeNullable(_$StatusEnumMap, json['status']),
+      type: _$enumDecodeNullable(_$MessageTypeEnumMap, json['type']),
       updatedAt: json['updatedAt'] as int?,
       uri: json['uri'] as String,
       width: (json['width'] as num?)?.toDouble(),
@@ -29,6 +30,7 @@ Map<String, dynamic> _$ImageMessageToJson(ImageMessage instance) =>
       'metadata': instance.metadata,
       'roomId': instance.roomId,
       'status': _$StatusEnumMap[instance.status],
+      'type': _$MessageTypeEnumMap[instance.type],
       'updatedAt': instance.updatedAt,
       'height': instance.height,
       'name': instance.name,
@@ -80,4 +82,12 @@ const _$StatusEnumMap = {
   Status.seen: 'seen',
   Status.sending: 'sending',
   Status.sent: 'sent',
+};
+
+const _$MessageTypeEnumMap = {
+  MessageType.custom: 'custom',
+  MessageType.file: 'file',
+  MessageType.image: 'image',
+  MessageType.text: 'text',
+  MessageType.unsupported: 'unsupported',
 };

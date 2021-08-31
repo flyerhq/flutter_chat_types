@@ -14,6 +14,7 @@ UnsupportedMessage _$UnsupportedMessageFromJson(Map<String, dynamic> json) =>
       metadata: json['metadata'] as Map<String, dynamic>?,
       roomId: json['roomId'] as String?,
       status: _$enumDecodeNullable(_$StatusEnumMap, json['status']),
+      type: _$enumDecodeNullable(_$MessageTypeEnumMap, json['type']),
       updatedAt: json['updatedAt'] as int?,
     );
 
@@ -25,6 +26,7 @@ Map<String, dynamic> _$UnsupportedMessageToJson(UnsupportedMessage instance) =>
       'metadata': instance.metadata,
       'roomId': instance.roomId,
       'status': _$StatusEnumMap[instance.status],
+      'type': _$MessageTypeEnumMap[instance.type],
       'updatedAt': instance.updatedAt,
     };
 
@@ -71,4 +73,12 @@ const _$StatusEnumMap = {
   Status.seen: 'seen',
   Status.sending: 'sending',
   Status.sent: 'sent',
+};
+
+const _$MessageTypeEnumMap = {
+  MessageType.custom: 'custom',
+  MessageType.file: 'file',
+  MessageType.image: 'image',
+  MessageType.text: 'text',
+  MessageType.unsupported: 'unsupported',
 };

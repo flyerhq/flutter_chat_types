@@ -90,15 +90,15 @@ class Room extends Equatable {
   /// List of last messages this room has received
   final List<Message>? lastMessages;
 
-  /// [RoomType]
-  final RoomType type;
-
   /// Additional custom metadata or attributes related to the room
   final Map<String, dynamic>? metadata;
 
   /// Room's name. In case of the [RoomType.direct] - name of the second person,
   /// otherwise a custom name [RoomType.group].
   final String? name;
+
+  /// [RoomType]
+  final RoomType type;
 
   /// Updated room timestamp, in ms
   final int? updatedAt;

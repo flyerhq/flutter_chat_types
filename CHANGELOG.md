@@ -1,3 +1,7 @@
+## 3.0.1
+
+- Fix missing `type`
+
 ## 3.0.0
 
 - Migrate to `json_serializable`

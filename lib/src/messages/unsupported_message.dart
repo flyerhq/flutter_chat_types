@@ -21,6 +21,7 @@ class UnsupportedMessage extends Message {
     Map<String, dynamic>? metadata,
     String? roomId,
     Status? status,
+    MessageType? type,
     int? updatedAt,
   }) : super(
           author,
@@ -29,7 +30,7 @@ class UnsupportedMessage extends Message {
           metadata,
           roomId,
           status,
-          MessageType.unsupported,
+          type ?? MessageType.unsupported,
           updatedAt,
         );
 

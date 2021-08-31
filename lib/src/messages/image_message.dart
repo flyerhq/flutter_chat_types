@@ -22,6 +22,7 @@ class ImageMessage extends Message {
     String? roomId,
     required this.size,
     Status? status,
+    MessageType? type,
     int? updatedAt,
     required this.uri,
     this.width,
@@ -32,7 +33,7 @@ class ImageMessage extends Message {
           metadata,
           roomId,
           status,
-          MessageType.image,
+          type ?? MessageType.image,
           updatedAt,
         );
 

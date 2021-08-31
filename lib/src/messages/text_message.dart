@@ -21,6 +21,7 @@ class TextMessage extends Message {
     String? roomId,
     Status? status,
     required this.text,
+    MessageType? type,
     int? updatedAt,
   }) : super(
           author,
@@ -29,7 +30,7 @@ class TextMessage extends Message {
           metadata,
           roomId,
           status,
-          MessageType.text,
+          type ?? MessageType.text,
           updatedAt,
         );
 

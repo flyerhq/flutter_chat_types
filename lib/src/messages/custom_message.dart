@@ -20,6 +20,7 @@ class CustomMessage extends Message {
     Map<String, dynamic>? metadata,
     String? roomId,
     Status? status,
+    MessageType? type,
     int? updatedAt,
   }) : super(
           author,
@@ -28,7 +29,7 @@ class CustomMessage extends Message {
           metadata,
           roomId,
           status,
-          MessageType.custom,
+          type ?? MessageType.custom,
           updatedAt,
         );
 
@@ -48,7 +49,7 @@ class CustomMessage extends Message {
           partialCustom.metadata,
           roomId,
           status,
-          MessageType.text,
+          MessageType.custom,
           updatedAt,
         );
 
