@@ -1,11 +1,15 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import '../message.dart';
 import '../preview_data.dart' show PreviewData;
 import '../user.dart' show User;
-import '../util.dart' show getStatusFromString;
+import 'partial_custom.dart';
+
+part 'custom_message.g.dart';
 
 /// A class that represents custom message. Use [metadata] to store anything
 /// you want.
+@JsonSerializable(explicitToJson: true)
 @immutable
 class CustomMessage extends Message {
   /// Creates a custom message.
@@ -16,6 +20,7 @@ class CustomMessage extends Message {
     Map<String, dynamic>? metadata,
     String? roomId,
     Status? status,
+    MessageType? type,
     int? updatedAt,
   }) : super(
           author,
@@ -24,36 +29,38 @@ class CustomMessage extends Message {
           metadata,
           roomId,
           status,
+          type ?? MessageType.custom,
+          updatedAt,
+        );
+
+  /// Creates a full custom message from a partial one.
+  CustomMessage.fromPartial({
+    required User author,
+    int? createdAt,
+    required String id,
+    required PartialCustom partialCustom,
+    String? roomId,
+    Status? status,
+    int? updatedAt,
+  }) : super(
+          author,
+          createdAt,
+          id,
+          partialCustom.metadata,
+          roomId,
+          status,
           MessageType.custom,
           updatedAt,
         );
 
   /// Creates a custom message from a map (decoded JSON).
-  CustomMessage.fromJson(Map<String, dynamic> json)
-      : super(
-          User.fromJson(json['author'] as Map<String, dynamic>),
-          json['createdAt'] as int?,
-          json['id'] as String,
-          json['metadata'] as Map<String, dynamic>?,
-          json['roomId'] as String?,
-          getStatusFromString(json['status'] as String?),
-          MessageType.custom,
-          json['updatedAt'] as int?,
-        );
+  factory CustomMessage.fromJson(Map<String, dynamic> json) =>
+      _$CustomMessageFromJson(json);
 
   /// Converts a custom message to the map representation,
   /// encodable to JSON.
   @override
-  Map<String, dynamic> toJson() => {
-        'author': author.toJson(),
-        'createdAt': createdAt,
-        'id': id,
-        'metadata': metadata,
-        'roomId': roomId,
-        'status': status?.toShortString(),
-        'type': MessageType.custom.toShortString(),
-        'updatedAt': updatedAt,
-      };
+  Map<String, dynamic> toJson() => _$CustomMessageToJson(this);
 
   /// Creates a copy of the custom message with an updated data.
   /// [metadata] with null value will nullify existing metadata, otherwise
