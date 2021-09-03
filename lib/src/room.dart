@@ -43,7 +43,7 @@ class Room extends Equatable {
         name = json['name'] as String?,
         type = getRoomTypeFromString(json['type'] as String),
         updatedAt = json['updatedAt'] as int?,
-        users = (json['users'] as List<Map<String, dynamic>>)
+        users = (json['users'] as List<dynamic>)
             .map((e) => User.fromJson(e))
             .toList();
 

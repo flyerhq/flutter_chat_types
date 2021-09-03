@@ -30,7 +30,7 @@ class User extends Equatable {
   });
 
   /// Creates user from a map (decoded JSON).
-  User.fromJson(Map<String, dynamic> json)
+  User.fromJson(dynamic json)
       : createdAt = json['createdAt'] as int?,
         firstName = json['firstName'] as String?,
         id = json['id'] as String,
