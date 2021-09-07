@@ -1,3 +1,4 @@
+import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:meta/meta.dart';
 import '../message.dart';
 import '../preview_data.dart' show PreviewData;
@@ -38,14 +39,14 @@ class VoiceMessage extends Message {
     int? createdAt,
     required String id,
     Map<String, dynamic>? metadata,
-    required PartialFile partialFile,
+    required PartialVoice partialVoice,
     String? roomId,
     Status? status,
     int? updatedAt,
-  })  : mimeType = partialFile.mimeType,
-        name = partialFile.name,
-        size = partialFile.size,
-        uri = partialFile.uri,
+  })  : mimeType = partialVoice.mimeType,
+        name = partialVoice.name,
+        size = partialVoice.size,
+        uri = partialVoice.uri,
         super(
           author,
           createdAt,
