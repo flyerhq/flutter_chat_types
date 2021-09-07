@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:meta/meta.dart';
 import 'messages/custom_message.dart';
 import 'messages/file_message.dart';
@@ -55,6 +56,8 @@ abstract class Message extends Equatable {
         return CustomMessage.fromJson(json);
       case 'file':
         return FileMessage.fromJson(json);
+      case 'voice':
+        return VoiceMessage.fromJson(json);
       case 'image':
         return ImageMessage.fromJson(json);
       case 'text':
