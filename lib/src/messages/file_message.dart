@@ -127,7 +127,7 @@ class FileMessage extends Message {
   final String name;
 
   /// Size of the file in bytes
-  final int size;
+  final num size;
 
   /// The file source (either a remote URL or a local resource)
   final String uri;

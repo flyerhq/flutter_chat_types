@@ -10,7 +10,7 @@ PartialImage _$PartialImageFromJson(Map<String, dynamic> json) => PartialImage(
       height: (json['height'] as num?)?.toDouble(),
       metadata: json['metadata'] as Map<String, dynamic>?,
       name: json['name'] as String,
-      size: json['size'] as int,
+      size: json['size'] as num,
       uri: json['uri'] as String,
       width: (json['width'] as num?)?.toDouble(),
     );

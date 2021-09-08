@@ -10,7 +10,7 @@ PartialFile _$PartialFileFromJson(Map<String, dynamic> json) => PartialFile(
       metadata: json['metadata'] as Map<String, dynamic>?,
       mimeType: json['mimeType'] as String?,
       name: json['name'] as String,
-      size: json['size'] as int,
+      size: json['size'] as num,
       uri: json['uri'] as String,
     );
 

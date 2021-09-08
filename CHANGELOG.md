@@ -1,3 +1,7 @@
+## 3.0.2
+
+- Use `num` instead of `int` for sizes
+
 ## 3.0.1
 
 - Fix missing `type`

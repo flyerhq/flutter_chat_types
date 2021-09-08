@@ -38,7 +38,7 @@ class PartialImage {
   final String name;
 
   /// Size of the image in bytes
-  final int size;
+  final num size;
 
   /// The image source (either a remote URL or a local resource)
   final String uri;

@@ -14,7 +14,7 @@ FileMessage _$FileMessageFromJson(Map<String, dynamic> json) => FileMessage(
       mimeType: json['mimeType'] as String?,
       name: json['name'] as String,
       roomId: json['roomId'] as String?,
-      size: json['size'] as int,
+      size: json['size'] as num,
       status: _$enumDecodeNullable(_$StatusEnumMap, json['status']),
       type: _$enumDecodeNullable(_$MessageTypeEnumMap, json['type']),
       updatedAt: json['updatedAt'] as int?,
