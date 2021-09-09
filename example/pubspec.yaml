@@ -1,6 +1,8 @@
 name: example
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: ">=2.12.0 <3.0.0"
 dependencies:
   flutter_chat_types:
     path: ..
+dev_dependencies:
+  flutter_lints: ^1.0.4

@@ -1,3 +1,7 @@
+## 3.1.0
+
+- Update to Flutter 2.5
+
 ## 3.0.2
 
 - Use `num` instead of `int` for sizes
