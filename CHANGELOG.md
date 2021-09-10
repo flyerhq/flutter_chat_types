@@ -1,3 +1,7 @@
+## 3.1.1
+
+- Revert `meta` upgrade, because `pub.dev` is analyzing code with an old Flutter version
+
 ## 3.1.0
 
 - Update to Flutter 2.5
