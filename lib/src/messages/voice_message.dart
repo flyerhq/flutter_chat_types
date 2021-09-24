@@ -4,7 +4,6 @@ import '../message.dart';
 import '../preview_data.dart' show PreviewData;
 import '../user.dart' show User;
 import '../util.dart' show getStatusFromString;
-import 'partial_file.dart';
 
 /// A class that represents file message.
 @immutable
@@ -22,6 +21,7 @@ class VoiceMessage extends Message {
     Status? status,
     int? updatedAt,
     required this.uri,
+    required this.duration,
   }) : super(
           author,
           createdAt,
@@ -47,6 +47,7 @@ class VoiceMessage extends Message {
         name = partialVoice.name,
         size = partialVoice.size,
         uri = partialVoice.uri,
+        duration = partialVoice.duration,
         super(
           author,
           createdAt,
@@ -64,6 +65,7 @@ class VoiceMessage extends Message {
         name = json['name'] as String,
         size = json['size'].round() as int,
         uri = json['uri'] as String,
+        duration = json['duration'] as Duration,
         super(
           User.fromJson(json['author'] as Map<String, dynamic>),
           json['createdAt'] as int?,
@@ -90,6 +92,7 @@ class VoiceMessage extends Message {
         'type': MessageType.voice.toShortString(),
         'updatedAt': updatedAt,
         'uri': uri,
+        'duration': duration,
       };
 
   /// Creates a copy of the file message with an updated data.
@@ -125,6 +128,7 @@ class VoiceMessage extends Message {
       status: status ?? this.status,
       updatedAt: updatedAt,
       uri: uri,
+      duration: duration,
     );
   }
 
@@ -142,6 +146,7 @@ class VoiceMessage extends Message {
         status,
         updatedAt,
         uri,
+        duration,
       ];
 
   /// Media type
@@ -155,4 +160,6 @@ class VoiceMessage extends Message {
 
   /// The file source (either a remote URL or a local resource)
   final String uri;
+
+  final Duration duration;
 }
