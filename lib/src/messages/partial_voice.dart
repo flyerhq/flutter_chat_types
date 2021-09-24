@@ -22,7 +22,7 @@ class PartialVoice {
         name = json['name'] as String,
         size = json['size'].round() as int,
         uri = json['uri'] as String,
-        duration = json['duration'] as Duration;
+        duration = json['duration'] as int;
 
   /// Converts a partial file message to the map representation, encodable to JSON.
   Map<String, dynamic> toJson() => {
@@ -45,5 +45,5 @@ class PartialVoice {
   /// The file source (either a remote URL or a local resource)
   final String uri;
 
-  final Duration duration;
+  final int duration;
 }

@@ -65,7 +65,7 @@ class VoiceMessage extends Message {
         name = json['name'] as String,
         size = json['size'].round() as int,
         uri = json['uri'] as String,
-        duration = json['duration'] as Duration,
+        duration = json['duration'] as int,
         super(
           User.fromJson(json['author'] as Map<String, dynamic>),
           json['createdAt'] as int?,
@@ -161,5 +161,5 @@ class VoiceMessage extends Message {
   /// The file source (either a remote URL or a local resource)
   final String uri;
 
-  final Duration duration;
+  final int duration;
 }
