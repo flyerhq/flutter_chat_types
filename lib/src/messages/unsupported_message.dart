@@ -50,9 +50,10 @@ class UnsupportedMessage extends Message {
   /// both metadatas will be merged into one Map, where keys from a passed
   /// metadata will overwite keys from the previous one.
   /// [previewData] is ignored for this message type.
+  /// [remoteId] and [updatedAt] with null values will nullify existing value.
   /// [status] with null value will be overwritten by the previous status.
   /// [text] is ignored for this message type.
-  /// [remoteId] and [updatedAt] with null value will nullify existing value.
+  /// [uri] is ignored for this message type.
   @override
   Message copyWith({
     Map<String, dynamic>? metadata,
@@ -61,6 +62,7 @@ class UnsupportedMessage extends Message {
     Status? status,
     String? text,
     int? updatedAt,
+    String? uri,
   }) {
     return UnsupportedMessage(
       author: author,
@@ -86,6 +88,7 @@ class UnsupportedMessage extends Message {
         createdAt,
         id,
         metadata,
+        remoteId,
         roomId,
         status,
         updatedAt,

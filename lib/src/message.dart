@@ -57,7 +57,9 @@ abstract class Message extends Equatable {
   /// [status] with null value will be overwritten by the previous status.
   /// [text] will be only set for the text message type. Null value will be
   /// overwritten by the previous text (can't be empty).
-  /// [remoteId] and [updatedAt] with null value will nullify existing value.
+  /// [remoteId] and [updatedAt] with null values will nullify existing value.
+  /// [uri] will be only set for file and image message types. Null value
+  /// will be overwritten by the previous value (uri can't be empty).
   Message copyWith({
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
@@ -65,6 +67,7 @@ abstract class Message extends Equatable {
     Status? status,
     String? text,
     int? updatedAt,
+    String? uri,
   });
 
   /// Converts a particular message to the map representation, encodable to JSON.

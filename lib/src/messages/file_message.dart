@@ -77,9 +77,9 @@ class FileMessage extends Message {
   /// both metadatas will be merged into one Map, where keys from a passed
   /// metadata will overwite keys from the previous one.
   /// [previewData] is ignored for this message type.
-  /// [status] with null value will be overwritten by the previous status.
+  /// [remoteId] and [updatedAt] with null values will nullify existing value.
+  /// [status] and [uri] with null values will be overwritten by previous values.
   /// [text] is ignored for this message type.
-  /// [remoteId] and [updatedAt] with null value will nullify existing value.
   @override
   Message copyWith({
     Map<String, dynamic>? metadata,
@@ -88,6 +88,7 @@ class FileMessage extends Message {
     Status? status,
     String? text,
     int? updatedAt,
+    String? uri,
   }) {
     return FileMessage(
       author: author,
@@ -106,7 +107,7 @@ class FileMessage extends Message {
       size: size,
       status: status ?? this.status,
       updatedAt: updatedAt,
-      uri: uri,
+      uri: uri ?? this.uri,
     );
   }
 
@@ -119,6 +120,7 @@ class FileMessage extends Message {
         metadata,
         mimeType,
         name,
+        remoteId,
         roomId,
         size,
         status,

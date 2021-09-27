@@ -1,3 +1,7 @@
+## 3.1.4
+
+- Add `remoteId` to equatable props
+
 ## 3.1.3
 
 - Add `remoteId` message property

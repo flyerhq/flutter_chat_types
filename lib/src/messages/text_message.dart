@@ -72,8 +72,9 @@ class TextMessage extends Message {
   /// [metadata] with null value will nullify existing metadata, otherwise
   /// both metadatas will be merged into one Map, where keys from a passed
   /// metadata will overwite keys from the previous one.
-  /// [status] with null value will be overwritten by the previous status.
-  /// [remoteId] and [updatedAt] with null value will nullify existing value.
+  /// [remoteId] and [updatedAt] with null values will nullify existing value.
+  /// [status] and [text] with null values will be overwritten by previous values.
+  /// [uri] is ignored for this message type.
   @override
   Message copyWith({
     Map<String, dynamic>? metadata,
@@ -82,6 +83,7 @@ class TextMessage extends Message {
     Status? status,
     String? text,
     int? updatedAt,
+    String? uri,
   }) {
     return TextMessage(
       author: author,
@@ -110,6 +112,7 @@ class TextMessage extends Message {
         id,
         metadata,
         previewData,
+        remoteId,
         roomId,
         status,
         text,

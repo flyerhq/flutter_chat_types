@@ -79,9 +79,9 @@ class ImageMessage extends Message {
   /// both metadatas will be merged into one Map, where keys from a passed
   /// metadata will overwite keys from the previous one.
   /// [previewData] is ignored for this message type.
-  /// [status] with null value will be overwritten by the previous status.
+  /// [remoteId] and [updatedAt] with null values will nullify existing value.
+  /// [status] and [uri] with null values will be overwritten by previous values.
   /// [text] is ignored for this message type.
-  /// [remoteId] and [updatedAt] with null value will nullify existing value.
   @override
   Message copyWith({
     Map<String, dynamic>? metadata,
@@ -90,25 +90,26 @@ class ImageMessage extends Message {
     Status? status,
     String? text,
     int? updatedAt,
+    String? uri,
   }) {
     return ImageMessage(
       author: author,
       createdAt: createdAt,
       height: height,
       id: id,
-      name: name,
       metadata: metadata == null
           ? null
           : {
               ...this.metadata ?? {},
               ...metadata,
             },
+      name: name,
       remoteId: remoteId,
       roomId: roomId,
       size: size,
       status: status ?? this.status,
       updatedAt: updatedAt,
-      uri: uri,
+      uri: uri ?? this.uri,
       width: width,
     );
   }
@@ -122,6 +123,7 @@ class ImageMessage extends Message {
         id,
         metadata,
         name,
+        remoteId,
         roomId,
         size,
         status,
