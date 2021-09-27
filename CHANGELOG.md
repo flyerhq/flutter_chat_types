@@ -1,3 +1,7 @@
+## 3.1.3
+
+- Add `remoteId` message property
+
 ## 3.1.2
 
 - Additionally, revert `json_annotation` upgrade

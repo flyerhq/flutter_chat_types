@@ -14,6 +14,7 @@ TextMessage _$TextMessageFromJson(Map<String, dynamic> json) => TextMessage(
       previewData: json['previewData'] == null
           ? null
           : PreviewData.fromJson(json['previewData'] as Map<String, dynamic>),
+      remoteId: json['remoteId'] as String?,
       roomId: json['roomId'] as String?,
       status: _$enumDecodeNullable(_$StatusEnumMap, json['status']),
       text: json['text'] as String,
@@ -27,6 +28,7 @@ Map<String, dynamic> _$TextMessageToJson(TextMessage instance) =>
       'createdAt': instance.createdAt,
       'id': instance.id,
       'metadata': instance.metadata,
+      'remoteId': instance.remoteId,
       'roomId': instance.roomId,
       'status': _$StatusEnumMap[instance.status],
       'type': _$MessageTypeEnumMap[instance.type],

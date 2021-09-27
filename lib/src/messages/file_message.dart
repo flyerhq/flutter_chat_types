@@ -19,6 +19,7 @@ class FileMessage extends Message {
     Map<String, dynamic>? metadata,
     this.mimeType,
     required this.name,
+    String? remoteId,
     String? roomId,
     required this.size,
     Status? status,
@@ -30,6 +31,7 @@ class FileMessage extends Message {
           createdAt,
           id,
           metadata,
+          remoteId,
           roomId,
           status,
           type ?? MessageType.file,
@@ -42,6 +44,7 @@ class FileMessage extends Message {
     int? createdAt,
     required String id,
     required PartialFile partialFile,
+    String? remoteId,
     String? roomId,
     Status? status,
     int? updatedAt,
@@ -54,6 +57,7 @@ class FileMessage extends Message {
           createdAt,
           id,
           partialFile.metadata,
+          remoteId,
           roomId,
           status,
           MessageType.file,
@@ -75,11 +79,12 @@ class FileMessage extends Message {
   /// [previewData] is ignored for this message type.
   /// [status] with null value will be overwritten by the previous status.
   /// [text] is ignored for this message type.
-  /// [updatedAt] with null value will nullify existing value.
+  /// [remoteId] and [updatedAt] with null value will nullify existing value.
   @override
   Message copyWith({
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
+    String? remoteId,
     Status? status,
     String? text,
     int? updatedAt,
@@ -96,6 +101,7 @@ class FileMessage extends Message {
             },
       mimeType: mimeType,
       name: name,
+      remoteId: remoteId,
       roomId: roomId,
       size: size,
       status: status ?? this.status,

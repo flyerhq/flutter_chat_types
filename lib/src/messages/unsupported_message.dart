@@ -19,6 +19,7 @@ class UnsupportedMessage extends Message {
     int? createdAt,
     required String id,
     Map<String, dynamic>? metadata,
+    String? remoteId,
     String? roomId,
     Status? status,
     MessageType? type,
@@ -28,6 +29,7 @@ class UnsupportedMessage extends Message {
           createdAt,
           id,
           metadata,
+          remoteId,
           roomId,
           status,
           type ?? MessageType.unsupported,
@@ -50,11 +52,12 @@ class UnsupportedMessage extends Message {
   /// [previewData] is ignored for this message type.
   /// [status] with null value will be overwritten by the previous status.
   /// [text] is ignored for this message type.
-  /// [updatedAt] with null value will nullify existing value.
+  /// [remoteId] and [updatedAt] with null value will nullify existing value.
   @override
   Message copyWith({
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
+    String? remoteId,
     Status? status,
     String? text,
     int? updatedAt,
@@ -69,6 +72,7 @@ class UnsupportedMessage extends Message {
               ...this.metadata ?? {},
               ...metadata,
             },
+      remoteId: remoteId,
       roomId: roomId,
       status: status ?? this.status,
       updatedAt: updatedAt,

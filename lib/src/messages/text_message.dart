@@ -18,6 +18,7 @@ class TextMessage extends Message {
     required String id,
     Map<String, dynamic>? metadata,
     this.previewData,
+    String? remoteId,
     String? roomId,
     Status? status,
     required this.text,
@@ -28,6 +29,7 @@ class TextMessage extends Message {
           createdAt,
           id,
           metadata,
+          remoteId,
           roomId,
           status,
           type ?? MessageType.text,
@@ -40,6 +42,7 @@ class TextMessage extends Message {
     int? createdAt,
     required String id,
     required PartialText partialText,
+    String? remoteId,
     String? roomId,
     Status? status,
     int? updatedAt,
@@ -50,6 +53,7 @@ class TextMessage extends Message {
           createdAt,
           id,
           partialText.metadata,
+          remoteId,
           roomId,
           status,
           MessageType.text,
@@ -69,11 +73,12 @@ class TextMessage extends Message {
   /// both metadatas will be merged into one Map, where keys from a passed
   /// metadata will overwite keys from the previous one.
   /// [status] with null value will be overwritten by the previous status.
-  /// [updatedAt] with null value will nullify existing value.
+  /// [remoteId] and [updatedAt] with null value will nullify existing value.
   @override
   Message copyWith({
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
+    String? remoteId,
     Status? status,
     String? text,
     int? updatedAt,
@@ -89,6 +94,7 @@ class TextMessage extends Message {
               ...metadata,
             },
       previewData: previewData,
+      remoteId: remoteId,
       roomId: roomId,
       status: status ?? this.status,
       text: text ?? this.text,

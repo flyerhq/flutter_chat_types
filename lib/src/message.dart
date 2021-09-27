@@ -23,6 +23,7 @@ abstract class Message extends Equatable {
     this.createdAt,
     this.id,
     this.metadata,
+    this.remoteId,
     this.roomId,
     this.status,
     this.type,
@@ -56,10 +57,11 @@ abstract class Message extends Equatable {
   /// [status] with null value will be overwritten by the previous status.
   /// [text] will be only set for the text message type. Null value will be
   /// overwritten by the previous text (can't be empty).
-  /// [updatedAt] with null value will nullify existing value.
+  /// [remoteId] and [updatedAt] with null value will nullify existing value.
   Message copyWith({
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
+    String? remoteId,
     Status? status,
     String? text,
     int? updatedAt,
@@ -79,6 +81,9 @@ abstract class Message extends Equatable {
 
   /// Additional custom metadata or attributes related to the message
   final Map<String, dynamic>? metadata;
+
+  /// Unique ID of the message received from the backend
+  final String? remoteId;
 
   /// ID of the room where this message is sent
   final String? roomId;
