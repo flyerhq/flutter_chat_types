@@ -47,7 +47,7 @@ class Room extends Equatable {
         users = (json['users'] as List<dynamic>)
             .map((e) => User.fromJson(e))
             .toList(),
-        userIds = (json['userIds'] as List<String>)
+        userIds = (json['userIds'] as List<dynamic>)
             .map((e) => e)
             .toList();
 
