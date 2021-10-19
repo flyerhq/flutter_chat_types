@@ -29,6 +29,7 @@ class Room extends Equatable {
     required this.type,
     this.updatedAt,
     required this.users,
+    required this.userIds
   });
 
   /// Creates room from a map (decoded JSON).
@@ -45,6 +46,9 @@ class Room extends Equatable {
         updatedAt = json['updatedAt'] as int?,
         users = (json['users'] as List<dynamic>)
             .map((e) => User.fromJson(e))
+            .toList(),
+        userIds = (json['userIds'] as List<String>)
+            .map((e) => e)
             .toList();
 
   /// Converts room to the map representation, encodable to JSON.
@@ -58,6 +62,7 @@ class Room extends Equatable {
         'type': type.toShortString(),
         'updatedAt': updatedAt,
         'users': users.map((e) => e.toJson()).toList(),
+        'userIds': userIds.map((e) => e).toList(),
       };
 
   /// Creates a copy of the room with an updated data.
@@ -73,6 +78,7 @@ class Room extends Equatable {
     RoomType? type,
     int? updatedAt,
     List<User>? users,
+    List<String>? userIds,
   }) {
     return Room(
       id: id,
@@ -88,6 +94,7 @@ class Room extends Equatable {
       type: type ?? this.type,
       updatedAt: updatedAt,
       users: users ?? this.users,
+      userIds: userIds ?? this.userIds,
     );
   }
 
@@ -102,7 +109,8 @@ class Room extends Equatable {
         name,
         type,
         updatedAt,
-        users
+        users,
+        userIds
       ];
 
   /// Created room timestamp, in ms
@@ -133,4 +141,6 @@ class Room extends Equatable {
 
   /// List of users which are in the room
   final List<User> users;
+
+  final List<dynamic> userIds;
 }
