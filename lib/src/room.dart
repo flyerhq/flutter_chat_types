@@ -7,7 +7,7 @@ import 'user.dart';
 part 'room.g.dart';
 
 /// All possible room types
-enum RoomType { channel, direct, group, unsupported }
+enum RoomType { channel, direct, group }
 
 /// A class that represents a room where 2 or more participants can chat
 @JsonSerializable(explicitToJson: true)
@@ -98,7 +98,7 @@ class Room extends Equatable {
   final String? name;
 
   /// [RoomType]
-  final RoomType type;
+  final RoomType? type;
 
   /// Updated room timestamp, in ms
   final int? updatedAt;

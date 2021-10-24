@@ -1,3 +1,8 @@
+## 3.2.0
+
+- Update dependencies
+- Remove `unsupported` room type
+
 ## 3.1.4
 
 - Add `remoteId` to equatable props
