@@ -5,6 +5,7 @@ description: >
 version: 3.2.0
 homepage: https://flyer.chat
 repository: https://github.com/flyerhq/flutter_chat_types
+publish_to: none
 
 environment:
   sdk: ">=2.14.0 <3.0.0"
