@@ -90,7 +90,7 @@ class CustomMessage extends Message {
       createdAt: createdAt,
       id: id,
       metadata: metadata == null
-          ? null
+          ? this.metadata
           : {
               ...this.metadata ?? {},
               ...metadata,
