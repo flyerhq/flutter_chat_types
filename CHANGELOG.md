@@ -1,3 +1,7 @@
+## 3.2.2
+
+- Update dependencies. Requires Dart >= 2.15.1.
+
 ## 3.2.1
 
 - Update dependencies
