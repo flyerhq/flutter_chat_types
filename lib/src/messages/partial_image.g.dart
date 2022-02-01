@@ -15,12 +15,20 @@ PartialImage _$PartialImageFromJson(Map<String, dynamic> json) => PartialImage(
       width: (json['width'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$PartialImageToJson(PartialImage instance) =>
-    <String, dynamic>{
-      'height': instance.height,
-      'metadata': instance.metadata,
-      'name': instance.name,
-      'size': instance.size,
-      'uri': instance.uri,
-      'width': instance.width,
-    };
+Map<String, dynamic> _$PartialImageToJson(PartialImage instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('height', instance.height);
+  writeNotNull('metadata', instance.metadata);
+  val['name'] = instance.name;
+  val['size'] = instance.size;
+  val['uri'] = instance.uri;
+  writeNotNull('width', instance.width);
+  return val;
+}
