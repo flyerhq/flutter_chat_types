@@ -9,7 +9,7 @@ part 'custom_message.g.dart';
 
 /// A class that represents custom message. Use [metadata] to store anything
 /// you want.
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 @immutable
 class CustomMessage extends Message {
   /// Creates a custom message.

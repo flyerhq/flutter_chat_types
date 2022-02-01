@@ -7,7 +7,7 @@ part 'preview_data.g.dart';
 /// A class that represents data obtained from the web resource (link preview).
 ///
 /// See https://github.com/flyerhq/flutter_link_previewer
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 @immutable
 class PreviewData extends Equatable {
   /// Creates preview data.
@@ -62,7 +62,7 @@ class PreviewData extends Equatable {
 /// alongside the url.
 ///
 /// See https://github.com/flyerhq/flutter_link_previewer
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 @immutable
 class PreviewDataImage extends Equatable {
   /// Creates preview data image.

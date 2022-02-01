@@ -10,7 +10,7 @@ part 'unsupported_message.g.dart';
 /// compatibility. If chat's end user doesn't update to a new version
 /// where new message types are being sent, some of them will result
 /// to unsupported.
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 @immutable
 class UnsupportedMessage extends Message {
   /// Creates an unsupported message.

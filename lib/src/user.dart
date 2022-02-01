@@ -8,7 +8,7 @@ part 'user.g.dart';
 enum Role { admin, agent, moderator, user }
 
 /// A class that represents user.
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 @immutable
 class User extends Equatable {
   /// Creates a user.
