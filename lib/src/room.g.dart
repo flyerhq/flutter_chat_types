@@ -22,17 +22,27 @@ Room _$RoomFromJson(Map<String, dynamic> json) => Room(
           .toList(),
     );
 
-Map<String, dynamic> _$RoomToJson(Room instance) => <String, dynamic>{
-      'createdAt': instance.createdAt,
-      'id': instance.id,
-      'imageUrl': instance.imageUrl,
-      'lastMessages': instance.lastMessages?.map((e) => e.toJson()).toList(),
-      'metadata': instance.metadata,
-      'name': instance.name,
-      'type': _$RoomTypeEnumMap[instance.type],
-      'updatedAt': instance.updatedAt,
-      'users': instance.users.map((e) => e.toJson()).toList(),
-    };
+Map<String, dynamic> _$RoomToJson(Room instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createdAt', instance.createdAt);
+  val['id'] = instance.id;
+  writeNotNull('imageUrl', instance.imageUrl);
+  writeNotNull(
+      'lastMessages', instance.lastMessages?.map((e) => e.toJson()).toList());
+  writeNotNull('metadata', instance.metadata);
+  writeNotNull('name', instance.name);
+  writeNotNull('type', _$RoomTypeEnumMap[instance.type]);
+  writeNotNull('updatedAt', instance.updatedAt);
+  val['users'] = instance.users.map((e) => e.toJson()).toList();
+  return val;
+}
 
 const _$RoomTypeEnumMap = {
   RoomType.channel: 'channel',

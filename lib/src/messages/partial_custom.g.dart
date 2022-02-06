@@ -11,7 +11,15 @@ PartialCustom _$PartialCustomFromJson(Map<String, dynamic> json) =>
       metadata: json['metadata'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$PartialCustomToJson(PartialCustom instance) =>
-    <String, dynamic>{
-      'metadata': instance.metadata,
-    };
+Map<String, dynamic> _$PartialCustomToJson(PartialCustom instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('metadata', instance.metadata);
+  return val;
+}

@@ -10,7 +10,7 @@ part 'room.g.dart';
 enum RoomType { channel, direct, group }
 
 /// A class that represents a room where 2 or more participants can chat
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 @immutable
 class Room extends Equatable {
   /// Creates a [Room]

@@ -15,13 +15,21 @@ PreviewData _$PreviewDataFromJson(Map<String, dynamic> json) => PreviewData(
       title: json['title'] as String?,
     );
 
-Map<String, dynamic> _$PreviewDataToJson(PreviewData instance) =>
-    <String, dynamic>{
-      'description': instance.description,
-      'image': instance.image?.toJson(),
-      'link': instance.link,
-      'title': instance.title,
-    };
+Map<String, dynamic> _$PreviewDataToJson(PreviewData instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image?.toJson());
+  writeNotNull('link', instance.link);
+  writeNotNull('title', instance.title);
+  return val;
+}
 
 PreviewDataImage _$PreviewDataImageFromJson(Map<String, dynamic> json) =>
     PreviewDataImage(

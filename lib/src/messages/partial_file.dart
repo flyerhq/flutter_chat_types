@@ -5,7 +5,7 @@ import 'file_message.dart';
 part 'partial_file.g.dart';
 
 /// A class that represents partial file message.
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 @immutable
 class PartialFile {
   /// Creates a partial file message with all variables file can have.

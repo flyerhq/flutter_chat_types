@@ -14,11 +14,19 @@ PartialFile _$PartialFileFromJson(Map<String, dynamic> json) => PartialFile(
       uri: json['uri'] as String,
     );
 
-Map<String, dynamic> _$PartialFileToJson(PartialFile instance) =>
-    <String, dynamic>{
-      'metadata': instance.metadata,
-      'mimeType': instance.mimeType,
-      'name': instance.name,
-      'size': instance.size,
-      'uri': instance.uri,
-    };
+Map<String, dynamic> _$PartialFileToJson(PartialFile instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('metadata', instance.metadata);
+  writeNotNull('mimeType', instance.mimeType);
+  val['name'] = instance.name;
+  val['size'] = instance.size;
+  val['uri'] = instance.uri;
+  return val;
+}
