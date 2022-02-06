@@ -1,3 +1,8 @@
+## 3.3.0
+
+- Do not include null values in JSON. Thanks @felixgabler for the PR!
+- Update to Flutter 2.10
+
 ## 3.2.2
 
 - Update dependencies. Requires Dart >= 2.15.1.
