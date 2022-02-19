@@ -26,6 +26,7 @@ class FileMessage extends Message {
     MessageType? type,
     int? updatedAt,
     required this.uri,
+    bool showStatus = true,
   }) : super(
           author,
           createdAt,
@@ -48,6 +49,7 @@ class FileMessage extends Message {
     String? roomId,
     Status? status,
     int? updatedAt,
+    bool showStatus = true,
   })  : mimeType = partialFile.mimeType,
         name = partialFile.name,
         size = partialFile.size,
@@ -62,6 +64,7 @@ class FileMessage extends Message {
           status,
           MessageType.file,
           updatedAt,
+          showStatus:showStatus,
         );
 
   /// Creates a file message from a map (decoded JSON).
@@ -86,6 +89,7 @@ class FileMessage extends Message {
     PreviewData? previewData,
     String? remoteId,
     Status? status,
+    bool? showStatus,
     String? text,
     int? updatedAt,
     String? uri,
@@ -106,6 +110,7 @@ class FileMessage extends Message {
       roomId: roomId,
       size: size,
       status: status ?? this.status,
+      showStatus: showStatus?? this.showStatus,
       updatedAt: updatedAt,
       uri: uri ?? this.uri,
     );

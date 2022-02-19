@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+
 import '../message.dart';
 import '../preview_data.dart' show PreviewData;
 import '../user.dart' show User;
@@ -24,6 +25,7 @@ class UnsupportedMessage extends Message {
     Status? status,
     MessageType? type,
     int? updatedAt,
+    bool showStatus = true,
   }) : super(
           author,
           createdAt,
@@ -34,6 +36,7 @@ class UnsupportedMessage extends Message {
           status,
           type ?? MessageType.unsupported,
           updatedAt,
+          showStatus: showStatus,
         );
 
   /// Creates an unsupported message from a map (decoded JSON).
@@ -60,6 +63,7 @@ class UnsupportedMessage extends Message {
     PreviewData? previewData,
     String? remoteId,
     Status? status,
+    bool? showStatus,
     String? text,
     int? updatedAt,
     String? uri,
@@ -77,6 +81,7 @@ class UnsupportedMessage extends Message {
       remoteId: remoteId,
       roomId: roomId,
       status: status ?? this.status,
+      showStatus: showStatus ?? this.showStatus,
       updatedAt: updatedAt,
     );
   }

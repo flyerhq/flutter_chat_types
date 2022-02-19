@@ -67,6 +67,7 @@ abstract class Message extends Equatable {
     PreviewData? previewData,
     String? remoteId,
     Status? status,
+    bool? showStatus,
     String? text,
     int? updatedAt,
     String? uri,
