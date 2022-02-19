@@ -65,7 +65,6 @@ abstract class Message extends Equatable {
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     String? remoteId,
-    Message? repliedMessage,
     Status? status,
     String? text,
     int? updatedAt,
@@ -90,7 +89,7 @@ abstract class Message extends Equatable {
   /// Unique ID of the message received from the backend
   final String? remoteId;
 
-  /// Message that is being replied with current message
+  /// Message that is being replied to with the current message
   final Message? repliedMessage;
 
   /// ID of the room where this message is sent

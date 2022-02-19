@@ -89,7 +89,6 @@ class FileMessage extends Message {
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     String? remoteId,
-    Message? repliedMessage,
     Status? status,
     String? text,
     int? updatedAt,

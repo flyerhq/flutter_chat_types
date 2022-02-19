@@ -14,6 +14,9 @@ ImageMessage _$ImageMessageFromJson(Map<String, dynamic> json) => ImageMessage(
       metadata: json['metadata'] as Map<String, dynamic>?,
       name: json['name'] as String,
       remoteId: json['remoteId'] as String?,
+      repliedMessage: json['repliedMessage'] == null
+          ? null
+          : Message.fromJson(json['repliedMessage'] as Map<String, dynamic>),
       roomId: json['roomId'] as String?,
       size: json['size'] as num,
       status: $enumDecodeNullable(_$StatusEnumMap, json['status']),
@@ -38,6 +41,7 @@ Map<String, dynamic> _$ImageMessageToJson(ImageMessage instance) {
   val['id'] = instance.id;
   writeNotNull('metadata', instance.metadata);
   writeNotNull('remoteId', instance.remoteId);
+  writeNotNull('repliedMessage', instance.repliedMessage?.toJson());
   writeNotNull('roomId', instance.roomId);
   writeNotNull('status', _$StatusEnumMap[instance.status]);
   val['type'] = _$MessageTypeEnumMap[instance.type];
