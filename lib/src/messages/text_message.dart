@@ -21,11 +21,11 @@ class TextMessage extends Message {
     String? remoteId,
     Message? repliedMessage,
     String? roomId,
+    bool? showStatus,
     Status? status,
     required this.text,
     MessageType? type,
     int? updatedAt,
-    bool showStatus = true,
   }) : super(
           author,
           createdAt,
@@ -34,10 +34,10 @@ class TextMessage extends Message {
           remoteId,
           repliedMessage,
           roomId,
+          showStatus,
           status,
           type ?? MessageType.text,
           updatedAt,
-          showStatus: showStatus,
         );
 
   /// Creates a full text message from a partial one.
@@ -49,6 +49,7 @@ class TextMessage extends Message {
     String? remoteId,
     Message? repliedMessage,
     String? roomId,
+    bool? showStatus,
     Status? status,
     int? updatedAt,
   })  : previewData = partialText.previewData,
@@ -61,6 +62,7 @@ class TextMessage extends Message {
           remoteId,
           repliedMessage,
           roomId,
+          showStatus,
           status,
           MessageType.text,
           updatedAt,
@@ -78,7 +80,7 @@ class TextMessage extends Message {
   /// [metadata] with null value will nullify existing metadata, otherwise
   /// both metadatas will be merged into one Map, where keys from a passed
   /// metadata will overwite keys from the previous one.
-  /// [remoteId] and [updatedAt] with null values will nullify existing value.
+  /// [previewData], [remoteId], [showStatus] and [updatedAt] with null values will nullify existing value.
   /// [status] and [text] with null values will be overwritten by previous values.
   /// [uri] is ignored for this message type.
   @override
@@ -86,8 +88,8 @@ class TextMessage extends Message {
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     String? remoteId,
-    Status? status,
     bool? showStatus,
+    Status? status,
     String? text,
     int? updatedAt,
     String? uri,
@@ -106,8 +108,8 @@ class TextMessage extends Message {
       remoteId: remoteId,
       repliedMessage: repliedMessage,
       roomId: roomId,
+      showStatus: showStatus,
       status: status ?? this.status,
-      showStatus: showStatus ?? this.showStatus,
       text: text ?? this.text,
       updatedAt: updatedAt,
     );

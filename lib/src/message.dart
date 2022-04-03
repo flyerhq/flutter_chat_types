@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-
 import 'messages/custom_message.dart';
 import 'messages/file_message.dart';
 import 'messages/image_message.dart';
@@ -27,11 +26,11 @@ abstract class Message extends Equatable {
     this.remoteId,
     this.repliedMessage,
     this.roomId,
+    this.showStatus,
     this.status,
     this.type,
-    this.updatedAt, {
-    this.showStatus = true,
-  });
+    this.updatedAt,
+  );
 
   /// Creates a particular message from a map (decoded JSON).
   /// Type is determined by the `type` field.
@@ -57,18 +56,18 @@ abstract class Message extends Equatable {
   /// both metadatas will be merged into one Map, where keys from a passed
   /// metadata will overwite keys from the previous one.
   /// [previewData] will be only set for the text message type.
+  /// [remoteId], [showStatus] and [updatedAt] with null values will nullify existing value.
   /// [status] with null value will be overwritten by the previous status.
   /// [text] will be only set for the text message type. Null value will be
   /// overwritten by the previous text (can't be empty).
-  /// [remoteId] and [updatedAt] with null values will nullify existing value.
   /// [uri] will be only set for file and image message types. Null value
   /// will be overwritten by the previous value (uri can't be empty).
   Message copyWith({
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     String? remoteId,
-    Status? status,
     bool? showStatus,
+    Status? status,
     String? text,
     int? updatedAt,
     String? uri,
@@ -98,11 +97,11 @@ abstract class Message extends Equatable {
   /// ID of the room where this message is sent
   final String? roomId;
 
+  /// Show status or not
+  final bool? showStatus;
+
   /// Message [Status]
   final Status? status;
-
-  /// Show status or not
-  final bool showStatus;
 
   /// [MessageType]
   final MessageType type;

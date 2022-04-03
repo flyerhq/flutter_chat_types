@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-
 import '../message.dart';
 import '../preview_data.dart' show PreviewData;
 import '../user.dart' show User;
@@ -22,10 +21,10 @@ class CustomMessage extends Message {
     String? remoteId,
     Message? repliedMessage,
     String? roomId,
+    bool? showStatus,
     Status? status,
     MessageType? type,
     int? updatedAt,
-    bool showStatus = true,
   }) : super(
           author,
           createdAt,
@@ -34,10 +33,10 @@ class CustomMessage extends Message {
           remoteId,
           repliedMessage,
           roomId,
+          showStatus,
           status,
           type ?? MessageType.custom,
           updatedAt,
-          showStatus: showStatus,
         );
 
   /// Creates a full custom message from a partial one.
@@ -49,6 +48,7 @@ class CustomMessage extends Message {
     String? remoteId,
     Message? repliedMessage,
     String? roomId,
+    bool? showStatus,
     Status? status,
     int? updatedAt,
   }) : super(
@@ -59,6 +59,7 @@ class CustomMessage extends Message {
           remoteId,
           repliedMessage,
           roomId,
+          showStatus,
           status,
           MessageType.custom,
           updatedAt,
@@ -78,7 +79,7 @@ class CustomMessage extends Message {
   /// both metadatas will be merged into one Map, where keys from a passed
   /// metadata will overwite keys from the previous one.
   /// [previewData] is ignored for this message type.
-  /// [remoteId] and [updatedAt] with null values will nullify existing value.
+  /// [remoteId], [showStatus] and [updatedAt] with null values will nullify existing value.
   /// [status] with null value will be overwritten by the previous status.
   /// [text] is ignored for this message type.
   /// [uri] is ignored for this message type.
@@ -87,8 +88,8 @@ class CustomMessage extends Message {
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     String? remoteId,
-    Status? status,
     bool? showStatus,
+    Status? status,
     String? text,
     int? updatedAt,
     String? uri,
@@ -107,7 +108,7 @@ class CustomMessage extends Message {
       repliedMessage: repliedMessage,
       roomId: roomId,
       status: status ?? this.status,
-      showStatus: showStatus ?? this.showStatus,
+      showStatus: showStatus,
       updatedAt: updatedAt,
     );
   }

@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-
 import '../message.dart';
 import '../preview_data.dart' show PreviewData;
 import '../user.dart' show User;
@@ -23,10 +22,10 @@ class UnsupportedMessage extends Message {
     String? remoteId,
     Message? repliedMessage,
     String? roomId,
+    bool? showStatus,
     Status? status,
     MessageType? type,
     int? updatedAt,
-    bool showStatus = true,
   }) : super(
           author,
           createdAt,
@@ -35,10 +34,10 @@ class UnsupportedMessage extends Message {
           remoteId,
           repliedMessage,
           roomId,
+          showStatus,
           status,
           type ?? MessageType.unsupported,
           updatedAt,
-          showStatus: showStatus,
         );
 
   /// Creates an unsupported message from a map (decoded JSON).
@@ -55,7 +54,7 @@ class UnsupportedMessage extends Message {
   /// both metadatas will be merged into one Map, where keys from a passed
   /// metadata will overwite keys from the previous one.
   /// [previewData] is ignored for this message type.
-  /// [remoteId] and [updatedAt] with null values will nullify existing value.
+  /// [remoteId], [showStatus] and [updatedAt] with null values will nullify existing value.
   /// [status] with null value will be overwritten by the previous status.
   /// [text] is ignored for this message type.
   /// [uri] is ignored for this message type.
@@ -64,8 +63,8 @@ class UnsupportedMessage extends Message {
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     String? remoteId,
-    Status? status,
     bool? showStatus,
+    Status? status,
     String? text,
     int? updatedAt,
     String? uri,
@@ -83,8 +82,8 @@ class UnsupportedMessage extends Message {
       remoteId: remoteId,
       repliedMessage: repliedMessage,
       roomId: roomId,
+      showStatus: showStatus,
       status: status ?? this.status,
-      showStatus: showStatus ?? this.showStatus,
       updatedAt: updatedAt,
     );
   }

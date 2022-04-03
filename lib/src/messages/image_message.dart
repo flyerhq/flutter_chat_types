@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-
 import '../message.dart';
 import '../preview_data.dart' show PreviewData;
 import '../user.dart' show User;
@@ -23,13 +22,13 @@ class ImageMessage extends Message {
     String? remoteId,
     Message? repliedMessage,
     String? roomId,
+    bool? showStatus,
     required this.size,
     Status? status,
     MessageType? type,
     int? updatedAt,
     required this.uri,
     this.width,
-    bool showStatus = true,
   }) : super(
           author,
           createdAt,
@@ -38,10 +37,10 @@ class ImageMessage extends Message {
           remoteId,
           repliedMessage,
           roomId,
+          showStatus,
           status,
           type ?? MessageType.image,
           updatedAt,
-          showStatus: showStatus,
         );
 
   /// Creates a full image message from a partial one.
@@ -53,6 +52,7 @@ class ImageMessage extends Message {
     String? remoteId,
     Message? repliedMessage,
     String? roomId,
+    bool? showStatus,
     Status? status,
     int? updatedAt,
   })  : height = partialImage.height,
@@ -68,6 +68,7 @@ class ImageMessage extends Message {
           remoteId,
           repliedMessage,
           roomId,
+          showStatus,
           status,
           MessageType.image,
           updatedAt,
@@ -86,7 +87,7 @@ class ImageMessage extends Message {
   /// both metadatas will be merged into one Map, where keys from a passed
   /// metadata will overwite keys from the previous one.
   /// [previewData] is ignored for this message type.
-  /// [remoteId] and [updatedAt] with null values will nullify existing value.
+  /// [remoteId], [showStatus] and [updatedAt] with null values will nullify existing value.
   /// [status] and [uri] with null values will be overwritten by previous values.
   /// [text] is ignored for this message type.
   @override
@@ -94,8 +95,8 @@ class ImageMessage extends Message {
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     String? remoteId,
-    Status? status,
     bool? showStatus,
+    Status? status,
     String? text,
     int? updatedAt,
     String? uri,
@@ -115,9 +116,9 @@ class ImageMessage extends Message {
       remoteId: remoteId,
       repliedMessage: repliedMessage,
       roomId: roomId,
+      showStatus: showStatus,
       size: size,
       status: status ?? this.status,
-      showStatus: showStatus?? this.showStatus,
       updatedAt: updatedAt,
       uri: uri ?? this.uri,
       width: width,

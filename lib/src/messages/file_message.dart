@@ -22,12 +22,12 @@ class FileMessage extends Message {
     String? remoteId,
     Message? repliedMessage,
     String? roomId,
+    bool? showStatus,
     required this.size,
     Status? status,
     MessageType? type,
     int? updatedAt,
     required this.uri,
-    bool showStatus = true,
   }) : super(
           author,
           createdAt,
@@ -36,6 +36,7 @@ class FileMessage extends Message {
           remoteId,
           repliedMessage,
           roomId,
+          showStatus,
           status,
           type ?? MessageType.file,
           updatedAt,
@@ -50,9 +51,9 @@ class FileMessage extends Message {
     String? remoteId,
     Message? repliedMessage,
     String? roomId,
+    bool? showStatus,
     Status? status,
     int? updatedAt,
-    bool showStatus = true,
   })  : mimeType = partialFile.mimeType,
         name = partialFile.name,
         size = partialFile.size,
@@ -65,10 +66,10 @@ class FileMessage extends Message {
           remoteId,
           repliedMessage,
           roomId,
+          showStatus,
           status,
           MessageType.file,
           updatedAt,
-          showStatus:showStatus,
         );
 
   /// Creates a file message from a map (decoded JSON).
@@ -84,7 +85,7 @@ class FileMessage extends Message {
   /// both metadatas will be merged into one Map, where keys from a passed
   /// metadata will overwite keys from the previous one.
   /// [previewData] is ignored for this message type.
-  /// [remoteId] and [updatedAt] with null values will nullify existing value.
+  /// [remoteId], [showStatus] and [updatedAt] with null values will nullify existing value.
   /// [status] and [uri] with null values will be overwritten by previous values.
   /// [text] is ignored for this message type.
   @override
@@ -92,8 +93,8 @@ class FileMessage extends Message {
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     String? remoteId,
-    Status? status,
     bool? showStatus,
+    Status? status,
     String? text,
     int? updatedAt,
     String? uri,
@@ -113,9 +114,9 @@ class FileMessage extends Message {
       remoteId: remoteId,
       repliedMessage: repliedMessage,
       roomId: roomId,
+      showStatus: showStatus,
       size: size,
       status: status ?? this.status,
-      showStatus: showStatus?? this.showStatus,
       updatedAt: updatedAt,
       uri: uri ?? this.uri,
     );
