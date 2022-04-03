@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+
 import '../message.dart';
 import '../preview_data.dart' show PreviewData;
 import '../user.dart' show User;
@@ -24,6 +25,7 @@ class CustomMessage extends Message {
     Status? status,
     MessageType? type,
     int? updatedAt,
+    bool showStatus = true,
   }) : super(
           author,
           createdAt,
@@ -35,6 +37,7 @@ class CustomMessage extends Message {
           status,
           type ?? MessageType.custom,
           updatedAt,
+          showStatus: showStatus,
         );
 
   /// Creates a full custom message from a partial one.
@@ -85,6 +88,7 @@ class CustomMessage extends Message {
     PreviewData? previewData,
     String? remoteId,
     Status? status,
+    bool? showStatus,
     String? text,
     int? updatedAt,
     String? uri,
@@ -103,6 +107,7 @@ class CustomMessage extends Message {
       repliedMessage: repliedMessage,
       roomId: roomId,
       status: status ?? this.status,
+      showStatus: showStatus ?? this.showStatus,
       updatedAt: updatedAt,
     );
   }

@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+
 import 'messages/custom_message.dart';
 import 'messages/file_message.dart';
 import 'messages/image_message.dart';
@@ -28,8 +29,9 @@ abstract class Message extends Equatable {
     this.roomId,
     this.status,
     this.type,
-    this.updatedAt,
-  );
+    this.updatedAt, {
+    this.showStatus = true,
+  });
 
   /// Creates a particular message from a map (decoded JSON).
   /// Type is determined by the `type` field.
@@ -66,6 +68,7 @@ abstract class Message extends Equatable {
     PreviewData? previewData,
     String? remoteId,
     Status? status,
+    bool? showStatus,
     String? text,
     int? updatedAt,
     String? uri,
@@ -97,6 +100,9 @@ abstract class Message extends Equatable {
 
   /// Message [Status]
   final Status? status;
+
+  /// Show status or not
+  final bool showStatus;
 
   /// [MessageType]
   final MessageType type;

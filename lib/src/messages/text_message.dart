@@ -25,6 +25,7 @@ class TextMessage extends Message {
     required this.text,
     MessageType? type,
     int? updatedAt,
+    bool showStatus = true,
   }) : super(
           author,
           createdAt,
@@ -36,6 +37,7 @@ class TextMessage extends Message {
           status,
           type ?? MessageType.text,
           updatedAt,
+          showStatus: showStatus,
         );
 
   /// Creates a full text message from a partial one.
@@ -85,6 +87,7 @@ class TextMessage extends Message {
     PreviewData? previewData,
     String? remoteId,
     Status? status,
+    bool? showStatus,
     String? text,
     int? updatedAt,
     String? uri,
@@ -104,6 +107,7 @@ class TextMessage extends Message {
       repliedMessage: repliedMessage,
       roomId: roomId,
       status: status ?? this.status,
+      showStatus: showStatus ?? this.showStatus,
       text: text ?? this.text,
       updatedAt: updatedAt,
     );

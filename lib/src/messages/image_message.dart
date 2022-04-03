@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+
 import '../message.dart';
 import '../preview_data.dart' show PreviewData;
 import '../user.dart' show User;
@@ -28,6 +29,7 @@ class ImageMessage extends Message {
     int? updatedAt,
     required this.uri,
     this.width,
+    bool showStatus = true,
   }) : super(
           author,
           createdAt,
@@ -39,6 +41,7 @@ class ImageMessage extends Message {
           status,
           type ?? MessageType.image,
           updatedAt,
+          showStatus: showStatus,
         );
 
   /// Creates a full image message from a partial one.
@@ -92,6 +95,7 @@ class ImageMessage extends Message {
     PreviewData? previewData,
     String? remoteId,
     Status? status,
+    bool? showStatus,
     String? text,
     int? updatedAt,
     String? uri,
@@ -113,6 +117,7 @@ class ImageMessage extends Message {
       roomId: roomId,
       size: size,
       status: status ?? this.status,
+      showStatus: showStatus?? this.showStatus,
       updatedAt: updatedAt,
       uri: uri ?? this.uri,
       width: width,
