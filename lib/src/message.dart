@@ -54,15 +54,17 @@ abstract class Message extends Equatable {
   /// Creates a copy of the message with an updated data
   /// [metadata] with null value will nullify existing metadata, otherwise
   /// both metadatas will be merged into one Map, where keys from a passed
-  /// metadata will overwite keys from the previous one.
+  /// metadata will overwrite keys from the previous one.
   /// [previewData] will be only set for the text message type.
   /// [remoteId], [showStatus] and [updatedAt] with null values will nullify existing value.
-  /// [status] with null value will be overwritten by the previous status.
+  /// [author], [createdAt] and [status] with null value will be overwritten by the previous status.
   /// [text] will be only set for the text message type. Null value will be
   /// overwritten by the previous text (can't be empty).
   /// [uri] will be only set for file and image message types. Null value
   /// will be overwritten by the previous value (uri can't be empty).
   Message copyWith({
+    User? author,
+    int? createdAt,
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     String? remoteId,
