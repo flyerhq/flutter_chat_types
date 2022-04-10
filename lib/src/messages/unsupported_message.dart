@@ -55,11 +55,13 @@ class UnsupportedMessage extends Message {
   /// metadata will overwite keys from the previous one.
   /// [previewData] is ignored for this message type.
   /// [remoteId], [showStatus] and [updatedAt] with null values will nullify existing value.
-  /// [status] with null value will be overwritten by the previous status.
+  /// [author], [createdAt], [status] with null value will be overwritten by the previous status.
   /// [text] is ignored for this message type.
   /// [uri] is ignored for this message type.
   @override
   Message copyWith({
+    User? author,
+    int? createdAt,
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     String? remoteId,
@@ -70,8 +72,8 @@ class UnsupportedMessage extends Message {
     String? uri,
   }) {
     return UnsupportedMessage(
-      author: author,
-      createdAt: createdAt,
+      author: author ?? this.author,
+      createdAt: createdAt ?? this.createdAt,
       id: id,
       metadata: metadata == null
           ? null

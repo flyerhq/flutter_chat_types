@@ -86,10 +86,12 @@ class FileMessage extends Message {
   /// metadata will overwite keys from the previous one.
   /// [previewData] is ignored for this message type.
   /// [remoteId], [showStatus] and [updatedAt] with null values will nullify existing value.
-  /// [status] and [uri] with null values will be overwritten by previous values.
+  /// [author], [createdAt], [status] and [uri] with null values will be overwritten by previous values.
   /// [text] is ignored for this message type.
   @override
   Message copyWith({
+    User? author,
+    int? createdAt,
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     String? remoteId,
@@ -100,8 +102,8 @@ class FileMessage extends Message {
     String? uri,
   }) {
     return FileMessage(
-      author: author,
-      createdAt: createdAt,
+      author: author ?? this.author,
+      createdAt: createdAt ?? this.createdAt,
       id: id,
       metadata: metadata == null
           ? null
