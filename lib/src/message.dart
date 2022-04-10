@@ -57,7 +57,7 @@ abstract class Message extends Equatable {
   /// metadata will overwrite keys from the previous one.
   /// [previewData] will be only set for the text message type.
   /// [remoteId], [showStatus] and [updatedAt] with null values will nullify existing value.
-  /// [author], [createdAt] and [status] with null value will be overwritten by the previous status.
+  /// [author], [createdAt] and [status] with null values will be overwritten by the previous values.
   /// [text] will be only set for the text message type. Null value will be
   /// overwritten by the previous text (can't be empty).
   /// [uri] will be only set for file and image message types. Null value

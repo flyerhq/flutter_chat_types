@@ -55,7 +55,7 @@ class UnsupportedMessage extends Message {
   /// metadata will overwite keys from the previous one.
   /// [previewData] is ignored for this message type.
   /// [remoteId], [showStatus] and [updatedAt] with null values will nullify existing value.
-  /// [author], [createdAt], [status] with null value will be overwritten by the previous status.
+  /// [author], [createdAt], [status] with null values will be overwritten by the previous values.
   /// [text] is ignored for this message type.
   /// [uri] is ignored for this message type.
   @override
