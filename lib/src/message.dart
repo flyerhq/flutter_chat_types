@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+
 import 'messages/custom_message.dart';
 import 'messages/file_message.dart';
 import 'messages/image_message.dart';
@@ -52,6 +53,7 @@ abstract class Message extends Equatable {
   }
 
   /// Creates a copy of the message with an updated data
+  /// [isLoading] will be only set for the file message type.
   /// [metadata] with null value will nullify existing metadata, otherwise
   /// both metadatas will be merged into one Map, where keys from a passed
   /// metadata will overwrite keys from the previous one.
@@ -65,6 +67,7 @@ abstract class Message extends Equatable {
   Message copyWith({
     User? author,
     int? createdAt,
+    bool? isLoading,
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     String? remoteId,

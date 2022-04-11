@@ -1,6 +1,10 @@
+## 3.3.4
+
+- Add `isLoading` to the file message. Thanks @felixgabler for the PR!
+
 ## 3.3.3
 
-- Add `author` and `createdAt` to the `copyWith` method. Thanks @felixgabler for the PR! 
+- Add `author` and `createdAt` to the `copyWith` method. Thanks @felixgabler for the PR!
 
 ## 3.3.2
 

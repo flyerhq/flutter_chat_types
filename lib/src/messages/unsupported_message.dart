@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+
 import '../message.dart';
 import '../preview_data.dart' show PreviewData;
 import '../user.dart' show User;
@@ -53,7 +54,7 @@ class UnsupportedMessage extends Message {
   /// [metadata] with null value will nullify existing metadata, otherwise
   /// both metadatas will be merged into one Map, where keys from a passed
   /// metadata will overwite keys from the previous one.
-  /// [previewData] is ignored for this message type.
+  /// [isLoading], [previewData] is ignored for this message type.
   /// [remoteId], [showStatus] and [updatedAt] with null values will nullify existing value.
   /// [author], [createdAt], [status] with null values will be overwritten by the previous values.
   /// [text] is ignored for this message type.
@@ -62,6 +63,7 @@ class UnsupportedMessage extends Message {
   Message copyWith({
     User? author,
     int? createdAt,
+    bool? isLoading,
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     String? remoteId,

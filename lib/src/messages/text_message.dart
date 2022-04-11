@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+
 import '../message.dart';
 import '../preview_data.dart' show PreviewData;
 import '../user.dart' show User;
@@ -82,11 +83,12 @@ class TextMessage extends Message {
   /// metadata will overwite keys from the previous one.
   /// [previewData], [remoteId], [showStatus] and [updatedAt] with null values will nullify existing value.
   /// [author], [createdAt], [status] and [text] with null values will be overwritten by previous values.
-  /// [uri] is ignored for this message type.
+  /// [isLoading], [uri] is ignored for this message type.
   @override
   Message copyWith({
     User? author,
     int? createdAt,
+    bool? isLoading,
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     String? remoteId,

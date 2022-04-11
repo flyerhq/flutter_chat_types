@@ -17,7 +17,7 @@ class FileMessage extends Message {
     required User author,
     int? createdAt,
     required String id,
-    this.isLoading = false,
+    this.isLoading,
     Map<String, dynamic>? metadata,
     this.mimeType,
     required this.name,
@@ -49,7 +49,7 @@ class FileMessage extends Message {
     required User author,
     int? createdAt,
     required String id,
-    this.isLoading = false,
+    this.isLoading,
     required PartialFile partialFile,
     String? remoteId,
     Message? repliedMessage,
@@ -88,8 +88,8 @@ class FileMessage extends Message {
   /// both metadatas will be merged into one Map, where keys from a passed
   /// metadata will overwite keys from the previous one.
   /// [previewData] is ignored for this message type.
-  /// [remoteId], [showStatus] and [updatedAt] with null values will nullify existing value.
-  /// [author], [createdAt], [isLoading], [status] and [uri] with null values will be overwritten by previous values.
+  /// [isLoading], [remoteId], [showStatus] and [updatedAt] with null values will nullify existing value.
+  /// [author], [createdAt], [status] and [uri] with null values will be overwritten by previous values.
   /// [text] is ignored for this message type.
   @override
   Message copyWith({
@@ -109,7 +109,7 @@ class FileMessage extends Message {
       author: author ?? this.author,
       createdAt: createdAt ?? this.createdAt,
       id: id,
-      isLoading: isLoading ?? this.isLoading,
+      isLoading: isLoading,
       metadata: metadata == null
           ? null
           : {
@@ -148,8 +148,8 @@ class FileMessage extends Message {
         uri,
       ];
 
-  /// Specify whether the message content is currently being loaded.
-  final bool isLoading;
+  /// Specify whether the message content is currently being loaded
+  final bool? isLoading;
 
   /// Media type
   final String? mimeType;

@@ -10,7 +10,7 @@ FileMessage _$FileMessageFromJson(Map<String, dynamic> json) => FileMessage(
       author: User.fromJson(json['author'] as Map<String, dynamic>),
       createdAt: json['createdAt'] as int?,
       id: json['id'] as String,
-      isLoading: json['isLoading'] as bool? ?? false,
+      isLoading: json['isLoading'] as bool?,
       metadata: json['metadata'] as Map<String, dynamic>?,
       mimeType: json['mimeType'] as String?,
       name: json['name'] as String,
@@ -48,7 +48,7 @@ Map<String, dynamic> _$FileMessageToJson(FileMessage instance) {
   writeNotNull('status', _$StatusEnumMap[instance.status]);
   val['type'] = _$MessageTypeEnumMap[instance.type];
   writeNotNull('updatedAt', instance.updatedAt);
-  val['isLoading'] = instance.isLoading;
+  writeNotNull('isLoading', instance.isLoading);
   writeNotNull('mimeType', instance.mimeType);
   val['name'] = instance.name;
   val['size'] = instance.size;
