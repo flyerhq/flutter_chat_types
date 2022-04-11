@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+
 import '../message.dart';
 import '../preview_data.dart' show PreviewData;
 import '../user.dart' show User;
@@ -16,6 +17,7 @@ class FileMessage extends Message {
     required User author,
     int? createdAt,
     required String id,
+    this.isLoading = false,
     Map<String, dynamic>? metadata,
     this.mimeType,
     required this.name,
@@ -47,6 +49,7 @@ class FileMessage extends Message {
     required User author,
     int? createdAt,
     required String id,
+    this.isLoading = false,
     required PartialFile partialFile,
     String? remoteId,
     Message? repliedMessage,
@@ -86,12 +89,13 @@ class FileMessage extends Message {
   /// metadata will overwite keys from the previous one.
   /// [previewData] is ignored for this message type.
   /// [remoteId], [showStatus] and [updatedAt] with null values will nullify existing value.
-  /// [author], [createdAt], [status] and [uri] with null values will be overwritten by previous values.
+  /// [author], [createdAt], [isLoading], [status] and [uri] with null values will be overwritten by previous values.
   /// [text] is ignored for this message type.
   @override
   Message copyWith({
     User? author,
     int? createdAt,
+    bool? isLoading,
     Map<String, dynamic>? metadata,
     PreviewData? previewData,
     String? remoteId,
@@ -105,6 +109,7 @@ class FileMessage extends Message {
       author: author ?? this.author,
       createdAt: createdAt ?? this.createdAt,
       id: id,
+      isLoading: isLoading ?? this.isLoading,
       metadata: metadata == null
           ? null
           : {
@@ -130,6 +135,7 @@ class FileMessage extends Message {
         author,
         createdAt,
         id,
+        isLoading,
         metadata,
         mimeType,
         name,
@@ -141,6 +147,9 @@ class FileMessage extends Message {
         updatedAt,
         uri,
       ];
+
+  /// Specify whether the message content is currently being loaded.
+  final bool isLoading;
 
   /// Media type
   final String? mimeType;
