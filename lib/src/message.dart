@@ -19,19 +19,19 @@ enum Status { delivered, error, seen, sending, sent }
 /// every message will have.
 @immutable
 abstract class Message extends Equatable {
-  const Message(
-    this.author,
+  const Message({
+    required this.author,
     this.createdAt,
-    this.id,
+    required this.id,
     this.metadata,
     this.remoteId,
     this.repliedMessage,
     this.roomId,
     this.showStatus,
     this.status,
-    this.type,
+    required this.type,
     this.updatedAt,
-  );
+  });
 
   /// Creates a particular message from a map (decoded JSON).
   /// Type is determined by the `type` field.

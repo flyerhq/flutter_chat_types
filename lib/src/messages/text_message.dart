@@ -14,60 +14,36 @@ part 'text_message.g.dart';
 class TextMessage extends Message {
   /// Creates a text message.
   const TextMessage({
-    required User author,
-    int? createdAt,
-    required String id,
-    Map<String, dynamic>? metadata,
+    required super.author,
+    super.createdAt,
+    required super.id,
+    super.metadata,
     this.previewData,
-    String? remoteId,
-    Message? repliedMessage,
-    String? roomId,
-    bool? showStatus,
-    Status? status,
+    super.remoteId,
+    super.repliedMessage,
+    super.roomId,
+    super.showStatus,
+    super.status,
     required this.text,
     MessageType? type,
-    int? updatedAt,
-  }) : super(
-          author,
-          createdAt,
-          id,
-          metadata,
-          remoteId,
-          repliedMessage,
-          roomId,
-          showStatus,
-          status,
-          type ?? MessageType.text,
-          updatedAt,
-        );
+    super.updatedAt,
+  }) : super(type: type ?? MessageType.text);
 
   /// Creates a full text message from a partial one.
   TextMessage.fromPartial({
-    required User author,
-    int? createdAt,
-    required String id,
+    required super.author,
+    super.createdAt,
+    required super.id,
     required PartialText partialText,
-    String? remoteId,
-    Message? repliedMessage,
-    String? roomId,
-    bool? showStatus,
-    Status? status,
-    int? updatedAt,
+    super.remoteId,
+    super.repliedMessage,
+    super.roomId,
+    super.showStatus,
+    super.status,
+    super.updatedAt,
   })  : previewData = partialText.previewData,
         text = partialText.text,
-        super(
-          author,
-          createdAt,
-          id,
-          partialText.metadata,
-          remoteId,
-          repliedMessage,
-          roomId,
-          showStatus,
-          status,
-          MessageType.text,
-          updatedAt,
-        );
+        super(metadata: partialText.metadata, type: MessageType.text);
 
   /// Creates a text message from a map (decoded JSON).
   factory TextMessage.fromJson(Map<String, dynamic> json) =>

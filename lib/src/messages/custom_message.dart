@@ -15,56 +15,32 @@ part 'custom_message.g.dart';
 class CustomMessage extends Message {
   /// Creates a custom message.
   const CustomMessage({
-    required User author,
-    int? createdAt,
-    required String id,
-    Map<String, dynamic>? metadata,
-    String? remoteId,
-    Message? repliedMessage,
-    String? roomId,
-    bool? showStatus,
-    Status? status,
+    required super.author,
+    super.createdAt,
+    required super.id,
+    super.metadata,
+    super.remoteId,
+    super.repliedMessage,
+    super.roomId,
+    super.showStatus,
+    super.status,
     MessageType? type,
-    int? updatedAt,
-  }) : super(
-          author,
-          createdAt,
-          id,
-          metadata,
-          remoteId,
-          repliedMessage,
-          roomId,
-          showStatus,
-          status,
-          type ?? MessageType.custom,
-          updatedAt,
-        );
+    super.updatedAt,
+  }) : super(type: type ?? MessageType.custom);
 
   /// Creates a full custom message from a partial one.
   CustomMessage.fromPartial({
-    required User author,
-    int? createdAt,
-    required String id,
+    required super.author,
+    super.createdAt,
+    required super.id,
     required PartialCustom partialCustom,
-    String? remoteId,
-    Message? repliedMessage,
-    String? roomId,
-    bool? showStatus,
-    Status? status,
-    int? updatedAt,
-  }) : super(
-          author,
-          createdAt,
-          id,
-          partialCustom.metadata,
-          remoteId,
-          repliedMessage,
-          roomId,
-          showStatus,
-          status,
-          MessageType.custom,
-          updatedAt,
-        );
+    super.remoteId,
+    super.repliedMessage,
+    super.roomId,
+    super.showStatus,
+    super.status,
+    super.updatedAt,
+  }) : super(metadata: partialCustom.metadata, type: MessageType.custom);
 
   /// Creates a custom message from a map (decoded JSON).
   factory CustomMessage.fromJson(Map<String, dynamic> json) =>

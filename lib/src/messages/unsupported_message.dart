@@ -16,30 +16,18 @@ part 'unsupported_message.g.dart';
 class UnsupportedMessage extends Message {
   /// Creates an unsupported message.
   const UnsupportedMessage({
-    required User author,
-    int? createdAt,
-    required String id,
-    Map<String, dynamic>? metadata,
-    String? remoteId,
-    Message? repliedMessage,
-    String? roomId,
-    bool? showStatus,
-    Status? status,
+    required super.author,
+    super.createdAt,
+    required super.id,
+    super.metadata,
+    super.remoteId,
+    super.repliedMessage,
+    super.roomId,
+    super.showStatus,
+    super.status,
     MessageType? type,
-    int? updatedAt,
-  }) : super(
-          author,
-          createdAt,
-          id,
-          metadata,
-          remoteId,
-          repliedMessage,
-          roomId,
-          showStatus,
-          status,
-          type ?? MessageType.unsupported,
-          updatedAt,
-        );
+    super.updatedAt,
+  }) : super(type: type ?? MessageType.unsupported);
 
   /// Creates an unsupported message from a map (decoded JSON).
   factory UnsupportedMessage.fromJson(Map<String, dynamic> json) =>
