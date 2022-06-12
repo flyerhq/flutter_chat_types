@@ -6,7 +6,6 @@ import 'messages/file_message.dart';
 import 'messages/image_message.dart';
 import 'messages/text_message.dart';
 import 'messages/unsupported_message.dart';
-import 'preview_data.dart' show PreviewData;
 import 'user.dart' show User;
 
 /// All possible message types.
@@ -67,15 +66,14 @@ abstract class Message extends Equatable {
   Message copyWith({
     User? author,
     int? createdAt,
-    bool? isLoading,
+    // String? id, TODO: add once all are converted
     Map<String, dynamic>? metadata,
-    PreviewData? previewData,
     String? remoteId,
+    // Message? repliedMessage,
+    // String? roomId,
     bool? showStatus,
     Status? status,
-    String? text,
     int? updatedAt,
-    String? uri,
   });
 
   /// Converts a particular message to the map representation, encodable to JSON.
