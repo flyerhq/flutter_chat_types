@@ -1,3 +1,7 @@
+## 3.4.1
+
+- Downgrade meta to support flutter test
+
 ## 3.4.0
 
 - Update to Flutter 3. Thanks @felixgabler for the PR!
