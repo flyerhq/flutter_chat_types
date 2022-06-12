@@ -9,14 +9,21 @@ part 'preview_data.g.dart';
 /// See https://github.com/flyerhq/flutter_link_previewer
 @JsonSerializable()
 @immutable
-class PreviewData extends Equatable {
+abstract class PreviewData extends Equatable {
   /// Creates preview data.
-  const PreviewData({
+  const PreviewData._({
     this.description,
     this.image,
     this.link,
     this.title,
   });
+
+  const factory PreviewData({
+    String? description,
+    PreviewDataImage? image,
+    String? link,
+    String? title,
+  }) = _PreviewData;
 
   /// Creates preview data from a map (decoded JSON).
   factory PreviewData.fromJson(Map<String, dynamic> json) =>
@@ -26,20 +33,12 @@ class PreviewData extends Equatable {
   Map<String, dynamic> toJson() => _$PreviewDataToJson(this);
 
   /// Creates a copy of the preview data with an updated data.
-  /// Null values will nullify existing values.
   PreviewData copyWith({
     String? description,
     PreviewDataImage? image,
     String? link,
     String? title,
-  }) {
-    return PreviewData(
-      description: description,
-      image: image,
-      link: link,
-      title: title,
-    );
-  }
+  });
 
   /// Equatable props
   @override
@@ -57,6 +56,33 @@ class PreviewData extends Equatable {
   /// Link title (usually og:title meta tag)
   final String? title;
 }
+
+/// A utility class to enable better copyWith
+class _PreviewData extends PreviewData {
+  const _PreviewData({
+    super.description,
+    super.image,
+    super.link,
+    super.title,
+  }) : super._();
+
+  @override
+  PreviewData copyWith({
+    dynamic description = _Unset,
+    dynamic image = _Unset,
+    dynamic link = _Unset,
+    dynamic title = _Unset,
+  }) =>
+      _PreviewData(
+        description:
+            description == _Unset ? this.description : description as String?,
+        image: image == _Unset ? this.image : image as PreviewDataImage?,
+        link: link == _Unset ? this.link : link as String?,
+        title: title == _Unset ? this.title : title as String?,
+      );
+}
+
+class _Unset {}
 
 /// A utility class that forces image's width and height to be stored
 /// alongside the url.

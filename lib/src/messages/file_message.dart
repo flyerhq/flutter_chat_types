@@ -2,7 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
 import '../message.dart';
-import '../preview_data.dart' show PreviewData;
 import '../user.dart' show User;
 import 'partial_file.dart';
 
@@ -11,69 +10,64 @@ part 'file_message.g.dart';
 /// A class that represents file message.
 @JsonSerializable()
 @immutable
-class FileMessage extends Message {
+abstract class FileMessage extends Message {
   /// Creates a file message.
-  const FileMessage({
+  const FileMessage._({
+    required super.author,
+    super.createdAt,
+    required super.id,
+    this.isLoading,
+    super.metadata,
+    this.mimeType,
+    required this.name,
+    super.remoteId,
+    super.repliedMessage,
+    super.roomId,
+    super.showStatus,
+    required this.size,
+    super.status,
+    MessageType? type,
+    super.updatedAt,
+    required this.uri,
+  }) : super(type: type ?? MessageType.file);
+
+  const factory FileMessage({
     required User author,
     int? createdAt,
     required String id,
-    this.isLoading,
+    bool? isLoading,
     Map<String, dynamic>? metadata,
-    this.mimeType,
-    required this.name,
+    String? mimeType,
+    required String name,
     String? remoteId,
     Message? repliedMessage,
     String? roomId,
     bool? showStatus,
-    required this.size,
+    required num size,
     Status? status,
     MessageType? type,
     int? updatedAt,
-    required this.uri,
-  }) : super(
-          author,
-          createdAt,
-          id,
-          metadata,
-          remoteId,
-          repliedMessage,
-          roomId,
-          showStatus,
-          status,
-          type ?? MessageType.file,
-          updatedAt,
-        );
+    required String uri,
+  }) = _FileMessage;
 
   /// Creates a full file message from a partial one.
   FileMessage.fromPartial({
-    required User author,
-    int? createdAt,
-    required String id,
+    required super.author,
+    super.createdAt,
+    required super.id,
     this.isLoading,
     required PartialFile partialFile,
-    String? remoteId,
-    Message? repliedMessage,
-    String? roomId,
-    bool? showStatus,
-    Status? status,
-    int? updatedAt,
+    super.remoteId,
+    super.repliedMessage,
+    super.roomId,
+    super.showStatus,
+    super.status,
+    super.updatedAt,
   })  : mimeType = partialFile.mimeType,
         name = partialFile.name,
         size = partialFile.size,
         uri = partialFile.uri,
-        super(
-          author,
-          createdAt,
-          id,
-          partialFile.metadata,
-          remoteId,
-          repliedMessage,
-          roomId,
-          showStatus,
-          status,
-          MessageType.file,
-          updatedAt,
-        );
+        super(metadata: partialFile.metadata, type: MessageType.file);
 
   /// Creates a file message from a map (decoded JSON).
   factory FileMessage.fromJson(Map<String, dynamic> json) =>
@@ -83,51 +77,24 @@ class FileMessage extends Message {
   @override
   Map<String, dynamic> toJson() => _$FileMessageToJson(this);
 
-  /// Creates a copy of the file message with an updated data.
-  /// [metadata] with null value will nullify existing metadata, otherwise
-  /// both metadatas will be merged into one Map, where keys from a passed
-  /// metadata will overwite keys from the previous one.
-  /// [previewData] is ignored for this message type.
-  /// [isLoading], [remoteId], [showStatus] and [updatedAt] with null values will nullify existing value.
-  /// [author], [createdAt], [status] and [uri] with null values will be overwritten by previous values.
-  /// [text] is ignored for this message type.
   @override
   Message copyWith({
     User? author,
     int? createdAt,
+    String? id,
     bool? isLoading,
     Map<String, dynamic>? metadata,
-    PreviewData? previewData,
+    String? mimeType,
+    String? name,
     String? remoteId,
+    Message? repliedMessage,
+    String? roomId,
     bool? showStatus,
+    num? size,
     Status? status,
-    String? text,
     int? updatedAt,
     String? uri,
-  }) {
-    return FileMessage(
-      author: author ?? this.author,
-      createdAt: createdAt ?? this.createdAt,
-      id: id,
-      isLoading: isLoading,
-      metadata: metadata == null
-          ? null
-          : {
-              ...this.metadata ?? {},
-              ...metadata,
-            },
-      mimeType: mimeType,
-      name: name,
-      remoteId: remoteId,
-      repliedMessage: repliedMessage,
-      roomId: roomId,
-      showStatus: showStatus,
-      size: size,
-      status: status ?? this.status,
-      updatedAt: updatedAt,
-      uri: uri ?? this.uri,
-    );
-  }
+  });
 
   /// Equatable props
   @override
@@ -163,3 +130,70 @@ class FileMessage extends Message {
   /// The file source (either a remote URL or a local resource)
   final String uri;
 }
+
+/// A utility class to enable better copyWith
+class _FileMessage extends FileMessage {
+  const _FileMessage({
+    required super.author,
+    super.createdAt,
+    required super.id,
+    super.isLoading,
+    super.metadata,
+    super.mimeType,
+    required super.name,
+    super.remoteId,
+    super.repliedMessage,
+    super.roomId,
+    super.showStatus,
+    required super.size,
+    super.status,
+    super.type,
+    super.updatedAt,
+    required super.uri,
+  }) : super._();
+
+  @override
+  Message copyWith({
+    User? author,
+    dynamic createdAt = _Unset,
+    dynamic height = _Unset,
+    String? id,
+    dynamic isLoading = _Unset,
+    dynamic metadata = _Unset,
+    dynamic mimeType = _Unset,
+    String? name,
+    dynamic remoteId = _Unset,
+    dynamic repliedMessage = _Unset,
+    dynamic roomId,
+    dynamic showStatus = _Unset,
+    num? size,
+    dynamic status = _Unset,
+    dynamic updatedAt = _Unset,
+    String? uri,
+    dynamic width = _Unset,
+  }) =>
+      _FileMessage(
+        author: author ?? this.author,
+        createdAt: createdAt == _Unset ? this.createdAt : createdAt as int?,
+        id: id ?? this.id,
+        isLoading: isLoading == _Unset ? this.isLoading : isLoading as bool?,
+        metadata: metadata == _Unset
+            ? this.metadata
+            : metadata as Map<String, dynamic>?,
+        mimeType: mimeType == _Unset ? this.mimeType : mimeType as String?,
+        name: name ?? this.name,
+        remoteId: remoteId == _Unset ? this.remoteId : remoteId as String?,
+        repliedMessage: repliedMessage == _Unset
+            ? this.repliedMessage
+            : repliedMessage as Message?,
+        roomId: roomId == _Unset ? this.roomId : roomId as String?,
+        showStatus:
+            showStatus == _Unset ? this.showStatus : showStatus as bool?,
+        size: size ?? this.size,
+        status: status == _Unset ? this.status : status as Status?,
+        updatedAt: updatedAt == _Unset ? this.updatedAt : updatedAt as int?,
+        uri: uri ?? this.uri,
+      );
+}
+
+class _Unset {}

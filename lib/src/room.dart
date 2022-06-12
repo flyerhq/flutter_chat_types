@@ -13,9 +13,9 @@ enum RoomType { channel, direct, group }
 /// A class that represents a room where 2 or more participants can chat
 @JsonSerializable()
 @immutable
-class Room extends Equatable {
+abstract class Room extends Equatable {
   /// Creates a [Room]
-  const Room({
+  const Room._({
     this.createdAt,
     required this.id,
     this.imageUrl,
@@ -26,6 +26,18 @@ class Room extends Equatable {
     this.updatedAt,
     required this.users,
   });
+
+  const factory Room({
+    int? createdAt,
+    required String id,
+    String? imageUrl,
+    List<Message>? lastMessages,
+    Map<String, dynamic>? metadata,
+    String? name,
+    required RoomType? type,
+    int? updatedAt,
+    required List<User> users,
+  }) = _Room;
 
   /// Creates room from a map (decoded JSON).
   factory Room.fromJson(Map<String, dynamic> json) => _$RoomFromJson(json);
@@ -40,29 +52,16 @@ class Room extends Equatable {
   /// metadata will overwite keys from the previous one.
   /// [type] and [users] with null values will be overwritten by previous values.
   Room copyWith({
+    int? createdAt,
+    String? id,
     String? imageUrl,
+    List<Message>? lastMessages,
     Map<String, dynamic>? metadata,
     String? name,
     RoomType? type,
     int? updatedAt,
     List<User>? users,
-  }) {
-    return Room(
-      id: id,
-      imageUrl: imageUrl,
-      lastMessages: lastMessages,
-      metadata: metadata == null
-          ? null
-          : {
-              ...this.metadata ?? {},
-              ...metadata,
-            },
-      name: name,
-      type: type ?? this.type,
-      updatedAt: updatedAt,
-      users: users ?? this.users,
-    );
-  }
+  });
 
   /// Equatable props
   @override
@@ -107,3 +106,48 @@ class Room extends Equatable {
   /// List of users which are in the room
   final List<User> users;
 }
+
+/// A utility class to enable better copyWith
+class _Room extends Room {
+  const _Room({
+    super.createdAt,
+    required super.id,
+    super.imageUrl,
+    super.lastMessages,
+    super.metadata,
+    super.name,
+    required super.type,
+    super.updatedAt,
+    required super.users,
+  }) : super._();
+
+  @override
+  Room copyWith({
+    dynamic createdAt = _Unset,
+    String? id,
+    dynamic imageUrl = _Unset,
+    dynamic lastMessages = _Unset,
+    dynamic metadata = _Unset,
+    dynamic name = _Unset,
+    dynamic type = _Unset,
+    dynamic updatedAt = _Unset,
+    List<User>? users,
+  }) =>
+      _Room(
+        createdAt: createdAt == _Unset ? this.createdAt : createdAt as int?,
+        id: id ?? this.id,
+        imageUrl: imageUrl == _Unset ? this.imageUrl : imageUrl as String?,
+        lastMessages: lastMessages == _Unset
+            ? this.lastMessages
+            : lastMessages as List<Message>?,
+        metadata: metadata == _Unset
+            ? this.metadata
+            : metadata as Map<String, dynamic>?,
+        name: name == _Unset ? this.name : name as String?,
+        type: type == _Unset ? this.type : type as RoomType?,
+        updatedAt: updatedAt == _Unset ? this.updatedAt : updatedAt as int?,
+        users: users ?? this.users,
+      );
+}
+
+class _Unset {}
