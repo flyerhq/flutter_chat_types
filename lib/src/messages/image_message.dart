@@ -70,7 +70,8 @@ abstract class ImageMessage extends Message {
         super(metadata: partialImage.metadata, type: MessageType.image);
 
   /// Creates an image message from a map (decoded JSON).
-  factory ImageMessage.fromJson(Map<String, dynamic> json) => _$ImageMessageFromJson(json);
+  factory ImageMessage.fromJson(Map<String, dynamic> json) =>
+      _$ImageMessageFromJson(json);
 
   /// Converts an image message to the map representation, encodable to JSON.
   @override
@@ -130,6 +131,7 @@ abstract class ImageMessage extends Message {
   final double? width;
 }
 
+/// A utility class to enable better copyWith
 class _ImageMessage extends ImageMessage {
   const _ImageMessage({
     required super.author,
@@ -173,12 +175,17 @@ class _ImageMessage extends ImageMessage {
         createdAt: createdAt == _Unset ? this.createdAt : createdAt as int?,
         height: height == _Unset ? this.height : height as double?,
         id: id ?? this.id,
-        metadata: metadata == _Unset ? this.metadata : metadata as Map<String, dynamic>?,
+        metadata: metadata == _Unset
+            ? this.metadata
+            : metadata as Map<String, dynamic>?,
         name: name ?? this.name,
         remoteId: remoteId == _Unset ? this.remoteId : remoteId as String?,
-        repliedMessage: repliedMessage == _Unset ? this.repliedMessage : repliedMessage as Message?,
+        repliedMessage: repliedMessage == _Unset
+            ? this.repliedMessage
+            : repliedMessage as Message?,
         roomId: roomId == _Unset ? this.roomId : roomId as String?,
-        showStatus: showStatus == _Unset ? this.showStatus : showStatus as bool?,
+        showStatus:
+            showStatus == _Unset ? this.showStatus : showStatus as bool?,
         size: size ?? this.size,
         status: status == _Unset ? this.status : status as Status?,
         updatedAt: updatedAt == _Unset ? this.updatedAt : updatedAt as int?,

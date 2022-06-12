@@ -52,31 +52,20 @@ abstract class Message extends Equatable {
   }
 
   /// Creates a copy of the message with an updated data
-  /// [isLoading] will be only set for the file message type.
-  /// [metadata] with null value will nullify existing metadata, otherwise
-  /// both metadatas will be merged into one Map, where keys from a passed
-  /// metadata will overwrite keys from the previous one.
-  /// [previewData] will be only set for the text message type.
-  /// [remoteId], [showStatus] and [updatedAt] with null values will nullify existing value.
-  /// [author], [createdAt] and [status] with null values will be overwritten by the previous values.
-  /// [text] will be only set for the text message type. Null value will be
-  /// overwritten by the previous text (can't be empty).
-  /// [uri] will be only set for file and image message types. Null value
-  /// will be overwritten by the previous value (uri can't be empty).
   Message copyWith({
     User? author,
     int? createdAt,
-    // String? id, TODO: add once all are converted
+    String? id,
     Map<String, dynamic>? metadata,
     String? remoteId,
-    // Message? repliedMessage,
-    // String? roomId,
+    Message? repliedMessage,
+    String? roomId,
     bool? showStatus,
     Status? status,
     int? updatedAt,
   });
 
-  /// Converts a particular message to the map representation, encodable to JSON.
+  /// Converts a particular message to the map representation, serializable to JSON.
   Map<String, dynamic> toJson();
 
   /// User who sent this message
