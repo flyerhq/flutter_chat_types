@@ -1,3 +1,8 @@
+## 3.4.0
+
+- Update to Flutter 3. Thanks @felixgabler for the PR!
+- Fix `copyWith` for all message types. Thanks @felixgabler for the PR!
+
 ## 3.3.4
 
 - Add `isLoading` to the file message. Thanks @felixgabler for the PR!
