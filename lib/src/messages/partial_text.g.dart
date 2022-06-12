@@ -11,6 +11,9 @@ PartialText _$PartialTextFromJson(Map<String, dynamic> json) => PartialText(
       previewData: json['previewData'] == null
           ? null
           : PreviewData.fromJson(json['previewData'] as Map<String, dynamic>),
+      repliedMessage: json['repliedMessage'] == null
+          ? null
+          : Message.fromJson(json['repliedMessage'] as Map<String, dynamic>),
       text: json['text'] as String,
     );
 
@@ -25,6 +28,7 @@ Map<String, dynamic> _$PartialTextToJson(PartialText instance) {
 
   writeNotNull('metadata', instance.metadata);
   writeNotNull('previewData', instance.previewData?.toJson());
+  writeNotNull('repliedMessage', instance.repliedMessage?.toJson());
   val['text'] = instance.text;
   return val;
 }

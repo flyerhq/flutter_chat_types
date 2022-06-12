@@ -48,12 +48,15 @@ abstract class CustomMessage extends Message {
     required super.id,
     required PartialCustom partialCustom,
     super.remoteId,
-    super.repliedMessage,
     super.roomId,
     super.showStatus,
     super.status,
     super.updatedAt,
-  }) : super(metadata: partialCustom.metadata, type: MessageType.custom);
+  }) : super(
+          metadata: partialCustom.metadata,
+          repliedMessage: partialCustom.repliedMessage,
+          type: MessageType.custom,
+        );
 
   /// Creates a custom message from a map (decoded JSON).
   factory CustomMessage.fromJson(Map<String, dynamic> json) =>

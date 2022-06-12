@@ -57,7 +57,6 @@ abstract class ImageMessage extends Message {
     required super.id,
     required PartialImage partialImage,
     super.remoteId,
-    super.repliedMessage,
     super.roomId,
     super.showStatus,
     super.status,
@@ -67,7 +66,11 @@ abstract class ImageMessage extends Message {
         size = partialImage.size,
         uri = partialImage.uri,
         width = partialImage.width,
-        super(metadata: partialImage.metadata, type: MessageType.image);
+        super(
+          metadata: partialImage.metadata,
+          repliedMessage: partialImage.repliedMessage,
+          type: MessageType.image,
+        );
 
   /// Creates an image message from a map (decoded JSON).
   factory ImageMessage.fromJson(Map<String, dynamic> json) =>

@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
+import '../message.dart';
 import 'image_message.dart';
 
 part 'partial_image.g.dart';
@@ -17,6 +18,7 @@ class PartialImage {
     this.height,
     this.metadata,
     required this.name,
+    this.repliedMessage,
     required this.size,
     required this.uri,
     this.width,
@@ -37,6 +39,9 @@ class PartialImage {
 
   /// The name of the image
   final String name;
+
+  /// Message that is being replied to with the current message
+  final Message? repliedMessage;
 
   /// Size of the image in bytes
   final num size;

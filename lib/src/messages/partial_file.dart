@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
+import '../message.dart';
 import 'file_message.dart';
 
 part 'partial_file.g.dart';
@@ -17,6 +18,7 @@ class PartialFile {
     this.metadata,
     this.mimeType,
     required this.name,
+    this.repliedMessage,
     required this.size,
     required this.uri,
   });
@@ -36,6 +38,9 @@ class PartialFile {
 
   /// The name of the file
   final String name;
+
+  /// Message that is being replied to with the current message
+  final Message? repliedMessage;
 
   /// Size of the file in bytes
   final num size;

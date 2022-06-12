@@ -52,14 +52,17 @@ abstract class TextMessage extends Message {
     required super.id,
     required PartialText partialText,
     super.remoteId,
-    super.repliedMessage,
     super.roomId,
     super.showStatus,
     super.status,
     super.updatedAt,
   })  : previewData = partialText.previewData,
         text = partialText.text,
-        super(metadata: partialText.metadata, type: MessageType.text);
+        super(
+          metadata: partialText.metadata,
+          repliedMessage: partialText.repliedMessage,
+          type: MessageType.text,
+        );
 
   /// Creates a text message from a map (decoded JSON).
   factory TextMessage.fromJson(Map<String, dynamic> json) =>

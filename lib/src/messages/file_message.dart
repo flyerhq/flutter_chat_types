@@ -58,7 +58,6 @@ abstract class FileMessage extends Message {
     this.isLoading,
     required PartialFile partialFile,
     super.remoteId,
-    super.repliedMessage,
     super.roomId,
     super.showStatus,
     super.status,
@@ -67,7 +66,11 @@ abstract class FileMessage extends Message {
         name = partialFile.name,
         size = partialFile.size,
         uri = partialFile.uri,
-        super(metadata: partialFile.metadata, type: MessageType.file);
+        super(
+          metadata: partialFile.metadata,
+          repliedMessage: partialFile.repliedMessage,
+          type: MessageType.file,
+        );
 
   /// Creates a file message from a map (decoded JSON).
   factory FileMessage.fromJson(Map<String, dynamic> json) =>

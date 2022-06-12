@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
+import '../message.dart';
 import 'custom_message.dart';
 
 part 'partial_custom.g.dart';
@@ -15,6 +16,7 @@ class PartialCustom {
   /// message from a partial one.
   const PartialCustom({
     this.metadata,
+    this.repliedMessage,
   });
 
   /// Creates a partial custom message from a map (decoded JSON).
@@ -26,4 +28,7 @@ class PartialCustom {
 
   /// Additional custom metadata or attributes related to the message
   final Map<String, dynamic>? metadata;
+
+  /// Message that is being replied to with the current message
+  final Message? repliedMessage;
 }
