@@ -46,23 +46,33 @@ abstract class TextMessage extends Message {
   }) = _TextMessage;
 
   /// Creates a full text message from a partial one.
-  TextMessage.fromPartial({
-    required super.author,
-    super.createdAt,
-    required super.id,
+  factory TextMessage.fromPartial({
+    required User author,
+    int? createdAt,
+    required String id,
     required PartialText partialText,
-    super.remoteId,
-    super.roomId,
-    super.showStatus,
-    super.status,
-    super.updatedAt,
-  })  : previewData = partialText.previewData,
-        text = partialText.text,
-        super(
-          metadata: partialText.metadata,
-          repliedMessage: partialText.repliedMessage,
-          type: MessageType.text,
-        );
+    String? remoteId,
+    String? roomId,
+    bool? showStatus,
+    Status? status,
+    int? updatedAt,
+  }) {
+    return _TextMessage(
+      author: author,
+      createdAt: createdAt,
+      id: id,
+      metadata: partialText.metadata,
+      previewData: partialText.previewData,
+      remoteId: remoteId,
+      repliedMessage: partialText.repliedMessage,
+      roomId: roomId,
+      showStatus: showStatus,
+      status: status,
+      text: partialText.text,
+      type: MessageType.text,
+      updatedAt: updatedAt,
+    );
+  }
 
   /// Creates a text message from a map (decoded JSON).
   factory TextMessage.fromJson(Map<String, dynamic> json) =>

@@ -1,3 +1,7 @@
+## 3.4.2
+
+- Fix partial message constructors
+
 ## 3.4.1
 
 - Downgrade meta to support flutter test

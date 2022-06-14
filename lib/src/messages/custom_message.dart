@@ -42,21 +42,31 @@ abstract class CustomMessage extends Message {
   }) = _CustomMessage;
 
   /// Creates a full custom message from a partial one.
-  CustomMessage.fromPartial({
-    required super.author,
-    super.createdAt,
-    required super.id,
+  factory CustomMessage.fromPartial({
+    required User author,
+    int? createdAt,
+    required String id,
     required PartialCustom partialCustom,
-    super.remoteId,
-    super.roomId,
-    super.showStatus,
-    super.status,
-    super.updatedAt,
-  }) : super(
-          metadata: partialCustom.metadata,
-          repliedMessage: partialCustom.repliedMessage,
-          type: MessageType.custom,
-        );
+    String? remoteId,
+    String? roomId,
+    bool? showStatus,
+    Status? status,
+    int? updatedAt,
+  }) {
+    return _CustomMessage(
+      author: author,
+      createdAt: createdAt,
+      id: id,
+      metadata: partialCustom.metadata,
+      remoteId: remoteId,
+      repliedMessage: partialCustom.repliedMessage,
+      roomId: roomId,
+      showStatus: showStatus,
+      status: status,
+      type: MessageType.custom,
+      updatedAt: updatedAt,
+    );
+  }
 
   /// Creates a custom message from a map (decoded JSON).
   factory CustomMessage.fromJson(Map<String, dynamic> json) =>

@@ -51,26 +51,36 @@ abstract class ImageMessage extends Message {
   }) = _ImageMessage;
 
   /// Creates a full image message from a partial one.
-  ImageMessage.fromPartial({
-    required super.author,
-    super.createdAt,
-    required super.id,
+  factory ImageMessage.fromPartial({
+    required User author,
+    int? createdAt,
+    required String id,
     required PartialImage partialImage,
-    super.remoteId,
-    super.roomId,
-    super.showStatus,
-    super.status,
-    super.updatedAt,
-  })  : height = partialImage.height,
-        name = partialImage.name,
-        size = partialImage.size,
-        uri = partialImage.uri,
-        width = partialImage.width,
-        super(
-          metadata: partialImage.metadata,
-          repliedMessage: partialImage.repliedMessage,
-          type: MessageType.image,
-        );
+    String? remoteId,
+    String? roomId,
+    bool? showStatus,
+    Status? status,
+    int? updatedAt,
+  }) {
+    return _ImageMessage(
+      author: author,
+      createdAt: createdAt,
+      height: partialImage.height,
+      id: id,
+      metadata: partialImage.metadata,
+      name: partialImage.name,
+      remoteId: remoteId,
+      repliedMessage: partialImage.repliedMessage,
+      roomId: roomId,
+      showStatus: showStatus,
+      size: partialImage.size,
+      status: status,
+      type: MessageType.image,
+      updatedAt: updatedAt,
+      uri: partialImage.uri,
+      width: partialImage.width,
+    );
+  }
 
   /// Creates an image message from a map (decoded JSON).
   factory ImageMessage.fromJson(Map<String, dynamic> json) =>

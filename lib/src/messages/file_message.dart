@@ -51,26 +51,37 @@ abstract class FileMessage extends Message {
   }) = _FileMessage;
 
   /// Creates a full file message from a partial one.
-  FileMessage.fromPartial({
-    required super.author,
-    super.createdAt,
-    required super.id,
-    this.isLoading,
+  factory FileMessage.fromPartial({
+    required User author,
+    int? createdAt,
+    required String id,
+    bool? isLoading,
     required PartialFile partialFile,
-    super.remoteId,
-    super.roomId,
-    super.showStatus,
-    super.status,
-    super.updatedAt,
-  })  : mimeType = partialFile.mimeType,
-        name = partialFile.name,
-        size = partialFile.size,
-        uri = partialFile.uri,
-        super(
-          metadata: partialFile.metadata,
-          repliedMessage: partialFile.repliedMessage,
-          type: MessageType.file,
-        );
+    String? remoteId,
+    String? roomId,
+    bool? showStatus,
+    Status? status,
+    int? updatedAt,
+  }) {
+    return _FileMessage(
+      author: author,
+      createdAt: createdAt,
+      id: id,
+      isLoading: isLoading,
+      metadata: partialFile.metadata,
+      mimeType: partialFile.mimeType,
+      name: partialFile.name,
+      remoteId: remoteId,
+      repliedMessage: partialFile.repliedMessage,
+      roomId: roomId,
+      showStatus: showStatus,
+      size: partialFile.size,
+      status: status,
+      type: MessageType.file,
+      updatedAt: updatedAt,
+      uri: partialFile.uri,
+    );
+  }
 
   /// Creates a file message from a map (decoded JSON).
   factory FileMessage.fromJson(Map<String, dynamic> json) =>
