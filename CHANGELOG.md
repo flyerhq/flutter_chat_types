@@ -1,3 +1,7 @@
+## 3.4.3
+
+- Code refactor
+
 ## 3.4.2
 
 - Fix partial message constructors
