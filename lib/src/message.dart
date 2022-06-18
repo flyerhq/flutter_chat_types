@@ -51,7 +51,40 @@ abstract class Message extends Equatable {
     }
   }
 
-  /// Creates a copy of the message with an updated data
+  /// User who sent this message.
+  final User author;
+
+  /// Created message timestamp, in ms.
+  final int? createdAt;
+
+  /// Unique ID of the message.
+  final String id;
+
+  /// Additional custom metadata or attributes related to the message.
+  final Map<String, dynamic>? metadata;
+
+  /// Unique ID of the message received from the backend.
+  final String? remoteId;
+
+  /// Message that is being replied to with the current message.
+  final Message? repliedMessage;
+
+  /// ID of the room where this message is sent.
+  final String? roomId;
+
+  /// Show status or not.
+  final bool? showStatus;
+
+  /// Message [Status].
+  final Status? status;
+
+  /// [MessageType].
+  final MessageType type;
+
+  /// Updated message timestamp, in ms.
+  final int? updatedAt;
+
+  /// Creates a copy of the message with an updated data.
   Message copyWith({
     User? author,
     int? createdAt,
@@ -67,37 +100,4 @@ abstract class Message extends Equatable {
 
   /// Converts a particular message to the map representation, serializable to JSON.
   Map<String, dynamic> toJson();
-
-  /// User who sent this message
-  final User author;
-
-  /// Created message timestamp, in ms
-  final int? createdAt;
-
-  /// Unique ID of the message
-  final String id;
-
-  /// Additional custom metadata or attributes related to the message
-  final Map<String, dynamic>? metadata;
-
-  /// Unique ID of the message received from the backend
-  final String? remoteId;
-
-  /// Message that is being replied to with the current message
-  final Message? repliedMessage;
-
-  /// ID of the room where this message is sent
-  final String? roomId;
-
-  /// Show status or not
-  final bool? showStatus;
-
-  /// Message [Status]
-  final Status? status;
-
-  /// [MessageType]
-  final MessageType type;
-
-  /// Updated message timestamp, in ms
-  final int? updatedAt;
 }

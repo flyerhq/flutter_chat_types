@@ -50,6 +50,10 @@ abstract class ImageMessage extends Message {
     double? width,
   }) = _ImageMessage;
 
+  /// Creates an image message from a map (decoded JSON).
+  factory ImageMessage.fromJson(Map<String, dynamic> json) =>
+      _$ImageMessageFromJson(json);
+
   /// Creates a full image message from a partial one.
   factory ImageMessage.fromPartial({
     required User author,
@@ -61,34 +65,59 @@ abstract class ImageMessage extends Message {
     bool? showStatus,
     Status? status,
     int? updatedAt,
-  }) {
-    return _ImageMessage(
-      author: author,
-      createdAt: createdAt,
-      height: partialImage.height,
-      id: id,
-      metadata: partialImage.metadata,
-      name: partialImage.name,
-      remoteId: remoteId,
-      repliedMessage: partialImage.repliedMessage,
-      roomId: roomId,
-      showStatus: showStatus,
-      size: partialImage.size,
-      status: status,
-      type: MessageType.image,
-      updatedAt: updatedAt,
-      uri: partialImage.uri,
-      width: partialImage.width,
-    );
-  }
+  }) =>
+      _ImageMessage(
+        author: author,
+        createdAt: createdAt,
+        height: partialImage.height,
+        id: id,
+        metadata: partialImage.metadata,
+        name: partialImage.name,
+        remoteId: remoteId,
+        repliedMessage: partialImage.repliedMessage,
+        roomId: roomId,
+        showStatus: showStatus,
+        size: partialImage.size,
+        status: status,
+        type: MessageType.image,
+        updatedAt: updatedAt,
+        uri: partialImage.uri,
+        width: partialImage.width,
+      );
 
-  /// Creates an image message from a map (decoded JSON).
-  factory ImageMessage.fromJson(Map<String, dynamic> json) =>
-      _$ImageMessageFromJson(json);
+  /// Image height in pixels.
+  final double? height;
 
-  /// Converts an image message to the map representation, encodable to JSON.
+  /// The name of the image.
+  final String name;
+
+  /// Size of the image in bytes.
+  final num size;
+
+  /// The image source (either a remote URL or a local resource).
+  final String uri;
+
+  /// Image width in pixels.
+  final double? width;
+
+  /// Equatable props.
   @override
-  Map<String, dynamic> toJson() => _$ImageMessageToJson(this);
+  List<Object?> get props => [
+        author,
+        createdAt,
+        height,
+        id,
+        metadata,
+        name,
+        remoteId,
+        repliedMessage,
+        roomId,
+        size,
+        status,
+        updatedAt,
+        uri,
+        width,
+      ];
 
   @override
   Message copyWith({
@@ -109,42 +138,12 @@ abstract class ImageMessage extends Message {
     double? width,
   });
 
-  /// Equatable props
+  /// Converts an image message to the map representation, encodable to JSON.
   @override
-  List<Object?> get props => [
-        author,
-        createdAt,
-        height,
-        id,
-        metadata,
-        name,
-        remoteId,
-        repliedMessage,
-        roomId,
-        size,
-        status,
-        updatedAt,
-        uri,
-        width,
-      ];
-
-  /// Image height in pixels
-  final double? height;
-
-  /// The name of the image
-  final String name;
-
-  /// Size of the image in bytes
-  final num size;
-
-  /// The image source (either a remote URL or a local resource)
-  final String uri;
-
-  /// Image width in pixels
-  final double? width;
+  Map<String, dynamic> toJson() => _$ImageMessageToJson(this);
 }
 
-/// A utility class to enable better copyWith
+/// A utility class to enable better copyWith.
 class _ImageMessage extends ImageMessage {
   const _ImageMessage({
     required super.author,

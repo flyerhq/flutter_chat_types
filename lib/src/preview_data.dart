@@ -29,8 +29,21 @@ abstract class PreviewData extends Equatable {
   factory PreviewData.fromJson(Map<String, dynamic> json) =>
       _$PreviewDataFromJson(json);
 
-  /// Converts preview data to the map representation, encodable to JSON.
-  Map<String, dynamic> toJson() => _$PreviewDataToJson(this);
+  /// Link description (usually og:description meta tag).
+  final String? description;
+
+  /// See [PreviewDataImage].
+  final PreviewDataImage? image;
+
+  /// Remote resource URL.
+  final String? link;
+
+  /// Link title (usually og:title meta tag).
+  final String? title;
+
+  /// Equatable props.
+  @override
+  List<Object?> get props => [description, image, link, title];
 
   /// Creates a copy of the preview data with an updated data.
   PreviewData copyWith({
@@ -40,24 +53,11 @@ abstract class PreviewData extends Equatable {
     String? title,
   });
 
-  /// Equatable props
-  @override
-  List<Object?> get props => [description, image, link, title];
-
-  /// Link description (usually og:description meta tag)
-  final String? description;
-
-  /// See [PreviewDataImage]
-  final PreviewDataImage? image;
-
-  /// Remote resource URL
-  final String? link;
-
-  /// Link title (usually og:title meta tag)
-  final String? title;
+  /// Converts preview data to the map representation, encodable to JSON.
+  Map<String, dynamic> toJson() => _$PreviewDataToJson(this);
 }
 
-/// A utility class to enable better copyWith
+/// A utility class to enable better copyWith.
 class _PreviewData extends PreviewData {
   const _PreviewData({
     super.description,
@@ -102,19 +102,19 @@ class PreviewDataImage extends Equatable {
   factory PreviewDataImage.fromJson(Map<String, dynamic> json) =>
       _$PreviewDataImageFromJson(json);
 
-  /// Converts preview data image to the map representation, encodable to JSON.
-  Map<String, dynamic> toJson() => _$PreviewDataImageToJson(this);
+  /// Image height in pixels.
+  final double height;
 
-  /// Equatable props
+  /// Remote image URL.
+  final String url;
+
+  /// Image width in pixels.
+  final double width;
+
+  /// Equatable props.
   @override
   List<Object> get props => [height, url, width];
 
-  /// Image height in pixels
-  final double height;
-
-  /// Remote image URL
-  final String url;
-
-  /// Image width in pixels
-  final double width;
+  /// Converts preview data image to the map representation, encodable to JSON.
+  Map<String, dynamic> toJson() => _$PreviewDataImageToJson(this);
 }

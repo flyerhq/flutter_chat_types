@@ -50,6 +50,10 @@ abstract class FileMessage extends Message {
     required String uri,
   }) = _FileMessage;
 
+  /// Creates a file message from a map (decoded JSON).
+  factory FileMessage.fromJson(Map<String, dynamic> json) =>
+      _$FileMessageFromJson(json);
+
   /// Creates a full file message from a partial one.
   factory FileMessage.fromPartial({
     required User author,
@@ -62,34 +66,59 @@ abstract class FileMessage extends Message {
     bool? showStatus,
     Status? status,
     int? updatedAt,
-  }) {
-    return _FileMessage(
-      author: author,
-      createdAt: createdAt,
-      id: id,
-      isLoading: isLoading,
-      metadata: partialFile.metadata,
-      mimeType: partialFile.mimeType,
-      name: partialFile.name,
-      remoteId: remoteId,
-      repliedMessage: partialFile.repliedMessage,
-      roomId: roomId,
-      showStatus: showStatus,
-      size: partialFile.size,
-      status: status,
-      type: MessageType.file,
-      updatedAt: updatedAt,
-      uri: partialFile.uri,
-    );
-  }
+  }) =>
+      _FileMessage(
+        author: author,
+        createdAt: createdAt,
+        id: id,
+        isLoading: isLoading,
+        metadata: partialFile.metadata,
+        mimeType: partialFile.mimeType,
+        name: partialFile.name,
+        remoteId: remoteId,
+        repliedMessage: partialFile.repliedMessage,
+        roomId: roomId,
+        showStatus: showStatus,
+        size: partialFile.size,
+        status: status,
+        type: MessageType.file,
+        updatedAt: updatedAt,
+        uri: partialFile.uri,
+      );
 
-  /// Creates a file message from a map (decoded JSON).
-  factory FileMessage.fromJson(Map<String, dynamic> json) =>
-      _$FileMessageFromJson(json);
+  /// Specify whether the message content is currently being loaded.
+  final bool? isLoading;
 
-  /// Converts a file message to the map representation, encodable to JSON.
+  /// Media type.
+  final String? mimeType;
+
+  /// The name of the file.
+  final String name;
+
+  /// Size of the file in bytes.
+  final num size;
+
+  /// The file source (either a remote URL or a local resource).
+  final String uri;
+
+  /// Equatable props.
   @override
-  Map<String, dynamic> toJson() => _$FileMessageToJson(this);
+  List<Object?> get props => [
+        author,
+        createdAt,
+        id,
+        isLoading,
+        metadata,
+        mimeType,
+        name,
+        remoteId,
+        repliedMessage,
+        roomId,
+        size,
+        status,
+        updatedAt,
+        uri,
+      ];
 
   @override
   Message copyWith({
@@ -110,42 +139,12 @@ abstract class FileMessage extends Message {
     String? uri,
   });
 
-  /// Equatable props
+  /// Converts a file message to the map representation, encodable to JSON.
   @override
-  List<Object?> get props => [
-        author,
-        createdAt,
-        id,
-        isLoading,
-        metadata,
-        mimeType,
-        name,
-        remoteId,
-        repliedMessage,
-        roomId,
-        size,
-        status,
-        updatedAt,
-        uri,
-      ];
-
-  /// Specify whether the message content is currently being loaded
-  final bool? isLoading;
-
-  /// Media type
-  final String? mimeType;
-
-  /// The name of the file
-  final String name;
-
-  /// Size of the file in bytes
-  final num size;
-
-  /// The file source (either a remote URL or a local resource)
-  final String uri;
+  Map<String, dynamic> toJson() => _$FileMessageToJson(this);
 }
 
-/// A utility class to enable better copyWith
+/// A utility class to enable better copyWith.
 class _FileMessage extends FileMessage {
   const _FileMessage({
     required super.author,

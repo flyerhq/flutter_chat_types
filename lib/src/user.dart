@@ -39,8 +39,46 @@ abstract class User extends Equatable {
   /// Creates user from a map (decoded JSON).
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
-  /// Converts user to the map representation, encodable to JSON.
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+  /// Created user timestamp, in ms.
+  final int? createdAt;
+
+  /// First name of the user.
+  final String? firstName;
+
+  /// Unique ID of the user.
+  final String id;
+
+  /// Remote image URL representing user's avatar.
+  final String? imageUrl;
+
+  /// Last name of the user.
+  final String? lastName;
+
+  /// Timestamp when user was last visible, in ms.
+  final int? lastSeen;
+
+  /// Additional custom metadata or attributes related to the user.
+  final Map<String, dynamic>? metadata;
+
+  /// User [Role].
+  final Role? role;
+
+  /// Updated user timestamp, in ms.
+  final int? updatedAt;
+
+  /// Equatable props.
+  @override
+  List<Object?> get props => [
+        createdAt,
+        firstName,
+        id,
+        imageUrl,
+        lastName,
+        lastSeen,
+        metadata,
+        role,
+        updatedAt,
+      ];
 
   User copyWith({
     int? createdAt,
@@ -54,49 +92,11 @@ abstract class User extends Equatable {
     int? updatedAt,
   });
 
-  /// Equatable props
-  @override
-  List<Object?> get props => [
-        createdAt,
-        firstName,
-        id,
-        imageUrl,
-        lastName,
-        lastSeen,
-        metadata,
-        role,
-        updatedAt
-      ];
-
-  /// Created user timestamp, in ms
-  final int? createdAt;
-
-  /// First name of the user
-  final String? firstName;
-
-  /// Unique ID of the user
-  final String id;
-
-  /// Remote image URL representing user's avatar
-  final String? imageUrl;
-
-  /// Last name of the user
-  final String? lastName;
-
-  /// Timestamp when user was last visible, in ms
-  final int? lastSeen;
-
-  /// Additional custom metadata or attributes related to the user
-  final Map<String, dynamic>? metadata;
-
-  /// User [Role]
-  final Role? role;
-
-  /// Updated user timestamp, in ms
-  final int? updatedAt;
+  /// Converts user to the map representation, encodable to JSON.
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 }
 
-/// A utility class to enable better copyWith
+/// A utility class to enable better copyWith.
 class _User extends User {
   const _User({
     super.createdAt,

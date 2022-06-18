@@ -45,6 +45,10 @@ abstract class TextMessage extends Message {
     int? updatedAt,
   }) = _TextMessage;
 
+  /// Creates a text message from a map (decoded JSON).
+  factory TextMessage.fromJson(Map<String, dynamic> json) =>
+      _$TextMessageFromJson(json);
+
   /// Creates a full text message from a partial one.
   factory TextMessage.fromPartial({
     required User author,
@@ -56,31 +60,44 @@ abstract class TextMessage extends Message {
     bool? showStatus,
     Status? status,
     int? updatedAt,
-  }) {
-    return _TextMessage(
-      author: author,
-      createdAt: createdAt,
-      id: id,
-      metadata: partialText.metadata,
-      previewData: partialText.previewData,
-      remoteId: remoteId,
-      repliedMessage: partialText.repliedMessage,
-      roomId: roomId,
-      showStatus: showStatus,
-      status: status,
-      text: partialText.text,
-      type: MessageType.text,
-      updatedAt: updatedAt,
-    );
-  }
+  }) =>
+      _TextMessage(
+        author: author,
+        createdAt: createdAt,
+        id: id,
+        metadata: partialText.metadata,
+        previewData: partialText.previewData,
+        remoteId: remoteId,
+        repliedMessage: partialText.repliedMessage,
+        roomId: roomId,
+        showStatus: showStatus,
+        status: status,
+        text: partialText.text,
+        type: MessageType.text,
+        updatedAt: updatedAt,
+      );
 
-  /// Creates a text message from a map (decoded JSON).
-  factory TextMessage.fromJson(Map<String, dynamic> json) =>
-      _$TextMessageFromJson(json);
+  /// See [PreviewData].
+  final PreviewData? previewData;
 
-  /// Converts a text message to the map representation, encodable to JSON.
+  /// User's message.
+  final String text;
+
+  /// Equatable props.
   @override
-  Map<String, dynamic> toJson() => _$TextMessageToJson(this);
+  List<Object?> get props => [
+        author,
+        createdAt,
+        id,
+        metadata,
+        previewData,
+        remoteId,
+        repliedMessage,
+        roomId,
+        status,
+        text,
+        updatedAt,
+      ];
 
   @override
   Message copyWith({
@@ -98,30 +115,12 @@ abstract class TextMessage extends Message {
     int? updatedAt,
   });
 
-  /// Equatable props
+  /// Converts a text message to the map representation, encodable to JSON.
   @override
-  List<Object?> get props => [
-        author,
-        createdAt,
-        id,
-        metadata,
-        previewData,
-        remoteId,
-        repliedMessage,
-        roomId,
-        status,
-        text,
-        updatedAt,
-      ];
-
-  /// See [PreviewData]
-  final PreviewData? previewData;
-
-  /// User's message
-  final String text;
+  Map<String, dynamic> toJson() => _$TextMessageToJson(this);
 }
 
-/// A utility class to enable better copyWith
+/// A utility class to enable better copyWith.
 class _TextMessage extends TextMessage {
   const _TextMessage({
     required super.author,

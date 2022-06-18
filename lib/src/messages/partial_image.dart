@@ -28,27 +28,27 @@ class PartialImage {
   factory PartialImage.fromJson(Map<String, dynamic> json) =>
       _$PartialImageFromJson(json);
 
-  /// Converts a partial image message to the map representation, encodable to JSON.
-  Map<String, dynamic> toJson() => _$PartialImageToJson(this);
-
-  /// Image height in pixels
+  /// Image height in pixels.
   final double? height;
 
-  /// Additional custom metadata or attributes related to the message
+  /// Additional custom metadata or attributes related to the message.
   final Map<String, dynamic>? metadata;
 
-  /// The name of the image
+  /// The name of the image.
   final String name;
 
-  /// Message that is being replied to with the current message
+  /// Message that is being replied to with the current message.
   final Message? repliedMessage;
 
-  /// Size of the image in bytes
+  /// Size of the image in bytes.
   final num size;
 
-  /// The image source (either a remote URL or a local resource)
+  /// The image source (either a remote URL or a local resource).
   final String uri;
 
-  /// Image width in pixels
+  /// Image width in pixels.
   final double? width;
+
+  /// Converts a partial image message to the map representation, encodable to JSON.
+  Map<String, dynamic> toJson() => _$PartialImageToJson(this);
 }

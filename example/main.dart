@@ -9,7 +9,7 @@ void main() {
   final json = {
     'author': {'id': 'authorId'},
     'id': 'id',
-    'text': 'text'
+    'text': 'text',
   };
   // ignore: avoid_print
   print(TextMessage.fromJson(json).toJson());

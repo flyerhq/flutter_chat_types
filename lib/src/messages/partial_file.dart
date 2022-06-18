@@ -27,24 +27,24 @@ class PartialFile {
   factory PartialFile.fromJson(Map<String, dynamic> json) =>
       _$PartialFileFromJson(json);
 
-  /// Converts a partial file message to the map representation, encodable to JSON.
-  Map<String, dynamic> toJson() => _$PartialFileToJson(this);
-
-  /// Additional custom metadata or attributes related to the message
+  /// Additional custom metadata or attributes related to the message.
   final Map<String, dynamic>? metadata;
 
-  /// Media type
+  /// Media type.
   final String? mimeType;
 
-  /// The name of the file
+  /// The name of the file.
   final String name;
 
-  /// Message that is being replied to with the current message
+  /// Message that is being replied to with the current message.
   final Message? repliedMessage;
 
-  /// Size of the file in bytes
+  /// Size of the file in bytes.
   final num size;
 
-  /// The file source (either a remote URL or a local resource)
+  /// The file source (either a remote URL or a local resource).
   final String uri;
+
+  /// Converts a partial file message to the map representation, encodable to JSON.
+  Map<String, dynamic> toJson() => _$PartialFileToJson(this);
 }

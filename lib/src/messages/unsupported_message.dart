@@ -46,10 +46,19 @@ abstract class UnsupportedMessage extends Message {
   factory UnsupportedMessage.fromJson(Map<String, dynamic> json) =>
       _$UnsupportedMessageFromJson(json);
 
-  /// Converts an unsupported message to the map representation,
-  /// encodable to JSON.
+  /// Equatable props.
   @override
-  Map<String, dynamic> toJson() => _$UnsupportedMessageToJson(this);
+  List<Object?> get props => [
+        author,
+        createdAt,
+        id,
+        metadata,
+        remoteId,
+        repliedMessage,
+        roomId,
+        status,
+        updatedAt,
+      ];
 
   @override
   Message copyWith({
@@ -65,22 +74,13 @@ abstract class UnsupportedMessage extends Message {
     int? updatedAt,
   });
 
-  /// Equatable props
+  /// Converts an unsupported message to the map representation,
+  /// encodable to JSON.
   @override
-  List<Object?> get props => [
-        author,
-        createdAt,
-        id,
-        metadata,
-        remoteId,
-        repliedMessage,
-        roomId,
-        status,
-        updatedAt,
-      ];
+  Map<String, dynamic> toJson() => _$UnsupportedMessageToJson(this);
 }
 
-/// A utility class to enable better copyWith
+/// A utility class to enable better copyWith.
 class _UnsupportedMessage extends UnsupportedMessage {
   const _UnsupportedMessage({
     required super.author,
