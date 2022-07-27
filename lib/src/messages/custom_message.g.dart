@@ -60,5 +60,6 @@ const _$MessageTypeEnumMap = {
   MessageType.file: 'file',
   MessageType.image: 'image',
   MessageType.text: 'text',
+  MessageType.system: 'system',
   MessageType.unsupported: 'unsupported',
 };

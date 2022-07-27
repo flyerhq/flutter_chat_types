@@ -1,19 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'text_message.dart';
+part of 'system_message.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-TextMessage _$TextMessageFromJson(Map<String, dynamic> json) => TextMessage(
+SystemMessage _$SystemMessageFromJson(Map<String, dynamic> json) =>
+    SystemMessage(
       author: User.fromJson(json['author'] as Map<String, dynamic>),
       createdAt: json['createdAt'] as int?,
       id: json['id'] as String,
       metadata: json['metadata'] as Map<String, dynamic>?,
-      previewData: json['previewData'] == null
-          ? null
-          : PreviewData.fromJson(json['previewData'] as Map<String, dynamic>),
       remoteId: json['remoteId'] as String?,
       repliedMessage: json['repliedMessage'] == null
           ? null
@@ -21,12 +19,11 @@ TextMessage _$TextMessageFromJson(Map<String, dynamic> json) => TextMessage(
       roomId: json['roomId'] as String?,
       showStatus: json['showStatus'] as bool?,
       status: $enumDecodeNullable(_$StatusEnumMap, json['status']),
-      text: json['text'] as String,
       type: $enumDecodeNullable(_$MessageTypeEnumMap, json['type']),
       updatedAt: json['updatedAt'] as int?,
     );
 
-Map<String, dynamic> _$TextMessageToJson(TextMessage instance) {
+Map<String, dynamic> _$SystemMessageToJson(SystemMessage instance) {
   final val = <String, dynamic>{
     'author': instance.author.toJson(),
   };
@@ -47,8 +44,6 @@ Map<String, dynamic> _$TextMessageToJson(TextMessage instance) {
   writeNotNull('status', _$StatusEnumMap[instance.status]);
   val['type'] = _$MessageTypeEnumMap[instance.type];
   writeNotNull('updatedAt', instance.updatedAt);
-  writeNotNull('previewData', instance.previewData?.toJson());
-  val['text'] = instance.text;
   return val;
 }
 
