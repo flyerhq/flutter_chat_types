@@ -13,7 +13,7 @@ part 'system_message.g.dart';
 abstract class SystemMessage extends Message {
   /// Creates a custom message.
   const SystemMessage._({
-    required super.author,
+    super.author = const User(id: 'system'),
     super.createdAt,
     required super.id,
     super.metadata,
@@ -27,7 +27,7 @@ abstract class SystemMessage extends Message {
   }) : super(type: type ?? MessageType.system);
 
   const factory SystemMessage({
-    required User author,
+    User author,
     int? createdAt,
     required String id,
     Map<String, dynamic>? metadata,
@@ -81,7 +81,7 @@ abstract class SystemMessage extends Message {
 /// A utility class to enable better copyWith.
 class _SystemMessage extends SystemMessage {
   const _SystemMessage({
-    required super.author,
+    super.author,
     super.createdAt,
     required super.id,
     super.metadata,
