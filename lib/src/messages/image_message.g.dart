@@ -46,7 +46,7 @@ Map<String, dynamic> _$ImageMessageToJson(ImageMessage instance) {
   writeNotNull('roomId', instance.roomId);
   writeNotNull('showStatus', instance.showStatus);
   writeNotNull('status', _$StatusEnumMap[instance.status]);
-  val['type'] = _$MessageTypeEnumMap[instance.type];
+  val['type'] = _$MessageTypeEnumMap[instance.type]!;
   writeNotNull('updatedAt', instance.updatedAt);
   writeNotNull('height', instance.height);
   val['name'] = instance.name;
@@ -68,7 +68,7 @@ const _$MessageTypeEnumMap = {
   MessageType.custom: 'custom',
   MessageType.file: 'file',
   MessageType.image: 'image',
-  MessageType.text: 'text',
   MessageType.system: 'system',
+  MessageType.text: 'text',
   MessageType.unsupported: 'unsupported',
 };

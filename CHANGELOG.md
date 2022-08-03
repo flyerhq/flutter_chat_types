@@ -1,3 +1,8 @@
+## 3.4.4
+
+- Add system message type. Thanks @felixgabler for the PR!
+- Update dependencies
+
 ## 3.4.3
 
 - Code refactor

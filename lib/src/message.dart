@@ -10,7 +10,7 @@ import 'messages/unsupported_message.dart';
 import 'user.dart' show User;
 
 /// All possible message types.
-enum MessageType { custom, file, image, text, system, unsupported }
+enum MessageType { custom, file, image, system, text, unsupported }
 
 /// All possible statuses message can have.
 enum Status { delivered, error, seen, sending, sent }
