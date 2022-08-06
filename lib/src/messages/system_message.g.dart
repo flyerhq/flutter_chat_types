@@ -19,6 +19,7 @@ SystemMessage _$SystemMessageFromJson(Map<String, dynamic> json) =>
       roomId: json['roomId'] as String?,
       showStatus: json['showStatus'] as bool?,
       status: $enumDecodeNullable(_$StatusEnumMap, json['status']),
+      text: json['text'] as String,
       type: $enumDecodeNullable(_$MessageTypeEnumMap, json['type']),
       updatedAt: json['updatedAt'] as int?,
     );
@@ -44,6 +45,7 @@ Map<String, dynamic> _$SystemMessageToJson(SystemMessage instance) {
   writeNotNull('status', _$StatusEnumMap[instance.status]);
   val['type'] = _$MessageTypeEnumMap[instance.type]!;
   writeNotNull('updatedAt', instance.updatedAt);
+  val['text'] = instance.text;
   return val;
 }
 
