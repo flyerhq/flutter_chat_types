@@ -22,6 +22,7 @@ abstract class SystemMessage extends Message {
     super.roomId,
     super.showStatus,
     super.status,
+    required this.text,
     MessageType? type,
     super.updatedAt,
   }) : super(type: type ?? MessageType.system);
@@ -36,6 +37,7 @@ abstract class SystemMessage extends Message {
     String? roomId,
     bool? showStatus,
     Status? status,
+    required String text,
     MessageType? type,
     int? updatedAt,
   }) = _SystemMessage;
@@ -43,6 +45,9 @@ abstract class SystemMessage extends Message {
   /// Creates a custom message from a map (decoded JSON).
   factory SystemMessage.fromJson(Map<String, dynamic> json) =>
       _$SystemMessageFromJson(json);
+
+  /// System message content (could be text or translation key).
+  final String text;
 
   /// Equatable props.
   @override
@@ -55,6 +60,7 @@ abstract class SystemMessage extends Message {
         repliedMessage,
         roomId,
         status,
+        text,
         updatedAt,
       ];
 
@@ -69,6 +75,7 @@ abstract class SystemMessage extends Message {
     String? roomId,
     bool? showStatus,
     Status? status,
+    String? text,
     int? updatedAt,
   });
 
@@ -90,6 +97,7 @@ class _SystemMessage extends SystemMessage {
     super.roomId,
     super.showStatus,
     super.status,
+    required super.text,
     super.type,
     super.updatedAt,
   }) : super._();
@@ -105,6 +113,7 @@ class _SystemMessage extends SystemMessage {
     dynamic roomId,
     dynamic showStatus = _Unset,
     dynamic status = _Unset,
+    String? text,
     dynamic updatedAt = _Unset,
   }) =>
       _SystemMessage(
@@ -122,6 +131,7 @@ class _SystemMessage extends SystemMessage {
         showStatus:
             showStatus == _Unset ? this.showStatus : showStatus as bool?,
         status: status == _Unset ? this.status : status as Status?,
+        text: text ?? this.text,
         updatedAt: updatedAt == _Unset ? this.updatedAt : updatedAt as int?,
       );
 }

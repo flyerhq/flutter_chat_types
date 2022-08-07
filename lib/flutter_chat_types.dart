@@ -8,6 +8,7 @@ export 'src/messages/partial_custom.dart';
 export 'src/messages/partial_file.dart';
 export 'src/messages/partial_image.dart';
 export 'src/messages/partial_text.dart';
+export 'src/messages/system_message.dart';
 export 'src/messages/text_message.dart';
 export 'src/messages/unsupported_message.dart';
 export 'src/preview_data.dart';
