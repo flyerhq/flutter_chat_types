@@ -1,3 +1,7 @@
+## 3.4.5
+
+- Exported system message type. Thanks @felixgabler for the PR!
+
 ## 3.4.4
 
 - Add system message type. Thanks @felixgabler for the PR!
