@@ -5,5 +5,5 @@ dependencies:
   flutter_chat_types:
     path: ..
 dev_dependencies:
-  dart_code_metrics: ^4.17.0
+  dart_code_metrics: ^4.19.1
   flutter_lints: ^2.0.1

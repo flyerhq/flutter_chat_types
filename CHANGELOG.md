@@ -1,3 +1,7 @@
+## 3.5.0
+
+- Update to Flutter 3.3.3
+
 ## 3.4.5
 
 - Exported system message type. Thanks @felixgabler for the PR!
