@@ -7,7 +7,7 @@ homepage: https://flyer.chat
 repository: https://github.com/flyerhq/flutter_chat_types
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: '>=2.17.0 <3.0.0'
 
 dependencies:
   equatable: ^2.0.5
