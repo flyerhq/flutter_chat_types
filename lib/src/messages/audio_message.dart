@@ -49,6 +49,7 @@ abstract class AudioMessage extends Message {
     required String uri,
     required Duration duration,
     String? mimeType,
+    List<double>? waveForm,
   }) = _AudioMessage;
 
   /// Creates an image message from a map (decoded JSON).

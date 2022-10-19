@@ -25,6 +25,9 @@ AudioMessage _$AudioMessageFromJson(Map<String, dynamic> json) => AudioMessage(
       uri: json['uri'] as String,
       duration: Duration(microseconds: json['duration'] as int),
       mimeType: json['mimeType'] as String?,
+      waveForm: (json['waveForm'] as List<dynamic>?)
+          ?.map((e) => (e as num).toDouble())
+          .toList(),
     );
 
 Map<String, dynamic> _$AudioMessageToJson(AudioMessage instance) {
@@ -50,6 +53,7 @@ Map<String, dynamic> _$AudioMessageToJson(AudioMessage instance) {
   writeNotNull('updatedAt', instance.updatedAt);
   val['duration'] = instance.duration.inMicroseconds;
   writeNotNull('mimeType', instance.mimeType);
+  writeNotNull('waveForm', instance.waveForm);
   val['uri'] = instance.uri;
   val['name'] = instance.name;
   val['size'] = instance.size;
