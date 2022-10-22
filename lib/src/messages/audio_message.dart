@@ -80,7 +80,7 @@ abstract class AudioMessage extends Message {
         showStatus: showStatus,
         size: partialAudio.size,
         status: status,
-        type: MessageType.image,
+        type: MessageType.audio,
         updatedAt: updatedAt,
         uri: partialAudio.uri,
         waveForm: partialAudio.waveForm,
