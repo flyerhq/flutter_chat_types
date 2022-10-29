@@ -114,6 +114,7 @@ abstract class FileMessage extends Message {
         remoteId,
         repliedMessage,
         roomId,
+        showStatus,
         size,
         status,
         updatedAt,

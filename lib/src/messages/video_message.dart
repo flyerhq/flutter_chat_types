@@ -3,22 +3,21 @@ import 'package:meta/meta.dart';
 
 import '../message.dart';
 import '../user.dart' show User;
-import 'partial_audio.dart';
+import 'partial_video.dart';
 
-part 'audio_message.g.dart';
+part 'video_message.g.dart';
 
-/// A class that represents audio message.
+/// A class that represents video message.
 @JsonSerializable()
 @immutable
-abstract class AudioMessage extends Message {
-  /// Creates an audio message.
-  const AudioMessage._({
+abstract class VideoMessage extends Message {
+  /// Creates a video message.
+  const VideoMessage._({
     required super.author,
     super.createdAt,
-    required this.duration,
+    this.height,
     required super.id,
     super.metadata,
-    this.mimeType,
     required this.name,
     super.remoteId,
     super.repliedMessage,
@@ -29,16 +28,15 @@ abstract class AudioMessage extends Message {
     MessageType? type,
     super.updatedAt,
     required this.uri,
-    this.waveForm,
-  }) : super(type: type ?? MessageType.audio);
+    this.width,
+  }) : super(type: type ?? MessageType.video);
 
-  const factory AudioMessage({
+  const factory VideoMessage({
     required User author,
     int? createdAt,
-    required Duration duration,
+    double? height,
     required String id,
     Map<String, dynamic>? metadata,
-    String? mimeType,
     required String name,
     String? remoteId,
     Message? repliedMessage,
@@ -49,72 +47,67 @@ abstract class AudioMessage extends Message {
     MessageType? type,
     int? updatedAt,
     required String uri,
-    List<double>? waveForm,
-  }) = _AudioMessage;
+    double? width,
+  }) = _VideoMessage;
 
-  /// Creates an audio message from a map (decoded JSON).
-  factory AudioMessage.fromJson(Map<String, dynamic> json) =>
-      _$AudioMessageFromJson(json);
+  /// Creates a video message from a map (decoded JSON).
+  factory VideoMessage.fromJson(Map<String, dynamic> json) =>
+      _$VideoMessageFromJson(json);
 
-  /// Creates a full audio message from a partial one.
-  factory AudioMessage.fromPartial({
+  /// Creates a full video message from a partial one.
+  factory VideoMessage.fromPartial({
     required User author,
     int? createdAt,
     required String id,
-    required PartialAudio partialAudio,
+    required PartialVideo partialVideo,
     String? remoteId,
     String? roomId,
     bool? showStatus,
     Status? status,
     int? updatedAt,
   }) =>
-      _AudioMessage(
+      _VideoMessage(
         author: author,
         createdAt: createdAt,
-        duration: partialAudio.duration,
+        height: partialVideo.height,
         id: id,
-        metadata: partialAudio.metadata,
-        mimeType: partialAudio.mimeType,
-        name: partialAudio.name,
+        metadata: partialVideo.metadata,
+        name: partialVideo.name,
         remoteId: remoteId,
-        repliedMessage: partialAudio.repliedMessage,
+        repliedMessage: partialVideo.repliedMessage,
         roomId: roomId,
         showStatus: showStatus,
-        size: partialAudio.size,
+        size: partialVideo.size,
         status: status,
-        type: MessageType.audio,
+        type: MessageType.video,
         updatedAt: updatedAt,
-        uri: partialAudio.uri,
-        waveForm: partialAudio.waveForm,
+        uri: partialVideo.uri,
+        width: partialVideo.width,
       );
 
-  /// The length of the audio.
-  final Duration duration;
+  /// Video height in pixels.
+  final double? height;
 
-  /// Media type of the audio file.
-  final String? mimeType;
-
-  /// The name of the audio.
+  /// The name of the video.
   final String name;
 
-  /// Size of the audio in bytes.
+  /// Size of the video in bytes.
   final num size;
 
-  /// The audio file source (either a remote URL or a local resource).
+  /// The video source (either a remote URL or a local resource).
   final String uri;
 
-  /// Wave form represented as a list of decibel levels.
-  final List<double>? waveForm;
+  /// Video width in pixels.
+  final double? width;
 
   /// Equatable props.
   @override
   List<Object?> get props => [
         author,
         createdAt,
-        duration,
+        height,
         id,
         metadata,
-        mimeType,
         name,
         remoteId,
         repliedMessage,
@@ -124,17 +117,16 @@ abstract class AudioMessage extends Message {
         status,
         updatedAt,
         uri,
-        waveForm,
+        width,
       ];
 
   @override
   Message copyWith({
     User? author,
     int? createdAt,
-    Duration? duration,
+    double? height,
     String? id,
     Map<String, dynamic>? metadata,
-    String? mimeType,
     String? name,
     String? remoteId,
     Message? repliedMessage,
@@ -144,23 +136,22 @@ abstract class AudioMessage extends Message {
     Status? status,
     int? updatedAt,
     String? uri,
-    List<double>? waveForm,
+    double? width,
   });
 
-  /// Converts an audio message to the map representation, encodable to JSON.
+  /// Converts an video message to the map representation, encodable to JSON.
   @override
-  Map<String, dynamic> toJson() => _$AudioMessageToJson(this);
+  Map<String, dynamic> toJson() => _$VideoMessageToJson(this);
 }
 
 /// A utility class to enable better copyWith.
-class _AudioMessage extends AudioMessage {
-  const _AudioMessage({
+class _VideoMessage extends VideoMessage {
+  const _VideoMessage({
     required super.author,
     super.createdAt,
-    required super.duration,
+    super.height,
     required super.id,
     super.metadata,
-    super.mimeType,
     required super.name,
     super.remoteId,
     super.repliedMessage,
@@ -171,17 +162,16 @@ class _AudioMessage extends AudioMessage {
     super.type,
     super.updatedAt,
     required super.uri,
-    super.waveForm,
+    super.width,
   }) : super._();
 
   @override
   Message copyWith({
     User? author,
     dynamic createdAt = _Unset,
-    Duration? duration,
+    dynamic height = _Unset,
     String? id,
     dynamic metadata = _Unset,
-    dynamic mimeType = _Unset,
     String? name,
     dynamic remoteId = _Unset,
     dynamic repliedMessage = _Unset,
@@ -191,17 +181,16 @@ class _AudioMessage extends AudioMessage {
     dynamic status = _Unset,
     dynamic updatedAt = _Unset,
     String? uri,
-    dynamic waveForm = _Unset,
+    dynamic width = _Unset,
   }) =>
-      _AudioMessage(
+      _VideoMessage(
         author: author ?? this.author,
         createdAt: createdAt == _Unset ? this.createdAt : createdAt as int?,
-        duration: duration ?? this.duration,
+        height: height == _Unset ? this.height : height as double?,
         id: id ?? this.id,
         metadata: metadata == _Unset
             ? this.metadata
             : metadata as Map<String, dynamic>?,
-        mimeType: mimeType == _Unset ? this.mimeType : mimeType as String?,
         name: name ?? this.name,
         remoteId: remoteId == _Unset ? this.remoteId : remoteId as String?,
         repliedMessage: repliedMessage == _Unset
@@ -214,8 +203,7 @@ class _AudioMessage extends AudioMessage {
         status: status == _Unset ? this.status : status as Status?,
         updatedAt: updatedAt == _Unset ? this.updatedAt : updatedAt as int?,
         uri: uri ?? this.uri,
-        waveForm:
-            waveForm == _Unset ? this.waveForm : waveForm as List<double>?,
+        width: width == _Unset ? this.width : width as double?,
       );
 }
 

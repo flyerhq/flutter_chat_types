@@ -1,3 +1,9 @@
+## 3.6.0
+
+- Add audio message type. Thanks @marinkobabic for the PR!
+- Add video message type
+- Update dependencies. Requires Dart >= 2.18.0.
+
 ## 3.5.0
 
 - Update to Flutter 3.3.3

@@ -112,6 +112,7 @@ abstract class ImageMessage extends Message {
         remoteId,
         repliedMessage,
         roomId,
+        showStatus,
         size,
         status,
         updatedAt,

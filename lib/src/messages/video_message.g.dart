@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'image_message.dart';
+part of 'video_message.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ImageMessage _$ImageMessageFromJson(Map<String, dynamic> json) => ImageMessage(
+VideoMessage _$VideoMessageFromJson(Map<String, dynamic> json) => VideoMessage(
       author: User.fromJson(json['author'] as Map<String, dynamic>),
       createdAt: json['createdAt'] as int?,
       height: (json['height'] as num?)?.toDouble(),
@@ -27,7 +27,7 @@ ImageMessage _$ImageMessageFromJson(Map<String, dynamic> json) => ImageMessage(
       width: (json['width'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$ImageMessageToJson(ImageMessage instance) {
+Map<String, dynamic> _$VideoMessageToJson(VideoMessage instance) {
   final val = <String, dynamic>{
     'author': instance.author.toJson(),
   };

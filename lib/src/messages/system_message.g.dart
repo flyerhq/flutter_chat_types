@@ -58,11 +58,12 @@ const _$StatusEnumMap = {
 };
 
 const _$MessageTypeEnumMap = {
+  MessageType.audio: 'audio',
   MessageType.custom: 'custom',
   MessageType.file: 'file',
   MessageType.image: 'image',
   MessageType.system: 'system',
   MessageType.text: 'text',
-  MessageType.audio: 'audio',
   MessageType.unsupported: 'unsupported',
+  MessageType.video: 'video',
 };

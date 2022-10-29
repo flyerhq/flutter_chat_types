@@ -59,6 +59,7 @@ abstract class SystemMessage extends Message {
         remoteId,
         repliedMessage,
         roomId,
+        showStatus,
         status,
         text,
         updatedAt,

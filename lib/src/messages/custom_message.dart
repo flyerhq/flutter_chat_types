@@ -81,6 +81,7 @@ abstract class CustomMessage extends Message {
         remoteId,
         repliedMessage,
         roomId,
+        showStatus,
         status,
         updatedAt,
       ];

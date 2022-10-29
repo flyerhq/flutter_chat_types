@@ -94,6 +94,7 @@ abstract class TextMessage extends Message {
         remoteId,
         repliedMessage,
         roomId,
+        showStatus,
         status,
         text,
         updatedAt,

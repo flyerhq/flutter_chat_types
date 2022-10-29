@@ -8,10 +8,20 @@ import 'messages/image_message.dart';
 import 'messages/system_message.dart';
 import 'messages/text_message.dart';
 import 'messages/unsupported_message.dart';
+import 'messages/video_message.dart';
 import 'user.dart' show User;
 
 /// All possible message types.
-enum MessageType { custom, file, image, system, text, audio, unsupported }
+enum MessageType {
+  audio,
+  custom,
+  file,
+  image,
+  system,
+  text,
+  unsupported,
+  video
+}
 
 /// All possible statuses message can have.
 enum Status { delivered, error, seen, sending, sent }
@@ -43,6 +53,8 @@ abstract class Message extends Equatable {
     );
 
     switch (type) {
+      case MessageType.audio:
+        return AudioMessage.fromJson(json);
       case MessageType.custom:
         return CustomMessage.fromJson(json);
       case MessageType.file:
@@ -53,10 +65,10 @@ abstract class Message extends Equatable {
         return SystemMessage.fromJson(json);
       case MessageType.text:
         return TextMessage.fromJson(json);
-      case MessageType.audio:
-        return AudioMessage.fromJson(json);
       case MessageType.unsupported:
         return UnsupportedMessage.fromJson(json);
+      case MessageType.video:
+        return VideoMessage.fromJson(json);
     }
   }
 

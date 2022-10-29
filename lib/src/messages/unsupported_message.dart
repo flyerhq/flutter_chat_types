@@ -56,6 +56,7 @@ abstract class UnsupportedMessage extends Message {
         remoteId,
         repliedMessage,
         roomId,
+        showStatus,
         status,
         updatedAt,
       ];

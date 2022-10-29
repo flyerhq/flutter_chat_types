@@ -9,8 +9,10 @@ part of 'audio_message.dart';
 AudioMessage _$AudioMessageFromJson(Map<String, dynamic> json) => AudioMessage(
       author: User.fromJson(json['author'] as Map<String, dynamic>),
       createdAt: json['createdAt'] as int?,
+      duration: Duration(microseconds: json['duration'] as int),
       id: json['id'] as String,
       metadata: json['metadata'] as Map<String, dynamic>?,
+      mimeType: json['mimeType'] as String?,
       name: json['name'] as String,
       remoteId: json['remoteId'] as String?,
       repliedMessage: json['repliedMessage'] == null
@@ -23,8 +25,6 @@ AudioMessage _$AudioMessageFromJson(Map<String, dynamic> json) => AudioMessage(
       type: $enumDecodeNullable(_$MessageTypeEnumMap, json['type']),
       updatedAt: json['updatedAt'] as int?,
       uri: json['uri'] as String,
-      duration: Duration(microseconds: json['duration'] as int),
-      mimeType: json['mimeType'] as String?,
       waveForm: (json['waveForm'] as List<dynamic>?)
           ?.map((e) => (e as num).toDouble())
           .toList(),
@@ -53,10 +53,10 @@ Map<String, dynamic> _$AudioMessageToJson(AudioMessage instance) {
   writeNotNull('updatedAt', instance.updatedAt);
   val['duration'] = instance.duration.inMicroseconds;
   writeNotNull('mimeType', instance.mimeType);
-  writeNotNull('waveForm', instance.waveForm);
-  val['uri'] = instance.uri;
   val['name'] = instance.name;
   val['size'] = instance.size;
+  val['uri'] = instance.uri;
+  writeNotNull('waveForm', instance.waveForm);
   return val;
 }
 
@@ -69,11 +69,12 @@ const _$StatusEnumMap = {
 };
 
 const _$MessageTypeEnumMap = {
+  MessageType.audio: 'audio',
   MessageType.custom: 'custom',
   MessageType.file: 'file',
   MessageType.image: 'image',
   MessageType.system: 'system',
   MessageType.text: 'text',
-  MessageType.audio: 'audio',
   MessageType.unsupported: 'unsupported',
+  MessageType.video: 'video',
 };
