@@ -1,32 +1,36 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'text_message.dart';
+part of 'audio_message.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-TextMessage _$TextMessageFromJson(Map<String, dynamic> json) => TextMessage(
+AudioMessage _$AudioMessageFromJson(Map<String, dynamic> json) => AudioMessage(
       author: User.fromJson(json['author'] as Map<String, dynamic>),
       createdAt: json['createdAt'] as int?,
       id: json['id'] as String,
       metadata: json['metadata'] as Map<String, dynamic>?,
-      previewData: json['previewData'] == null
-          ? null
-          : PreviewData.fromJson(json['previewData'] as Map<String, dynamic>),
+      name: json['name'] as String,
       remoteId: json['remoteId'] as String?,
       repliedMessage: json['repliedMessage'] == null
           ? null
           : Message.fromJson(json['repliedMessage'] as Map<String, dynamic>),
       roomId: json['roomId'] as String?,
       showStatus: json['showStatus'] as bool?,
+      size: json['size'] as num,
       status: $enumDecodeNullable(_$StatusEnumMap, json['status']),
-      text: json['text'] as String,
       type: $enumDecodeNullable(_$MessageTypeEnumMap, json['type']),
       updatedAt: json['updatedAt'] as int?,
+      uri: json['uri'] as String,
+      duration: Duration(microseconds: json['duration'] as int),
+      mimeType: json['mimeType'] as String?,
+      waveForm: (json['waveForm'] as List<dynamic>?)
+          ?.map((e) => (e as num).toDouble())
+          .toList(),
     );
 
-Map<String, dynamic> _$TextMessageToJson(TextMessage instance) {
+Map<String, dynamic> _$AudioMessageToJson(AudioMessage instance) {
   final val = <String, dynamic>{
     'author': instance.author.toJson(),
   };
@@ -47,8 +51,12 @@ Map<String, dynamic> _$TextMessageToJson(TextMessage instance) {
   writeNotNull('status', _$StatusEnumMap[instance.status]);
   val['type'] = _$MessageTypeEnumMap[instance.type]!;
   writeNotNull('updatedAt', instance.updatedAt);
-  writeNotNull('previewData', instance.previewData?.toJson());
-  val['text'] = instance.text;
+  val['duration'] = instance.duration.inMicroseconds;
+  writeNotNull('mimeType', instance.mimeType);
+  writeNotNull('waveForm', instance.waveForm);
+  val['uri'] = instance.uri;
+  val['name'] = instance.name;
+  val['size'] = instance.size;
   return val;
 }
 

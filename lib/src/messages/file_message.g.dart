@@ -70,5 +70,6 @@ const _$MessageTypeEnumMap = {
   MessageType.image: 'image',
   MessageType.system: 'system',
   MessageType.text: 'text',
+  MessageType.audio: 'audio',
   MessageType.unsupported: 'unsupported',
 };
