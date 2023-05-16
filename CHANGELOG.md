@@ -1,3 +1,7 @@
+## 3.6.1
+
+- Update dependencies. Requires Dart >= 2.19.0.
+
 ## 3.6.0
 
 - Add audio message type. Thanks @marinkobabic for the PR!

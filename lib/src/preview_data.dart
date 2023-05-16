@@ -6,7 +6,7 @@ part 'preview_data.g.dart';
 
 /// A class that represents data obtained from the web resource (link preview).
 ///
-/// See https://github.com/flyerhq/flutter_link_previewer
+/// See https://github.com/flyerhq/flutter_link_previewer.
 @JsonSerializable()
 @immutable
 abstract class PreviewData extends Equatable {
@@ -87,7 +87,7 @@ class _Unset {}
 /// A utility class that forces image's width and height to be stored
 /// alongside the url.
 ///
-/// See https://github.com/flyerhq/flutter_link_previewer
+/// See https://github.com/flyerhq/flutter_link_previewer.
 @JsonSerializable()
 @immutable
 class PreviewDataImage extends Equatable {
