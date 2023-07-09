@@ -1,3 +1,7 @@
+## 3.6.2
+
+- Update dependencies
+
 ## 3.6.1
 
 - Update dependencies. Requires Dart >= 2.19.0.
@@ -133,7 +137,7 @@ This release marks a major chat architecture overhaul based on a community feedb
 - **BREAKING CHANGE**: [FileMessage] `fileName` is renamed to `name`
 - **BREAKING CHANGE**: [ImageMessage] `imageName` is renamed to `name`
 - **BREAKING CHANGE**: [Messages] `authorId` is replaced with `author` to support avatars and names inside the chat
-- **BREAKING CHANGE**: [Messages] `timestamp` is renamed to `createdAt`. All timestamps are in `ms` now. 
+- **BREAKING CHANGE**: [Messages] `timestamp` is renamed to `createdAt`. All timestamps are in `ms` now.
 - **BREAKING CHANGE**: [Status] `read` is renamed to `seen`
 - **BREAKING CHANGE**: [User] `avatarUrl` is renamed to `imageUrl`
 - New `custom` and `unsupported` message types. First one is used to build any message you want, second one is to support backwards compatibility
