@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'message.dart';
 import 'user.dart';
@@ -28,14 +29,14 @@ abstract class Room extends Equatable {
   });
 
   const factory Room({
-    int? createdAt,
+    Timestamp? createdAt,
     required String id,
     String? imageUrl,
     List<Message>? lastMessages,
     Map<String, dynamic>? metadata,
     String? name,
     required RoomType? type,
-    int? updatedAt,
+    Timestamp? updatedAt,
     required List<User> users,
   }) = _Room;
 
@@ -43,7 +44,7 @@ abstract class Room extends Equatable {
   factory Room.fromJson(Map<String, dynamic> json) => _$RoomFromJson(json);
 
   /// Created room timestamp, in ms.
-  final int? createdAt;
+  final Timestamp? createdAt;
 
   /// Room's unique ID.
   final String id;
@@ -66,7 +67,7 @@ abstract class Room extends Equatable {
   final RoomType? type;
 
   /// Updated room timestamp, in ms.
-  final int? updatedAt;
+  final Timestamp? updatedAt;
 
   /// List of users which are in the room.
   final List<User> users;
@@ -92,14 +93,14 @@ abstract class Room extends Equatable {
   /// metadata will overwite keys from the previous one.
   /// [type] and [users] with null values will be overwritten by previous values.
   Room copyWith({
-    int? createdAt,
+    Timestamp? createdAt,
     String? id,
     String? imageUrl,
     List<Message>? lastMessages,
     Map<String, dynamic>? metadata,
     String? name,
     RoomType? type,
-    int? updatedAt,
+    Timestamp? updatedAt,
     List<User>? users,
   });
 
@@ -134,7 +135,7 @@ class _Room extends Room {
     List<User>? users,
   }) =>
       _Room(
-        createdAt: createdAt == _Unset ? this.createdAt : createdAt as int?,
+        createdAt: createdAt == _Unset ? this.createdAt : createdAt as Timestamp?,
         id: id ?? this.id,
         imageUrl: imageUrl == _Unset ? this.imageUrl : imageUrl as String?,
         lastMessages: lastMessages == _Unset
@@ -145,7 +146,7 @@ class _Room extends Room {
             : metadata as Map<String, dynamic>?,
         name: name == _Unset ? this.name : name as String?,
         type: type == _Unset ? this.type : type as RoomType?,
-        updatedAt: updatedAt == _Unset ? this.updatedAt : updatedAt as int?,
+        updatedAt: updatedAt == _Unset ? this.updatedAt : updatedAt as Timestamp?,
         users: users ?? this.users,
       );
 }
