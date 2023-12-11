@@ -22,6 +22,9 @@ TextMessage _$TextMessageFromJson(Map<String, dynamic> json) => TextMessage(
       showStatus: json['showStatus'] as bool?,
       status: $enumDecodeNullable(_$StatusEnumMap, json['status']),
       text: json['text'] as String,
+      translations: (json['translations'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry($enumDecode(_$ISOCodeEnumMap, k), e as String),
+      ),
       type: $enumDecodeNullable(_$MessageTypeEnumMap, json['type']),
       updatedAt: json['updatedAt'] as int?,
     );
@@ -49,6 +52,8 @@ Map<String, dynamic> _$TextMessageToJson(TextMessage instance) {
   writeNotNull('updatedAt', instance.updatedAt);
   writeNotNull('previewData', instance.previewData?.toJson());
   val['text'] = instance.text;
+  writeNotNull('translations',
+      instance.translations?.map((k, e) => MapEntry(_$ISOCodeEnumMap[k]!, e)));
   return val;
 }
 
@@ -58,6 +63,16 @@ const _$StatusEnumMap = {
   Status.seen: 'seen',
   Status.sending: 'sending',
   Status.sent: 'sent',
+};
+
+const _$ISOCodeEnumMap = {
+  ISOCode.de: 'de',
+  ISOCode.en: 'en',
+  ISOCode.uk: 'uk',
+  ISOCode.tr: 'tr',
+  ISOCode.ru: 'ru',
+  ISOCode.pl: 'pl',
+  ISOCode.og: 'og',
 };
 
 const _$MessageTypeEnumMap = {

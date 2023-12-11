@@ -8,6 +8,62 @@ import 'partial_text.dart';
 
 part 'text_message.g.dart';
 
+/// The language ISO codes for all supported languages.
+enum ISOCode {
+  /// The ISOCode for Germany.
+  de,
+
+  /// The ISOCode for English.
+  en,
+
+  /// The ISOCode for Ukraine.
+  uk,
+
+  /// The ISOCode for Turkey.
+  tr,
+
+  /// The ISOCode for Russia.
+  ru,
+
+  /// The ISOCode for Poland.
+  pl,
+
+  /// The Orginal Langauge
+  og;
+
+  @override
+  String toString() {
+    const isoCodeToString = <ISOCode, String>{
+      ISOCode.de: 'Deutsch',
+      ISOCode.en: 'English',
+      ISOCode.uk: 'Українська',
+      ISOCode.tr: 'Türkçe',
+      ISOCode.ru: 'Русский',
+      ISOCode.pl: 'Polski',
+      ISOCode.og: 'Original',
+    };
+    if (isoCodeToString.containsKey(this)) return isoCodeToString[this]!;
+
+    throw Exception(['ISOCode.toString() failed. This should never happen.']);
+  }
+
+  /// Get the enum representation of the string.
+  static ISOCode fromString(String isoCode) {
+    const isoCodeMapping = <String, ISOCode>{
+      'Deutsch': ISOCode.de,
+      'English': ISOCode.en,
+      'Українська': ISOCode.uk,
+      'Türkçe': ISOCode.tr,
+      'Русский': ISOCode.ru,
+      'Polski': ISOCode.pl,
+      'Original': ISOCode.og,
+    };
+    if (isoCodeMapping.containsKey(isoCode)) return isoCodeMapping[isoCode]!;
+
+    throw Exception(['Unknown ISOCode: $isoCode']);
+  }
+}
+
 /// A class that represents text message.
 @JsonSerializable()
 @immutable
@@ -25,6 +81,7 @@ abstract class TextMessage extends Message {
     super.showStatus,
     super.status,
     required this.text,
+    this.translations,
     MessageType? type,
     super.updatedAt,
   }) : super(type: type ?? MessageType.text);
@@ -41,6 +98,7 @@ abstract class TextMessage extends Message {
     bool? showStatus,
     Status? status,
     required String text,
+    Map<ISOCode, String>? translations,
     MessageType? type,
     int? updatedAt,
   }) = _TextMessage;
@@ -83,8 +141,10 @@ abstract class TextMessage extends Message {
   /// User's message.
   final String text;
 
+  /// Translations
+  final Map<ISOCode, String>? translations;
+
   /// Equatable props.
-  @override
   List<Object?> get props => [
         author,
         createdAt,
@@ -98,6 +158,7 @@ abstract class TextMessage extends Message {
         status,
         text,
         updatedAt,
+        translations,
       ];
 
   @override
@@ -135,6 +196,7 @@ class _TextMessage extends TextMessage {
     super.showStatus,
     super.status,
     required super.text,
+    super.translations,
     super.type,
     super.updatedAt,
   }) : super._();
@@ -152,6 +214,7 @@ class _TextMessage extends TextMessage {
     dynamic showStatus = _Unset,
     dynamic status = _Unset,
     String? text,
+    dynamic translations = _Unset,
     dynamic updatedAt = _Unset,
   }) =>
       _TextMessage(
@@ -173,6 +236,9 @@ class _TextMessage extends TextMessage {
             showStatus == _Unset ? this.showStatus : showStatus as bool?,
         status: status == _Unset ? this.status : status as Status?,
         text: text ?? this.text,
+        translations: translations == _Unset
+            ? this.translations
+            : translations as Map<ISOCode, String>?,
         updatedAt: updatedAt == _Unset ? this.updatedAt : updatedAt as int?,
       );
 }
