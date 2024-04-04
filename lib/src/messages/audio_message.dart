@@ -185,7 +185,7 @@ class _AudioMessage extends AudioMessage {
     String? name,
     dynamic remoteId = _Unset,
     dynamic repliedMessage = _Unset,
-    dynamic roomId,
+    dynamic roomId = _Unset,
     dynamic showStatus = _Unset,
     num? size,
     dynamic status = _Unset,
