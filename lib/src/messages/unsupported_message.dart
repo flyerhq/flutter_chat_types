@@ -105,7 +105,7 @@ class _UnsupportedMessage extends UnsupportedMessage {
     dynamic metadata = _Unset,
     dynamic remoteId = _Unset,
     dynamic repliedMessage = _Unset,
-    dynamic roomId,
+    dynamic roomId = _Unset,
     dynamic showStatus = _Unset,
     dynamic status = _Unset,
     dynamic updatedAt = _Unset,
