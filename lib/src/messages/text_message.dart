@@ -210,7 +210,7 @@ class _TextMessage extends TextMessage {
     dynamic previewData = _Unset,
     dynamic remoteId = _Unset,
     dynamic repliedMessage = _Unset,
-    dynamic roomId,
+    dynamic roomId = _Unset,
     dynamic showStatus = _Unset,
     dynamic status = _Unset,
     String? text,
