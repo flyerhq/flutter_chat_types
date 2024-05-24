@@ -1,68 +1,13 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
+import '../../flutter_chat_types.dart';
 import '../message.dart';
 import '../preview_data.dart' show PreviewData;
 import '../user.dart' show User;
 import 'partial_text.dart';
 
 part 'text_message.g.dart';
-
-/// The language ISO codes for all supported languages.
-enum ISOCode {
-  /// The ISOCode for Germany.
-  de,
-
-  /// The ISOCode for English.
-  en,
-
-  /// The ISOCode for Ukraine.
-  uk,
-
-  /// The ISOCode for Turkey.
-  tr,
-
-  /// The ISOCode for Russia.
-  ru,
-
-  /// The ISOCode for Poland.
-  pl,
-
-  /// The Orginal Langauge
-  og;
-
-  @override
-  String toString() {
-    const isoCodeToString = <ISOCode, String>{
-      ISOCode.de: 'Deutsch',
-      ISOCode.en: 'English',
-      ISOCode.uk: 'Українська',
-      ISOCode.tr: 'Türkçe',
-      ISOCode.ru: 'Русский',
-      ISOCode.pl: 'Polski',
-      ISOCode.og: 'Original',
-    };
-    if (isoCodeToString.containsKey(this)) return isoCodeToString[this]!;
-
-    throw Exception(['ISOCode.toString() failed. This should never happen.']);
-  }
-
-  /// Get the enum representation of the string.
-  static ISOCode fromString(String isoCode) {
-    const isoCodeMapping = <String, ISOCode>{
-      'Deutsch': ISOCode.de,
-      'English': ISOCode.en,
-      'Українська': ISOCode.uk,
-      'Türkçe': ISOCode.tr,
-      'Русский': ISOCode.ru,
-      'Polski': ISOCode.pl,
-      'Original': ISOCode.og,
-    };
-    if (isoCodeMapping.containsKey(isoCode)) return isoCodeMapping[isoCode]!;
-
-    throw Exception(['Unknown ISOCode: $isoCode']);
-  }
-}
 
 /// A class that represents text message.
 @JsonSerializable()
@@ -81,7 +26,7 @@ abstract class TextMessage extends Message {
     super.showStatus,
     super.status,
     required this.text,
-    this.translations,
+    this.translationState,
     MessageType? type,
     super.updatedAt,
   }) : super(type: type ?? MessageType.text);
@@ -98,7 +43,7 @@ abstract class TextMessage extends Message {
     bool? showStatus,
     Status? status,
     required String text,
-    Map<ISOCode, String>? translations,
+    TextMessageTranslationState? translationState,
     MessageType? type,
     int? updatedAt,
   }) = _TextMessage;
@@ -141,8 +86,8 @@ abstract class TextMessage extends Message {
   /// User's message.
   final String text;
 
-  /// Translations
-  final Map<ISOCode, String>? translations;
+  /// Translation state.
+  final TextMessageTranslationState? translationState;
 
   /// Equatable props.
   List<Object?> get props => [
@@ -158,7 +103,7 @@ abstract class TextMessage extends Message {
         status,
         text,
         updatedAt,
-        translations,
+        translationState,
       ];
 
   @override
@@ -196,7 +141,7 @@ class _TextMessage extends TextMessage {
     super.showStatus,
     super.status,
     required super.text,
-    super.translations,
+    super.translationState,
     super.type,
     super.updatedAt,
   }) : super._();
@@ -214,7 +159,7 @@ class _TextMessage extends TextMessage {
     dynamic showStatus = _Unset,
     dynamic status = _Unset,
     String? text,
-    dynamic translations = _Unset,
+    dynamic translationState = _Unset,
     dynamic updatedAt = _Unset,
   }) =>
       _TextMessage(
@@ -236,9 +181,9 @@ class _TextMessage extends TextMessage {
             showStatus == _Unset ? this.showStatus : showStatus as bool?,
         status: status == _Unset ? this.status : status as Status?,
         text: text ?? this.text,
-        translations: translations == _Unset
-            ? this.translations
-            : translations as Map<ISOCode, String>?,
+        translationState: translationState == _Unset
+            ? this.translationState
+            : translationState as TextMessageTranslationState?,
         updatedAt: updatedAt == _Unset ? this.updatedAt : updatedAt as int?,
       );
 }

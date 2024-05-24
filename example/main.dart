@@ -10,6 +10,14 @@ void main() {
     'author': {'id': 'authorId'},
     'id': 'id',
     'text': 'text',
+    'translationState': {
+      'type': 'translated',
+      'translations': {
+        'en': 'OK',
+        'de': 'OK',
+        'original': 'en',
+      },
+    },
   };
   // ignore: avoid_print
   print(TextMessage.fromJson(json).toJson());
